@@ -88,8 +88,8 @@ class DropzoneViewController {
     return FlutterDropzonePlatform.instance.setMIME(mime, viewId: viewId);
   }
 
-  Future<List<dynamic>> pickFiles() {
-    return FlutterDropzonePlatform.instance.pickFiles(viewId: viewId);
+  Future<List<dynamic>> pickFiles({bool multiple = false}) {
+    return FlutterDropzonePlatform.instance.pickFiles(multiple, viewId: viewId);
   }
 
   Future<String> getFilename(dynamic htmlFile) {

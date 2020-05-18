@@ -40,7 +40,7 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
     throw UnimplementedError('setMIME');
   }
 
-  Future<List<dynamic>> pickFiles({@required int viewId}) async {
+  Future<List<dynamic>> pickFiles(bool multiple, {@required int viewId}) async {
     throw UnimplementedError('pickFiles');
   }
 

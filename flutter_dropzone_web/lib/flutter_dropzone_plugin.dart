@@ -57,8 +57,8 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<List<dynamic>> pickFiles({@required int viewId}) {
-    return _views[viewId].pickFiles();
+  Future<List<dynamic>> pickFiles(bool multiple, {@required int viewId}) {
+    return _views[viewId].pickFiles(multiple);
   }
 
   @override

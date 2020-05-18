@@ -54,11 +54,12 @@ class FlutterDropzoneView {
     return _nativeSetOperation(container, describeEnum(operation));
   }
 
-  Future<List<dynamic>> pickFiles() {
+  Future<List<dynamic>> pickFiles(bool multiple) {
     final completer = Completer<List<dynamic>>();
-    final uploadInput = FileUploadInputElement();
-    uploadInput.onChange.listen((_) => completer.complete(uploadInput.files));
-    uploadInput.click();
+    final picker = FileUploadInputElement();
+    picker.multiple = multiple;
+    picker.onChange.listen((_) => completer.complete(picker.files));
+    picker.click();
     return completer.future;
   }
 
