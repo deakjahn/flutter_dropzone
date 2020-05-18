@@ -19,3 +19,8 @@ It's a federated plugin, meaning that it will compile in cross platform apps tha
 It will *not* function on the latter, the view will simply return an error text instead of a drop zone. Use `if (kIsWeb)` from
 `import 'package:flutter/foundation.dart'` to only use it in Flutter Web. Still, the same app will still compile to
 Android and iOS, without the usual `dart:html` errors (this is what federated plugins are for).
+
+There is a convenience function, `pickFiles()` on the controller returned by the view. It simply opens the usual File Open dialog
+in the browser and lets the user pick some files. It has nothing to do with the drag-and-drop operation (although it is the other
+possible way to select files) but by putting it into the web side of a federated plugin we can make sure it doesn't hurt
+the compilation on other platforms.

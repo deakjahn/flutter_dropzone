@@ -86,4 +86,8 @@ class DropzoneViewController {
   Future<bool> setMIME(List<String> mime) {
     return FlutterDropzonePlatform.instance.setMIME(mime, viewId: viewId);
   }
+
+  Future<List<dynamic>> pickFiles() {
+    return FlutterDropzonePlatform.instance.pickFiles(viewId: viewId);
+  }
 }

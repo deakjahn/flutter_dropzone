@@ -39,6 +39,10 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
     throw UnimplementedError('setMIME');
   }
 
+  Future<List<dynamic>> pickFiles({@required int viewId}) async {
+    throw UnimplementedError('pickFiles');
+  }
+
   Stream<DropzoneLoadedEvent> onLoaded({@required int viewId}) {
     return events.stream //
         .where((event) => event.viewId == viewId && event is DropzoneLoadedEvent)

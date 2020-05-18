@@ -53,6 +53,18 @@ class FlutterDropzoneView {
     return _nativeSetOperation(container, describeEnum(operation));
   }
 
+  Future<List<dynamic>> pickFiles({@required int viewId}) {
+    final completer = Completer<List<dynamic>>();
+
+    final uploadInput = FileUploadInputElement();
+    uploadInput.onChange.listen((e) {
+      completer.complete(uploadInput.files);
+    });
+    uploadInput.click();
+
+    return completer.future;
+  }
+
   void _onLoaded() => FlutterDropzonePlatform.instance.events.add(DropzoneLoadedEvent(viewId));
 
   void _onError(String error) => FlutterDropzonePlatform.instance.events.add(DropzoneErrorEvent(viewId, error));

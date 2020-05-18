@@ -56,6 +56,11 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
+  Future<List<dynamic>> pickFiles({@required int viewId}) {
+    return _views[viewId].pickFiles();
+  }
+
+  @override
   Widget buildView(Map<String, dynamic> creationParams, Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers, PlatformViewCreatedCallback onPlatformViewCreated) => FutureBuilder<bool>(
         future: _isReady,
         builder: (context, snapshot) {
