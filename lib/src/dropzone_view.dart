@@ -31,7 +31,7 @@ class DropzoneView extends StatefulWidget {
     this.onCreated,
     this.onLoaded,
     this.onError,
-    this.onDrop,
+    @required this.onDrop,
   }) : super(key: key);
 
   @override
