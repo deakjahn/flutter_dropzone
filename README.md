@@ -14,3 +14,8 @@ Right now, nothing fancy. It exposes a single platform view, `DropzoneView`:
     onDrop: (ev) => print('Drop: $ev'),
   );
 ```
+
+It's a federated plugin, meaning that it will compile in cross platform apps that contain both Android/iOS and Web code.
+It will *not* function on the latter, the view will simply return an error text instead of a drop zone. Use `if (kIsWeb)` from
+`import 'package:flutter/foundation.dart'` to only use it in Flutter Web. Still, the same app will still compile to
+Android and iOS, without the usual `dart:html` errors (this is what federated plugins are for).
