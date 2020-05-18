@@ -28,9 +28,9 @@ the compilation on other platforms.
 Because the files returned are HTML File API references with serious limitations, they cannopt be converted to regular Dart
 `File` objects. They are returned as `dynamic` objects and the controller has functions to extract information from these objects:
 
-*  Future<String> getFilename(dynamic htmlFile);
-*  Future<int> getFileSize(dynamic htmlFile);
-*  Future<String> getFileMIME(dynamic htmlFile);
-*  Future<String> createFileUrl(dynamic htmlFile);
-*  Future<bool> deleteFileUrl(String fileUrl);
-*  Future<Uint8List> getFileData(dynamic htmlFile);
+*  `Future<String> getFilename(dynamic htmlFile);`
+*  `Future<int> getFileSize(dynamic htmlFile);`
+*  `Future<String> getFileMIME(dynamic htmlFile);`
+*  `Future<String> createFileUrl(dynamic htmlFile);`
+*  `Future<bool> deleteFileUrl(String fileUrl);`
+*  `Future<Uint8List> getFileData(dynamic htmlFile);`
