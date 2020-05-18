@@ -1,0 +1,10 @@
+include: package:pedantic/analysis_options.yaml
+
+analyzer:
+  exclude: [build/**]
+
+linter:
+  rules:
+    non_constant_identifier_names: false
+    omit_local_variable_types: false
+    curly_braces_in_flow_control_structures: false
