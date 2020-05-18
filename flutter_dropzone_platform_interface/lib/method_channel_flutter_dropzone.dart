@@ -50,7 +50,7 @@ class MethodChannelFlutterDropzone extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<bool> deleteFileUrl(String fileUrl, {@required int viewId}) async {
+  Future<bool> releaseFileUrl(String fileUrl, {@required int viewId}) async {
     throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
   }
 

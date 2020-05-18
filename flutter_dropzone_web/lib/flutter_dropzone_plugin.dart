@@ -82,8 +82,8 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<bool> deleteFileUrl(String fileUrl, {@required int viewId}) {
-    return _views[viewId].deleteFileUrl(fileUrl);
+  Future<bool> releaseFileUrl(String fileUrl, {@required int viewId}) {
+    return _views[viewId].releaseFileUrl(fileUrl);
   }
 
   @override

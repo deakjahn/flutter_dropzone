@@ -108,8 +108,8 @@ class DropzoneViewController {
     return FlutterDropzonePlatform.instance.createFileUrl(htmlFile, viewId: viewId);
   }
 
-  Future<bool> deleteFileUrl(String fileUrl) {
-    return FlutterDropzonePlatform.instance.deleteFileUrl(fileUrl, viewId: viewId);
+  Future<bool> releaseFileUrl(String fileUrl) {
+    return FlutterDropzonePlatform.instance.releaseFileUrl(fileUrl, viewId: viewId);
   }
 
   Future<Uint8List> getFileData(dynamic htmlFile) {

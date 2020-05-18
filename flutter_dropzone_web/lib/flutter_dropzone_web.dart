@@ -78,7 +78,7 @@ class FlutterDropzoneView {
     return Url.createObjectUrlFromBlob(file);
   }
 
-  Future<bool> deleteFileUrl(String fileUrl) async {
+  Future<bool> releaseFileUrl(String fileUrl) async {
     Url.revokeObjectUrl(fileUrl);
     return true;
   }

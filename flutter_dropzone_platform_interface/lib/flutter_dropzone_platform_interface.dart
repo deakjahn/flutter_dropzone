@@ -60,8 +60,8 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
     throw UnimplementedError('createFileUrl');
   }
 
-  Future<bool> deleteFileUrl(String fileUrl, {@required int viewId}) async {
-    throw UnimplementedError('deleteFileUrl');
+  Future<bool> releaseFileUrl(String fileUrl, {@required int viewId}) async {
+    throw UnimplementedError('releaseFileUrl');
   }
 
   Future<Uint8List> getFileData(dynamic htmlFile, {@required int viewId}) async {
