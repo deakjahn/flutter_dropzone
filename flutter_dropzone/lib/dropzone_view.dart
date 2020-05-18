@@ -1,6 +1,7 @@
 library dropzone_view;
 
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -89,5 +90,29 @@ class DropzoneViewController {
 
   Future<List<dynamic>> pickFiles() {
     return FlutterDropzonePlatform.instance.pickFiles(viewId: viewId);
+  }
+
+  Future<String> getFilename(dynamic htmlFile) {
+    return FlutterDropzonePlatform.instance.getFilename(htmlFile, viewId: viewId);
+  }
+
+  Future<int> getFileSize(dynamic htmlFile) {
+    return FlutterDropzonePlatform.instance.getFileSize(htmlFile, viewId: viewId);
+  }
+
+  Future<String> getFileMIME(dynamic htmlFile) {
+    return FlutterDropzonePlatform.instance.getFileMIME(htmlFile, viewId: viewId);
+  }
+
+  Future<String> createFileUrl(dynamic htmlFile) {
+    return FlutterDropzonePlatform.instance.createFileUrl(htmlFile, viewId: viewId);
+  }
+
+  Future<bool> deleteFileUrl(String fileUrl) {
+    return FlutterDropzonePlatform.instance.deleteFileUrl(fileUrl, viewId: viewId);
+  }
+
+  Future<Uint8List> getFileData(dynamic htmlFile) {
+    return FlutterDropzonePlatform.instance.getFileData(htmlFile, viewId: viewId);
   }
 }

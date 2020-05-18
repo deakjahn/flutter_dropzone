@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -25,6 +26,36 @@ class MethodChannelFlutterDropzone extends FlutterDropzonePlatform {
 
   @override
   Future<List<dynamic>> pickFiles({@required int viewId}) {
+    throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
+  }
+
+  @override
+  Future<String> getFilename(dynamic htmlFile, {@required int viewId}) async {
+    throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
+  }
+
+  @override
+  Future<int> getFileSize(dynamic htmlFile, {@required int viewId}) async {
+    throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
+  }
+
+  @override
+  Future<String> getFileMIME(dynamic htmlFile, {@required int viewId}) async {
+    throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
+  }
+
+  @override
+  Future<String> createFileUrl(dynamic htmlFile, {@required int viewId}) async {
+    throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
+  }
+
+  @override
+  Future<bool> deleteFileUrl(String fileUrl, {@required int viewId}) async {
+    throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
+  }
+
+  @override
+  Future<Uint8List> getFileData(dynamic htmlFile, {@required int viewId}) async {
     throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
   }
 

@@ -3,6 +3,7 @@ library flutter_dropzone_web;
 
 import 'dart:async';
 import 'dart:html';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
@@ -58,6 +59,35 @@ class FlutterDropzoneView {
     final uploadInput = FileUploadInputElement();
     uploadInput.onChange.listen((_) => completer.complete(uploadInput.files));
     uploadInput.click();
+    return completer.future;
+  }
+
+  Future<String> getFilename(File file) async {
+    return file.name;
+  }
+
+  Future<int> getFileSize(File file) async {
+    return file.size;
+  }
+
+  Future<String> getFileMIME(File file) async {
+    return file.type;
+  }
+
+  Future<String> createFileUrl(File file) async {
+    return Url.createObjectUrlFromBlob(file);
+  }
+
+  Future<bool> deleteFileUrl(String fileUrl) async {
+    Url.revokeObjectUrl(fileUrl);
+    return true;
+  }
+
+  Future<Uint8List> getFileData(File file) async {
+    final completer = Completer<Uint8List>();
+    final reader = FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onLoad.listen((_) => completer.complete(reader.result));
     return completer.future;
   }
 

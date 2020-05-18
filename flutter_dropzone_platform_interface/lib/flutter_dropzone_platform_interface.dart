@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -41,6 +42,30 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
 
   Future<List<dynamic>> pickFiles({@required int viewId}) async {
     throw UnimplementedError('pickFiles');
+  }
+
+  Future<String> getFilename(dynamic htmlFile, {@required int viewId}) async {
+    throw UnimplementedError('getFilename');
+  }
+
+  Future<int> getFileSize(dynamic htmlFile, {@required int viewId}) async {
+    throw UnimplementedError('getFileSize');
+  }
+
+  Future<String> getFileMIME(dynamic htmlFile, {@required int viewId}) async {
+    throw UnimplementedError('getFileMIME');
+  }
+
+  Future<String> createFileUrl(dynamic htmlFile, {@required int viewId}) async {
+    throw UnimplementedError('createFileUrl');
+  }
+
+  Future<bool> deleteFileUrl(String fileUrl, {@required int viewId}) async {
+    throw UnimplementedError('deleteFileUrl');
+  }
+
+  Future<Uint8List> getFileData(dynamic htmlFile, {@required int viewId}) async {
+    throw UnimplementedError('getFileData');
   }
 
   Stream<DropzoneLoadedEvent> onLoaded({@required int viewId}) {

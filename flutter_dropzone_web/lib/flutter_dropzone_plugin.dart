@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:html' as html;
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
@@ -58,6 +59,36 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   @override
   Future<List<dynamic>> pickFiles({@required int viewId}) {
     return _views[viewId].pickFiles();
+  }
+
+  @override
+  Future<String> getFilename(dynamic htmlFile, {@required int viewId}) {
+    return _views[viewId].getFilename(htmlFile);
+  }
+
+  @override
+  Future<int> getFileSize(dynamic htmlFile, {@required int viewId}) {
+    return _views[viewId].getFileSize(htmlFile);
+  }
+
+  @override
+  Future<String> getFileMIME(dynamic htmlFile, {@required int viewId}) {
+    return _views[viewId].getFileMIME(htmlFile);
+  }
+
+  @override
+  Future<String> createFileUrl(dynamic htmlFile, {@required int viewId}) {
+    return _views[viewId].createFileUrl(htmlFile);
+  }
+
+  @override
+  Future<bool> deleteFileUrl(String fileUrl, {@required int viewId}) {
+    return _views[viewId].deleteFileUrl(fileUrl);
+  }
+
+  @override
+  Future<Uint8List> getFileData(dynamic htmlFile, {@required int viewId}) {
+    return _views[viewId].getFileData(htmlFile);
   }
 
   @override
