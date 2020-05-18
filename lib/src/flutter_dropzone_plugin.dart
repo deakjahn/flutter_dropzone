@@ -120,6 +120,6 @@ class DropzoneErrorEvent extends DropzoneEvent<String> {
   DropzoneErrorEvent(int viewId, String error) : super(viewId, null, error);
 }
 
-class DropzoneDropEvent extends DropzoneEvent<String> {
-  DropzoneDropEvent(int viewId, html.MouseEvent mouse, String file) : super(viewId, mouse, file);
+class DropzoneDropEvent extends DropzoneEvent<html.File> {
+  DropzoneDropEvent(int viewId, html.MouseEvent mouse, html.File file) : super(viewId, mouse, file);
 }

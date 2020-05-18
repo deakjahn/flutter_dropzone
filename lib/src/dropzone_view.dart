@@ -1,6 +1,7 @@
 library dropzone_view;
 
 import 'dart:async';
+import 'dart:html' as html;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -20,7 +21,7 @@ class DropzoneView extends StatefulWidget {
   final DropzoneViewCreatedCallback onCreated;
   final VoidCallback onLoaded;
   final ValueChanged<String> onError;
-  final ValueChanged<String> onDrop;
+  final ValueChanged<html.File> onDrop;
 
   const DropzoneView({
     Key key,

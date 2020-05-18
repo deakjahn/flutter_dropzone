@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
           onCreated: (ctrl) => controller = ctrl,
           onLoaded: () => print('Zone loaded'),
           onError: (ev) => print('Error: $ev'),
-          onDrop: (ev) => print('Drop: $ev'),
+          onDrop: (ev) => print('Drop: ${ev.name}'),
         ),
       );
 }

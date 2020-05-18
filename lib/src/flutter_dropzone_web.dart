@@ -57,5 +57,5 @@ class FlutterDropzoneView {
 
   void _onError(String error) => FlutterDropzonePlugin.instance.events.add(DropzoneErrorEvent(viewId, error));
 
-  void _onDrop(MouseEvent mouse, String data) => FlutterDropzonePlugin.instance.events.add(DropzoneDropEvent(viewId, mouse, data));
+  void _onDrop(MouseEvent mouse, File data) => FlutterDropzonePlugin.instance.events.add(DropzoneDropEvent(viewId, mouse, data));
 }
