@@ -1,5 +1,5 @@
-name: flutter_dropzone
-description: A drag-and-drop Flutter plugin (Web).
+name: flutter_dropzone_web
+description: A drag-and-drop Flutter plugin (Web only).
 version: 1.0.0
 author: DJG
 homepage: www.creativephotocloud.com
@@ -14,8 +14,10 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
 
+  flutter_dropzone_platform_interface:
+    path: ../flutter_dropzone_platform_interface/
+
   js: ^0.6.1+1
-  plugin_platform_interface: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -28,7 +30,7 @@ flutter:
     platforms:
       web:
         pluginClass: FlutterDropzonePlugin
-        fileName: src/flutter_dropzone_plugin.dart
+        fileName: flutter_dropzone_plugin.dart
 
   assets:
-    - packages/flutter_dropzone/assets/flutter_dropzone.js
+    - packages/flutter_dropzone_web/assets/flutter_dropzone.js

@@ -1,12 +1,13 @@
 library dropzone_view;
 
 import 'dart:async';
-import 'dart:html' as html;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dropzone/src/flutter_dropzone_plugin.dart';
+import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
+
+export 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart' show DragOperation;
 
 typedef DropzoneViewCreatedCallback = void Function(DropzoneViewController controller);
 
@@ -21,7 +22,7 @@ class DropzoneView extends StatefulWidget {
   final DropzoneViewCreatedCallback onCreated;
   final VoidCallback onLoaded;
   final ValueChanged<String> onError;
-  final ValueChanged<html.File> onDrop;
+  final ValueChanged<dynamic> onDrop;
 
   const DropzoneView({
     Key key,
@@ -47,11 +48,11 @@ class _DropzoneViewState extends State<DropzoneView> {
       'operation': widget.operation,
       'mime': widget.mime,
     };
-    return FlutterDropzonePlugin.instance.buildView(params, widget.gestureRecognizers, (viewId) {
+    return FlutterDropzonePlatform.instance.buildView(params, widget.gestureRecognizers, (viewId) {
       final ctrl = DropzoneViewController._create(viewId, widget);
       _controller.complete(ctrl);
       widget.onCreated?.call(ctrl);
-      FlutterDropzonePlugin.instance.init(params, viewId: viewId);
+      FlutterDropzonePlatform.instance.init(params, viewId: viewId);
     });
   }
 }
@@ -60,29 +61,29 @@ class DropzoneViewController {
   final int viewId;
   final DropzoneView widget;
 
-  DropzoneViewController._create(this.viewId, this.widget) : assert(FlutterDropzonePlugin.instance != null) {
+  DropzoneViewController._create(this.viewId, this.widget) : assert(FlutterDropzonePlatform.instance != null) {
     if (widget.onLoaded != null) {
-      FlutterDropzonePlugin.instance //
+      FlutterDropzonePlatform.instance //
           .onLoaded(viewId: viewId)
           .listen((_) => widget.onLoaded());
     }
     if (widget.onError != null) {
-      FlutterDropzonePlugin.instance //
+      FlutterDropzonePlatform.instance //
           .onError(viewId: viewId)
           .listen((msg) => widget.onError(msg.value));
     }
     if (widget.onDrop != null) {
-      FlutterDropzonePlugin.instance //
+      FlutterDropzonePlatform.instance //
           .onDrop(viewId: viewId)
           .listen((msg) => widget.onDrop(msg.value));
     }
   }
 
   Future<bool> setOperation(DragOperation operation) {
-    return FlutterDropzonePlugin.instance.setOperation(operation, viewId: viewId);
+    return FlutterDropzonePlatform.instance.setOperation(operation, viewId: viewId);
   }
 
   Future<bool> setMIME(List<String> mime) {
-    return FlutterDropzonePlugin.instance.setMIME(mime, viewId: viewId);
+    return FlutterDropzonePlatform.instance.setMIME(mime, viewId: viewId);
   }
 }

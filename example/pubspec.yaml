@@ -16,7 +16,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_dropzone:
-    path: ../
+    path: ../flutter_dropzone/
 
   pedantic: ^1.9.0
 

@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dropzone/src/flutter_dropzone_plugin.dart';
+import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
 import 'package:js/js.dart';
 
 @JS('initialize')
@@ -53,9 +53,9 @@ class FlutterDropzoneView {
     return _nativeSetOperation(container, describeEnum(operation));
   }
 
-  void _onLoaded() => FlutterDropzonePlugin.instance.events.add(DropzoneLoadedEvent(viewId));
+  void _onLoaded() => FlutterDropzonePlatform.instance.events.add(DropzoneLoadedEvent(viewId));
 
-  void _onError(String error) => FlutterDropzonePlugin.instance.events.add(DropzoneErrorEvent(viewId, error));
+  void _onError(String error) => FlutterDropzonePlatform.instance.events.add(DropzoneErrorEvent(viewId, error));
 
-  void _onDrop(MouseEvent mouse, File data) => FlutterDropzonePlugin.instance.events.add(DropzoneDropEvent(viewId, mouse, data));
+  void _onDrop(MouseEvent event, File data) => FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
 }

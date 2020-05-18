@@ -57,34 +57,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.3"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_dropzone:
-    dependency: "direct dev"
-    description:
-      path: "../flutter_dropzone"
-      relative: true
-    source: path
-    version: "1.0.0"
   flutter_dropzone_platform_interface:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "../flutter_dropzone_platform_interface"
       relative: true
     source: path
     version: "1.0.0"
   flutter_dropzone_web:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "../flutter_dropzone_web"
       relative: true
@@ -150,7 +136,7 @@ packages:
     source: hosted
     version: "2.4.0"
   plugin_platform_interface:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
