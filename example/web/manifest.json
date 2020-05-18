@@ -1,6 +1,6 @@
 {
-    "name": "example",
-    "short_name": "example",
+    "name": "flutter_dropzone_example",
+    "short_name": "flutter_dropzone_example",
     "start_url": ".",
     "display": "minimal-ui",
     "background_color": "#0175C2",
