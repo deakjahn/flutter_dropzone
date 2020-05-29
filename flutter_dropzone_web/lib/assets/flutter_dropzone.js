@@ -1,59 +1,69 @@
-var flutter_dropzone_web = {
-  onDrop: null,
-  dropMIME: null,
-  dropOperation: 'copy',
+class FlutterDropzone {
+  constructor(container, onLoaded, onError, onDrop) {
+    this.onDrop = onDrop;
+    this.dropMIME = null;
+    this.dropOperation = 'copy';
 
-  initialize: function(container, onLoaded, onError, onDrop) {
-    var $ = flutter_dropzone_web;
-    container.addEventListener('dragover', $.dragover_handler);
-    $.onDrop = onDrop;
-    container.addEventListener('drop', $.drop_handler);
+    container.addEventListener('dragover', this.dragover_handler.bind(this));
+    container.addEventListener('drop', this.drop_handler.bind(this));
 
-    onLoaded();
-  },
+    if (onLoaded != null) onLoaded();
+  }
 
-  dragover_handler: function(event) {
-    var $ = flutter_dropzone_web;
+  dragover_handler(event) {
     event.preventDefault();
-    event.dataTransfer.dropEffect = $.dropOperation;
-  },
+    event.dataTransfer.dropEffect = this.dropOperation;
+  }
 
-  drop_handler: function(event) {
-    var $ = flutter_dropzone_web;
+  drop_handler(event) {
     event.preventDefault();
 
     if (event.dataTransfer.items) {
       for (var i = 0; i < event.dataTransfer.items.length; i++) {
         var item = event.dataTransfer.items[i];
         var match = (item.kind === 'file');
-        if ($.dropMIME != null && !$.dropMIME.includes(item.mime))
+        if (this.dropMIME != null && !this.dropMIME.includes(item.mime))
           match = false;
 
         if (match) {
           var file = event.dataTransfer.items[i].getAsFile();
-          $.onDrop(event, file);
+          this.onDrop(event, file);
         }
       }
     } else {
       for (var i = 0; i < ev.dataTransfer.files.length; i++)
-        $.onDrop(event, event.dataTransfer.files[i]);
+        this.onDrop(event, event.dataTransfer.files[i]);
     }
-  },
+  }
 
+  setMIME(mime) {
+    this.dropMIME = mime;
+  }
+
+  setOperation(operation) {
+    this.dropOperation = operation;
+  }
+}
+
+var flutter_dropzone_web = {
   setMIME: function(container, mime) {
-    flutter_dropzone_web.dropMIME = mime;
+    container.FlutterDropzone.setMIME(mime);
   },
 
   setOperation: function(container, operation) {
-    flutter_dropzone_web.dropOperation = operation;
+    container.FlutterDropzone.setOperation(operation);
   },
 
   triggerBuild: function(id) {
-    for (const view of document.getElementsByTagName('flt-platform-view')) {
+    for (var view of document.getElementsByTagName('flt-platform-view')) {
       var item = view.shadowRoot.getElementById('dropzone-container-' + id);
       if (item != null)
         item.dispatchEvent(new Event('build'))
     }
+  },
+
+  create: function(container, onLoaded, onError, onDrop) {
+    container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onDrop);
   },
 };
 

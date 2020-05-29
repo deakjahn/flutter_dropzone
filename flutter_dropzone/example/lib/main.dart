@@ -9,8 +9,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DropzoneViewController controller;
-  String message = 'Drop something here';
+  DropzoneViewController controller1;
+  DropzoneViewController controller2;
+  String message1 = 'Drop something here';
+  String message2 = 'Drop something here';
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -18,27 +20,56 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             title: const Text('Dropzone example'),
           ),
-          body: Stack(
+          body: Column(
             children: [
-              buildZone(context),
-              Center(child: Text(message)),
+              Expanded(
+                child: Stack(
+                  children: [
+                    buildZone1(context),
+                    Center(child: Text(message1)),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Stack(
+                  children: [
+                    buildZone2(context),
+                    Center(child: Text(message2)),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       );
 
-  Widget buildZone(BuildContext context) => Builder(
+  Widget buildZone1(BuildContext context) => Builder(
         builder: (context) => DropzoneView(
           operation: DragOperation.copy,
-          onCreated: (ctrl) => controller = ctrl,
-          onLoaded: () => print('Zone loaded'),
-          onError: (ev) => print('Error: $ev'),
+          onCreated: (ctrl) => controller1 = ctrl,
+          onLoaded: () => print('Zone 1 loaded'),
+          onError: (ev) => print('Zone 1 error: $ev'),
           onDrop: (ev) {
-            print('Drop: ${ev.name}');
+            print('Zone 1 drop: ${ev.name}');
             setState(() {
-              message = '${ev.name} dropped';
+              message1 = '${ev.name} dropped';
             });
           },
         ),
       );
+
+  Widget buildZone2(BuildContext context) => Builder(
+    builder: (context) => DropzoneView(
+      operation: DragOperation.move,
+      onCreated: (ctrl) => controller2 = ctrl,
+      onLoaded: () => print('Zone 2 loaded'),
+      onError: (ev) => print('Zone 2 error: $ev'),
+      onDrop: (ev) {
+        print('Zone 2 drop: ${ev.name}');
+        setState(() {
+          message2 = '${ev.name} dropped';
+        });
+      },
+    ),
+  );
 }

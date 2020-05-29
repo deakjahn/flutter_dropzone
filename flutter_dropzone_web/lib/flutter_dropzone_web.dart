@@ -9,15 +9,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
 import 'package:js/js.dart';
 
-@JS('initialize')
-external void _nativeInitialize(dynamic container, Function onLoaded, Function onError, Function onDrop);
-
-@JS('setMIME')
-external bool _nativeSetMIME(dynamic container, List<String> mime);
-
-@JS('setOperation')
-external bool _nativeSetOperation(dynamic container, String operation);
-
 class FlutterDropzoneView {
   final int viewId;
   DivElement container;
@@ -30,14 +21,14 @@ class FlutterDropzoneView {
       ..style.border = 'none'
       ..append(ScriptElement()..text = 'flutter_dropzone_web.triggerBuild($viewId);')
       ..addEventListener('build', (_) {
-        if (mime != null) setMIME(mime);
-        if (operation != null) setOperation(operation);
-        _nativeInitialize(
+        _nativeCreate(
           container,
           allowInterop(_onLoaded),
           allowInterop(_onError),
           allowInterop(_onDrop),
         );
+        if (mime != null) setMIME(mime);
+        if (operation != null) setOperation(operation);
       });
   }
 
@@ -98,3 +89,12 @@ class FlutterDropzoneView {
 
   void _onDrop(MouseEvent event, File data) => FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
 }
+
+@JS('create')
+external void _nativeCreate(dynamic container, Function onLoaded, Function onError, Function onDrop);
+
+@JS('setMIME')
+external bool _nativeSetMIME(dynamic container, List<String> mime);
+
+@JS('setOperation')
+external bool _nativeSetOperation(dynamic container, String operation);
