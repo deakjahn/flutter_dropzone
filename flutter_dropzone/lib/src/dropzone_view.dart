@@ -12,7 +12,6 @@ export 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_in
 
 typedef DropzoneViewCreatedCallback = void Function(DropzoneViewController controller);
 
-// https://github.com/flutter/flutter/issues/30719
 // https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 // https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop
 

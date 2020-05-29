@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dropzone/dropzone_view.dart';
 
 void main() => runApp(MyApp());
 
