@@ -6,4 +6,4 @@ See the README files of the individual subprojects:
 
 [1]: flutter_dropzone/README.md
 [2]: flutter_dropzone_platform_interface/README.md
-[2]: flutter_dropzone_web/README.md
+[3]: flutter_dropzone_web/README.md
