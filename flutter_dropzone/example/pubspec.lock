@@ -58,21 +58,21 @@ packages:
   flutter_dropzone:
     dependency: "direct dev"
     description:
-      path: "../flutter_dropzone"
+      path: ".."
       relative: true
     source: path
     version: "1.0.0"
   flutter_dropzone_platform_interface:
     dependency: transitive
     description:
-      path: "../flutter_dropzone_platform_interface"
+      path: "../../flutter_dropzone_platform_interface"
       relative: true
     source: path
     version: "1.0.0"
   flutter_dropzone_web:
     dependency: transitive
     description:
-      path: "../flutter_dropzone_web"
+      path: "../../flutter_dropzone_web"
       relative: true
     source: path
     version: "1.0.0"

@@ -10,11 +10,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   DropzoneViewController controller;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  String message = 'Drop something here';
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -25,7 +21,7 @@ class _MyAppState extends State<MyApp> {
           body: Stack(
             children: [
               buildZone(context),
-              Center(child: Text('Drop something here')),
+              Center(child: Text(message)),
             ],
           ),
         ),
@@ -37,7 +33,12 @@ class _MyAppState extends State<MyApp> {
           onCreated: (ctrl) => controller = ctrl,
           onLoaded: () => print('Zone loaded'),
           onError: (ev) => print('Error: $ev'),
-          onDrop: (ev) => print('Drop: ${ev.name}'),
+          onDrop: (ev) {
+            print('Drop: ${ev.name}');
+            setState(() {
+              message = '${ev.name} dropped';
+            });
+          },
         ),
       );
 }

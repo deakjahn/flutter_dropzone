@@ -1,6 +1,5 @@
 name: flutter_dropzone_example
 description: Demonstrates how to use the flutter_dropzone plugin.
-publish_to: 'none'
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -16,7 +15,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_dropzone:
-    path: ../flutter_dropzone/
+    path: ../
 
   pedantic: ^1.9.0
 

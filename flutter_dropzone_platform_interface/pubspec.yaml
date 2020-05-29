@@ -1,7 +1,6 @@
 name: flutter_dropzone_platform_interface
 description: A common platform interface for the flutter_dropzone plugin.
-homepage: www.creativephotocloud.com
-author: DJG
+homepage: https://github.com/deakjahn/flutter_dropzone
 # NOTE: We strongly prefer non-breaking changes, even at the expense of a
 # less-clean API. See https://flutter.dev/go/platform-interface-breaking-changes
 version: 1.0.0
