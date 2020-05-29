@@ -1,5 +1,3 @@
-library dropzone_view;
-
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -7,8 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
-
-export 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart' show DragOperation;
 
 typedef DropzoneViewCreatedCallback = void Function(DropzoneViewController controller);
 

@@ -58,23 +58,23 @@ packages:
   flutter_dropzone:
     dependency: "direct dev"
     description:
-      path: ".."
-      relative: true
-    source: path
+      name: flutter_dropzone
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   flutter_dropzone_platform_interface:
     dependency: transitive
     description:
-      path: "../../flutter_dropzone_platform_interface"
-      relative: true
-    source: path
+      name: flutter_dropzone_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   flutter_dropzone_web:
     dependency: transitive
     description:
-      path: "../../flutter_dropzone_web"
-      relative: true
-    source: path
+      name: flutter_dropzone_web
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   flutter_test:
     dependency: "direct dev"

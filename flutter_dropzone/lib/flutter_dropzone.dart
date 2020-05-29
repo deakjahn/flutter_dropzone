@@ -1,3 +1,4 @@
 library flutter_dropzone;
 
-export 'src/dropzone_view.dart';
+export 'package:flutter_dropzone/flutter_dropzone.dart';
+export 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart' show DragOperation;
