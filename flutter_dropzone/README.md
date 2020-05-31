@@ -1,7 +1,7 @@
 Dropzone
 ========
 
-A Flutter Web plugin to handle drag-and-drop (files) into Flutter. If you're interested in drag-and-drop inside a Flutter app, check out other packages like [dnd](https://pub.dev/packages/dnd).
+A Flutter Web plugin to handle drag-and-drop (files) *into* Flutter. If you're interested in drag-and-drop *inside* a Flutter app, check out other packages like [dnd](https://pub.dev/packages/dnd).
 
 It exposes a single platform view, `DropzoneView`: 
 
