@@ -5,20 +5,36 @@ A Flutter Web plugin to handle drag-and-drop (files) *into* Flutter. If you're i
 
 It exposes a single platform view, `DropzoneView`: 
 
+``` dart
+DropzoneView(
+  operation: DragOperation.copy,
+  onCreated: (ctrl) => controller = ctrl,
+  onLoaded: () => print('Zone loaded'),
+  onError: (ev) => print('Error: $ev'),
+  onDrop: (ev) => print('Drop: $ev'),
+);
 ```
-  DropzoneView(
-    operation: DragOperation.copy,
-    onCreated: (ctrl) => controller = ctrl,
-    onLoaded: () => print('Zone loaded'),
-    onError: (ev) => print('Error: $ev'),
-    onDrop: (ev) => print('Drop: $ev'),
-  );
+
+The view itself has no display, it's just the dropzone area. Use a `Stack` to put it into the background of other widgets that
+provide your UI:
+
+``` dart
+Stack(
+  children: [
+    DropzoneView(...),
+    Center(child: Text('Drop files here')),
+  ],
+)
 ```
+
+## Using it in cross-platform apps
 
 It's a federated plugin, meaning that it will compile in cross platform apps that contain both Android/iOS and Web code.
 It will *not* function on the latter, the view will simply return an error text instead of a drop zone. Use `if (kIsWeb)` from
 `import 'package:flutter/foundation.dart'` to only use it in Flutter Web. Still, the same app will still compile to
 Android and iOS, without the usual `dart:html` errors (this is what federated plugins are for).
+
+## Using the controller
 
 There is a convenience function, `pickFiles()` on the controller returned by the view. It simply opens the usual File Open dialog
 in the browser and lets the user pick some files. It has nothing to do with the drag-and-drop operation (although it is the other
