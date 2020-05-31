@@ -41,12 +41,19 @@ in the browser and lets the user pick some files. It has nothing to do with the 
 possible way to select files) but by putting it into the web side of a federated plugin we can make sure it doesn't hurt
 the compilation on other platforms.
 
-Because the files returned are HTML File API references with serious limitations, they cannot be converted to regular Dart
+Because the files returned are HTML File API references with serious limitations, they can't be converted to regular Dart
 `File` objects. They are returned as `dynamic` objects and the controller has functions to extract information from these objects:
 
 *  `Future<String> getFilename(dynamic htmlFile);`
 *  `Future<int> getFileSize(dynamic htmlFile);`
 *  `Future<String> getFileMIME(dynamic htmlFile);`
+*  `Future<Uint8List> getFileData(dynamic htmlFile);`
+
+You can't have a permanent link to the file. If you need to retain the full image data, use `getFileData()` to get the actual contents
+and store it yourself into localStorage, IndexedDB, uploading to your server, whatever. You can get a temporary URL using:
+
 *  `Future<String> createFileUrl(dynamic htmlFile);`
 *  `Future<bool> releaseFileUrl(String fileUrl);`
-*  `Future<Uint8List> getFileData(dynamic htmlFile);`
+
+but this will only be valid for the session. It's a regular URL, so you can use it to display the image the same way like loading
+from a regular web URL. Release it when you're done with the image.
