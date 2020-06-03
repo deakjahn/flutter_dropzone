@@ -55,10 +55,20 @@ var flutter_dropzone_web = {
   },
 
   triggerBuild: function(id) {
+    // CanvasKit
+    var item = document.getElementById('dropzone-container-' + id);
+    if (item != null) {
+      item.dispatchEvent(new Event('build'));
+      return;
+    }
+
+    // DomCanvas
     for (var view of document.getElementsByTagName('flt-platform-view')) {
       var item = view.shadowRoot.getElementById('dropzone-container-' + id);
-      if (item != null)
-        item.dispatchEvent(new Event('build'))
+      if (item != null) {
+        item.dispatchEvent(new Event('build'));
+        return;
+      }
     }
   },
 

@@ -32,7 +32,7 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
     final body = html.window.document.querySelector('body');
     // Hot reload would add it again
     for (html.ScriptElement script in body.querySelectorAll('script'))
-      if (script.src.contains('flutter_dropzone')) {
+      if (script.src.contains('flutter_dropzone_web')) {
         script.remove();
       }
 
