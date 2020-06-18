@@ -11,6 +11,7 @@ DropzoneView(
   onCreated: (ctrl) => controller = ctrl,
   onLoaded: () => print('Zone loaded'),
   onError: (ev) => print('Error: $ev'),
+  onHover: () => print('Zone hovered'),
   onDrop: (ev) => print('Drop: $ev'),
 );
 ```
