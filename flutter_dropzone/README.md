@@ -38,8 +38,8 @@ Android and iOS, without the usual `dart:html` errors (this is what federated pl
 
 There is a convenience function, `pickFiles()` on the controller returned by the view. It simply opens the usual File Open dialog
 in the browser and lets the user pick some files. It has nothing to do with the drag-and-drop operation (although it is the other
-possible way to select files) but by putting it into the web side of a federated plugin we can make sure it doesn't hurt
-the compilation on other platforms.
+possible way to select files) but by putting it into the web side of a federated plugin we can make sure it doesn't hurt the
+compilation on other platforms.
 
 Because the files returned are HTML File API references with serious limitations, they can't be converted to regular Dart
 `File` objects. They are returned as `dynamic` objects and the controller has functions to extract information from these objects:
