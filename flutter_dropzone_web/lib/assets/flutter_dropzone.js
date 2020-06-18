@@ -1,5 +1,6 @@
-class FlutterDropzone {
-  constructor(container, onLoaded, onError, onDrop) {
+  class FlutterDropzone {
+  constructor(container, onLoaded, onError, onHover, onDrop) {
+    this.onHover = onHover;
     this.onDrop = onDrop;
     this.dropMIME = null;
     this.dropOperation = 'copy';
@@ -13,6 +14,7 @@ class FlutterDropzone {
   dragover_handler(event) {
     event.preventDefault();
     event.dataTransfer.dropEffect = this.dropOperation;
+    if (this.onHover != null) this.onHover(event);
   }
 
   drop_handler(event) {
@@ -72,8 +74,8 @@ var flutter_dropzone_web = {
     }
   },
 
-  create: function(container, onLoaded, onError, onDrop) {
-    container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onDrop);
+  create: function(container, onLoaded, onError, onHover, onDrop) {
+    container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onHover, onDrop);
   },
 };
 

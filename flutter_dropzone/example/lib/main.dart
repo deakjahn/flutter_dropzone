@@ -49,6 +49,7 @@ class _MyAppState extends State<MyApp> {
           onCreated: (ctrl) => controller1 = ctrl,
           onLoaded: () => print('Zone 1 loaded'),
           onError: (ev) => print('Zone 1 error: $ev'),
+          onHover: () => print('Zone 1 hovered'),
           onDrop: (ev) {
             print('Zone 1 drop: ${ev.name}');
             setState(() {
@@ -64,6 +65,7 @@ class _MyAppState extends State<MyApp> {
       onCreated: (ctrl) => controller2 = ctrl,
       onLoaded: () => print('Zone 2 loaded'),
       onError: (ev) => print('Zone 2 error: $ev'),
+      onHover: () => print('Zone 2 hovered'),
       onDrop: (ev) {
         print('Zone 2 drop: ${ev.name}');
         setState(() {

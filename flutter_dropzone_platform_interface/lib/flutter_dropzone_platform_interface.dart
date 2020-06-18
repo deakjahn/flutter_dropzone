@@ -97,11 +97,18 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
         .cast<DropzoneErrorEvent>();
   }
 
+  /// Event called when the user hovers over a dropzone.
+  Stream<DropzoneHoverEvent> onHover({@required int viewId}) {
+    return events.stream //
+        .where((event) => event.viewId == viewId && event is DropzoneHoverEvent)
+        .cast<DropzoneHoverEvent>();
+  }
+
   /// Event called when the user drops a file onto the dropzone.
   Stream<DropzoneDropEvent> onDrop({@required int viewId}) {
     return events.stream //
-        .where((event) => event.viewId == viewId && event is DropzoneDropEvent)
-        .cast<DropzoneDropEvent>();
+      .where((event) => event.viewId == viewId && event is DropzoneDropEvent)
+      .cast<DropzoneDropEvent>();
   }
 
   /// Internal function to build the platform view.
@@ -129,6 +136,11 @@ class DropzoneLoadedEvent extends DropzoneEvent {
 /// Event called if the dropzone view has an eror.
 class DropzoneErrorEvent extends DropzoneEvent<String> {
   DropzoneErrorEvent(int viewId, String error) : super(viewId, error);
+}
+
+/// Event called when the user hovers over a dropzone.
+class DropzoneHoverEvent extends DropzoneEvent {
+  DropzoneHoverEvent(int viewId) : super(viewId, null);
 }
 
 /// Event called when the user drops a file onto the dropzone.

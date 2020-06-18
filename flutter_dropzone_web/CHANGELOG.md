@@ -1,3 +1,7 @@
+## [1.0.3] - 2020-06-18
+
+* Support for onHover.
+
 ## [1.0.2] - 2020-06-02
 
 * CanvasKit support.
