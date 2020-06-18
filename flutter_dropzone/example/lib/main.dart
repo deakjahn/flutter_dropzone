@@ -13,6 +13,7 @@ class _MyAppState extends State<MyApp> {
   DropzoneViewController controller2;
   String message1 = 'Drop something here';
   String message2 = 'Drop something here';
+  bool highlighted1 = false;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -23,11 +24,14 @@ class _MyAppState extends State<MyApp> {
           body: Column(
             children: [
               Expanded(
-                child: Stack(
-                  children: [
-                    buildZone1(context),
-                    Center(child: Text(message1)),
-                  ],
+                child: Container(
+                  color: highlighted1 ? Colors.red : Colors.transparent,
+                  child: Stack(
+                    children: [
+                      buildZone1(context),
+                      Center(child: Text(message1)),
+                    ],
+                  ),
                 ),
               ),
               Expanded(
@@ -49,11 +53,19 @@ class _MyAppState extends State<MyApp> {
           onCreated: (ctrl) => controller1 = ctrl,
           onLoaded: () => print('Zone 1 loaded'),
           onError: (ev) => print('Zone 1 error: $ev'),
-          onHover: () => print('Zone 1 hovered'),
+          onHover: () {
+            setState(() => highlighted1 = true);
+            print('Zone 1 hovered');
+          },
+          onLeave: () {
+            setState(() => highlighted1 = false);
+            print('Zone 1 left');
+          },
           onDrop: (ev) {
             print('Zone 1 drop: ${ev.name}');
             setState(() {
               message1 = '${ev.name} dropped';
+              highlighted1 = false;
             });
           },
         ),
@@ -66,6 +78,7 @@ class _MyAppState extends State<MyApp> {
       onLoaded: () => print('Zone 2 loaded'),
       onError: (ev) => print('Zone 2 error: $ev'),
       onHover: () => print('Zone 2 hovered'),
+      onLeave: () => print('Zone 2 left'),
       onDrop: (ev) {
         print('Zone 2 drop: ${ev.name}');
         setState(() {

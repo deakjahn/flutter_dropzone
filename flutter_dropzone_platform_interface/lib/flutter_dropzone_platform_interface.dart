@@ -107,8 +107,15 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   /// Event called when the user drops a file onto the dropzone.
   Stream<DropzoneDropEvent> onDrop({@required int viewId}) {
     return events.stream //
-      .where((event) => event.viewId == viewId && event is DropzoneDropEvent)
-      .cast<DropzoneDropEvent>();
+        .where((event) => event.viewId == viewId && event is DropzoneDropEvent)
+        .cast<DropzoneDropEvent>();
+  }
+
+  /// Event called when the user leaves a dropzone.
+  Stream<DropzoneLeaveEvent> onLeave({@required int viewId}) {
+    return events.stream //
+        .where((event) => event.viewId == viewId && event is DropzoneLeaveEvent)
+        .cast<DropzoneLeaveEvent>();
   }
 
   /// Internal function to build the platform view.
@@ -146,4 +153,9 @@ class DropzoneHoverEvent extends DropzoneEvent {
 /// Event called when the user drops a file onto the dropzone.
 class DropzoneDropEvent extends DropzoneEvent<dynamic> {
   DropzoneDropEvent(int viewId, dynamic file) : super(viewId, file);
+}
+
+/// Event called when the user leaves a dropzone.
+class DropzoneLeaveEvent extends DropzoneEvent {
+  DropzoneLeaveEvent(int viewId) : super(viewId, null);
 }

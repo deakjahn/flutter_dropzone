@@ -29,6 +29,9 @@ class DropzoneView extends StatefulWidget {
   /// Event called when the user drops a file onto the dropzone.
   final ValueChanged<dynamic> onDrop;
 
+  /// Event called when the user leaves a dropzone.
+  final VoidCallback onLeave;
+
   const DropzoneView({
     Key key,
     this.operation,
@@ -39,6 +42,7 @@ class DropzoneView extends StatefulWidget {
     this.onError,
     this.onHover,
     @required this.onDrop,
+    this.onLeave,
   }) : super(key: key);
 
   @override
@@ -87,6 +91,11 @@ class DropzoneViewController {
       FlutterDropzonePlatform.instance //
         .onDrop(viewId: viewId)
         .listen((msg) => widget.onDrop(msg.value));
+    }
+    if (widget.onLeave != null) {
+      FlutterDropzonePlatform.instance //
+        .onLeave(viewId: viewId)
+        .listen((msg) => widget.onLeave());
     }
   }
 

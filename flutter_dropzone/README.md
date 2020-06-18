@@ -13,6 +13,7 @@ DropzoneView(
   onError: (ev) => print('Error: $ev'),
   onHover: () => print('Zone hovered'),
   onDrop: (ev) => print('Drop: $ev'),
+  onLeave: () => print('Zone left'),
 );
 ```
 

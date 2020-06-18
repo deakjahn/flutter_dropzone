@@ -28,6 +28,7 @@ class FlutterDropzoneView {
           allowInterop(_onError),
           allowInterop(_onHover),
           allowInterop(_onDrop),
+          allowInterop(_onLeave),
         );
         if (mime != null) setMIME(mime);
         if (operation != null) setOperation(operation);
@@ -92,10 +93,12 @@ class FlutterDropzoneView {
   void _onHover(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId));
 
   void _onDrop(MouseEvent event, File data) => FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
+
+  void _onLeave(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
 }
 
 @JS('create')
-external void _nativeCreate(dynamic container, Function onLoaded, Function onError, Function onHover, Function onDrop);
+external void _nativeCreate(dynamic container, Function onLoaded, Function onError, Function onHover, Function onDrop, Function onLeave);
 
 @JS('setMIME')
 external bool _nativeSetMIME(dynamic container, List<String> mime);

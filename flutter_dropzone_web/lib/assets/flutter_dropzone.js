@@ -1,11 +1,13 @@
   class FlutterDropzone {
-  constructor(container, onLoaded, onError, onHover, onDrop) {
+  constructor(container, onLoaded, onError, onHover, onDrop, onLeave) {
     this.onHover = onHover;
     this.onDrop = onDrop;
+    this.onLeave = onLeave;
     this.dropMIME = null;
     this.dropOperation = 'copy';
 
     container.addEventListener('dragover', this.dragover_handler.bind(this));
+    container.addEventListener('dragleave', this.dragleave_handler.bind(this));
     container.addEventListener('drop', this.drop_handler.bind(this));
 
     if (onLoaded != null) onLoaded();
@@ -15,6 +17,11 @@
     event.preventDefault();
     event.dataTransfer.dropEffect = this.dropOperation;
     if (this.onHover != null) this.onHover(event);
+  }
+
+  dragleave_handler(event) {
+    event.preventDefault();
+    if (this.onLeave != null) this.onLeave(event);
   }
 
   drop_handler(event) {
@@ -74,8 +81,8 @@ var flutter_dropzone_web = {
     }
   },
 
-  create: function(container, onLoaded, onError, onHover, onDrop) {
-    container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onHover, onDrop);
+  create: function(container, onLoaded, onError, onHover, onDrop, onLeave) {
+    container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onHover, onDrop, onLeave);
   },
 };
 
