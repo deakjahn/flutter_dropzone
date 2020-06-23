@@ -20,7 +20,9 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   static void registerWith(Registrar registrar) {
     final self = FlutterDropzonePlugin();
     _isReady = _readyCompleter.future;
-    html.window.addEventListener('flutter_dropzone_web_ready', (_) => _readyCompleter.complete(true));
+    html.window.addEventListener('flutter_dropzone_web_ready', (_) {
+      if (!_readyCompleter.isCompleted) _readyCompleter.complete(true);
+    });
     FlutterDropzonePlatform.instance = self;
 
     // ignore: undefined_prefixed_name
