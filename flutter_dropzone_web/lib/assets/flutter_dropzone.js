@@ -1,4 +1,5 @@
-  class FlutterDropzone {
+if (typeof FlutterDropzone === 'undefined') {
+class FlutterDropzone {
   constructor(container, onLoaded, onError, onHover, onDrop, onLeave) {
     this.onHover = onHover;
     this.onDrop = onDrop;
@@ -87,3 +88,4 @@ var flutter_dropzone_web = {
 };
 
 window.dispatchEvent(new Event('flutter_dropzone_web_ready'));
+}
