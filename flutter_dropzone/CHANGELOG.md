@@ -1,3 +1,7 @@
+## [1.0.8] - 2020-08-05
+
+* Fix [#6](https://github.com/deakjahn/flutter_dropzone/issues/6).
+
 ## [1.0.7] - 2020-06-18
 
 * Support for onLeave [#2](https://github.com/deakjahn/flutter_dropzone/issues/2).
