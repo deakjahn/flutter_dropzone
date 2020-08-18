@@ -20,6 +20,11 @@ class MethodChannelFlutterDropzone extends FlutterDropzonePlatform {
   }
 
   @override
+  Future<bool> setCursor(CursorType cursor, {@required int viewId}) {
+    throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
+  }
+
+  @override
   Future<bool> setMIME(List<String> mime, {@required int viewId}) {
     throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
   }

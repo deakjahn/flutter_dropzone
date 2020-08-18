@@ -8,6 +8,7 @@ It exposes a single platform view, `DropzoneView`:
 ``` dart
 DropzoneView(
   operation: DragOperation.copy,
+  cursor: CursorType.grab,
   onCreated: (ctrl) => controller = ctrl,
   onLoaded: () => print('Zone loaded'),
   onError: (ev) => print('Error: $ev'),

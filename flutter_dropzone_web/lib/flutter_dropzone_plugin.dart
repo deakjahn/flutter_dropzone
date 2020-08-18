@@ -54,6 +54,11 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
+  Future<bool> setCursor(CursorType cursor, {@required int viewId}) {
+    return _views[viewId].setCursor(cursor);
+  }
+
+  @override
   Future<bool> setMIME(List<String> mime, {@required int viewId}) {
     return _views[viewId].setMIME(mime);
   }

@@ -64,6 +64,10 @@ var flutter_dropzone_web = {
     container.FlutterDropzone.setOperation(operation);
   },
 
+  setCursor: function(container, cursor) {
+    container.style.cursor = cursor;
+  },
+
   triggerBuild: function(id) {
     // CanvasKit
     var item = document.getElementById('dropzone-container-' + id);

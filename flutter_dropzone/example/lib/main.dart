@@ -50,6 +50,7 @@ class _MyAppState extends State<MyApp> {
   Widget buildZone1(BuildContext context) => Builder(
         builder: (context) => DropzoneView(
           operation: DragOperation.copy,
+          cursor: CursorType.grab,
           onCreated: (ctrl) => controller1 = ctrl,
           onLoaded: () => print('Zone 1 loaded'),
           onError: (ev) => print('Zone 1 error: $ev'),

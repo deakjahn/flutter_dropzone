@@ -10,6 +10,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'method_channel_flutter_dropzone.dart';
 
 enum DragOperation { copy, move, link, copyMove, copyLink, linkMove, all }
+enum CursorType { alias, all_scroll, auto, cell, context_menu, col_resize, copy, crosshair, Default, e_resize, ew_resize, grab, grabbing, help, move, n_resize, ne_resize, nesw_resize, ns_resize, nw_resize, nwse_resize, no_drop, none, not_allowed, pointer, progress, row_resize, s_resize, se_resize, sw_resize, text, w_resize, wait, zoom_in, zoom_out }
 
 abstract class FlutterDropzonePlatform extends PlatformInterface {
   static final _token = Object();
@@ -36,6 +37,11 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   /// Specify the [DragOperation] while dragging the file.
   Future<bool> setOperation(DragOperation operation, {@required int viewId}) async {
     throw UnimplementedError('setOperation');
+  }
+
+  /// Specify the [CursorType] of the dropzone. [CursorType] is one the CSS cursor types.
+  Future<bool> setCursor(CursorType cursor, {@required int viewId}) async {
+    throw UnimplementedError('setCursor');
   }
 
   /// Specify the list of accepted MIME types.

@@ -14,12 +14,12 @@ class FlutterDropzoneView {
   DivElement container;
   List<String> mime;
   DragOperation operation;
+  CursorType cursor;
 
   FlutterDropzoneView(this.viewId) {
     container = DivElement()
       ..id = 'dropzone-container-$viewId'
       ..style.pointerEvents = 'auto'
-      ..style.cursor = 'grab'
       ..style.border = 'none'
       ..append(ScriptElement()..text = 'flutter_dropzone_web.triggerBuild($viewId);')
       ..addEventListener('build', (_) {
@@ -33,12 +33,14 @@ class FlutterDropzoneView {
         );
         if (mime != null) setMIME(mime);
         if (operation != null) setOperation(operation);
+        if (cursor != null) setCursor(cursor);
       });
   }
 
   void init(Map<String, dynamic> params) {
     mime = params['mime'];
     operation = params['operation'];
+    cursor = params['cursor'];
   }
 
   Future<bool> setMIME(List<String> mime) async {
@@ -47,6 +49,10 @@ class FlutterDropzoneView {
 
   Future<bool> setOperation(DragOperation operation) async {
     return _nativeSetOperation(container, describeEnum(operation));
+  }
+
+  Future<bool> setCursor(CursorType cursor) async {
+    return _nativeSetCursor(container, describeEnum(cursor).toLowerCase().replaceAll('_', '-'));
   }
 
   Future<List<dynamic>> pickFiles(bool multiple) {
@@ -106,3 +112,6 @@ external bool _nativeSetMIME(dynamic container, List<String> mime);
 
 @JS('setOperation')
 external bool _nativeSetOperation(dynamic container, String operation);
+
+@JS('setCursor')
+external bool _nativeSetCursor(dynamic container, String cursor);

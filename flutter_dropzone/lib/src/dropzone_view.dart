@@ -13,6 +13,7 @@ typedef DropzoneViewCreatedCallback = void Function(DropzoneViewController contr
 
 class DropzoneView extends StatefulWidget {
   final DragOperation operation;
+  final CursorType cursor;
   final List<String> mime;
   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
   final DropzoneViewCreatedCallback onCreated;
@@ -35,6 +36,7 @@ class DropzoneView extends StatefulWidget {
   const DropzoneView({
     Key key,
     this.operation,
+    this.cursor,
     this.mime,
     this.gestureRecognizers,
     this.onCreated,
@@ -56,6 +58,7 @@ class _DropzoneViewState extends State<DropzoneView> {
   Widget build(BuildContext context) {
     final params = <String, dynamic>{
       'operation': widget.operation,
+      'cursor': widget.cursor,
       'mime': widget.mime,
     };
     return FlutterDropzonePlatform.instance.buildView(params, widget.gestureRecognizers, (viewId) {
@@ -102,6 +105,11 @@ class DropzoneViewController {
   /// Specify the [DragOperation] while dragging the file.
   Future<bool> setOperation(DragOperation operation) {
     return FlutterDropzonePlatform.instance.setOperation(operation, viewId: viewId);
+  }
+
+  /// Specify the [CursorType] of the dropzone. [CursorType] is one the CSS cursor types.
+  Future<bool> setCursor(CursorType cursor) async {
+    return FlutterDropzonePlatform.instance.setCursor(cursor, viewId: viewId);
   }
 
   /// Specify the list of accepted MIME types.
