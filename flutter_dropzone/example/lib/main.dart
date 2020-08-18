@@ -72,19 +72,19 @@ class _MyAppState extends State<MyApp> {
       );
 
   Widget buildZone2(BuildContext context) => Builder(
-    builder: (context) => DropzoneView(
-      operation: DragOperation.move,
-      onCreated: (ctrl) => controller2 = ctrl,
-      onLoaded: () => print('Zone 2 loaded'),
-      onError: (ev) => print('Zone 2 error: $ev'),
-      onHover: () => print('Zone 2 hovered'),
-      onLeave: () => print('Zone 2 left'),
-      onDrop: (ev) {
-        print('Zone 2 drop: ${ev.name}');
-        setState(() {
-          message2 = '${ev.name} dropped';
-        });
-      },
-    ),
-  );
+        builder: (context) => DropzoneView(
+          operation: DragOperation.move,
+          onCreated: (ctrl) => controller2 = ctrl,
+          onLoaded: () => print('Zone 2 loaded'),
+          onError: (ev) => print('Zone 2 error: $ev'),
+          onHover: () => print('Zone 2 hovered'),
+          onLeave: () => print('Zone 2 left'),
+          onDrop: (ev) {
+            print('Zone 2 drop: ${ev.name}');
+            setState(() {
+              message2 = '${ev.name} dropped';
+            });
+          },
+        ),
+      );
 }

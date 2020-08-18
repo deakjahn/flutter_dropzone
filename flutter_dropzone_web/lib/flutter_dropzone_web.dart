@@ -19,6 +19,7 @@ class FlutterDropzoneView {
     container = DivElement()
       ..id = 'dropzone-container-$viewId'
       ..style.pointerEvents = 'auto'
+      ..style.cursor = 'grab'
       ..style.border = 'none'
       ..append(ScriptElement()..text = 'flutter_dropzone_web.triggerBuild($viewId);')
       ..addEventListener('build', (_) {
