@@ -44,6 +44,8 @@ in the browser and lets the user pick some files. It has nothing to do with the 
 possible way to select files) but by putting it into the web side of a federated plugin we can make sure it doesn't hurt the
 compilation on other platforms.
 
+*  `Future<List<dynamic>> pickFiles(bool multiple);`
+
 Because the files returned are HTML File API references with serious limitations, they can't be converted to regular Dart
 `File` objects. They are returned as `dynamic` objects and the controller has functions to extract information from these objects:
 
