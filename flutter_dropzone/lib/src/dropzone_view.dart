@@ -74,7 +74,8 @@ class DropzoneViewController {
   final int viewId;
   final DropzoneView widget;
 
-  DropzoneViewController._create(this.viewId, this.widget) : assert(FlutterDropzonePlatform.instance != null) {
+  DropzoneViewController._create(this.viewId, this.widget)
+      : assert(FlutterDropzonePlatform.instance != null) {
     if (widget.onLoaded != null) {
       FlutterDropzonePlatform.instance //
           .onLoaded(viewId: viewId)
@@ -92,13 +93,13 @@ class DropzoneViewController {
     }
     if (widget.onDrop != null) {
       FlutterDropzonePlatform.instance //
-        .onDrop(viewId: viewId)
-        .listen((msg) => widget.onDrop(msg.value));
+          .onDrop(viewId: viewId)
+          .listen((msg) => widget.onDrop(msg.value));
     }
     if (widget.onLeave != null) {
       FlutterDropzonePlatform.instance //
-        .onLeave(viewId: viewId)
-        .listen((msg) => widget.onLeave());
+          .onLeave(viewId: viewId)
+          .listen((msg) => widget.onLeave());
     }
   }
 
