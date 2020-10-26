@@ -21,8 +21,9 @@ class FlutterDropzoneView {
       ..id = 'dropzone-container-$viewId'
       ..style.pointerEvents = 'auto'
       ..style.border = 'none'
-      ..append(ScriptElement()..text = 'flutter_dropzone_web.triggerBuild($viewId);')
-      ..addEventListener('build', (_) {
+      ..style.animationName = 'dropzoneReady' // idea from https://keithclark.co.uk/articles/working-with-elements-before-the-dom-is-ready/
+      ..style.animationDuration = '0.001s'
+      ..addEventListener('animationstart', (event) {
         _nativeCreate(
           container,
           allowInterop(_onLoaded),

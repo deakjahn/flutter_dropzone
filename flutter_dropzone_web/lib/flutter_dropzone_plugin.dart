@@ -31,14 +31,11 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
       return view.container;
     });
 
-    final body = html.window.document.querySelector('body');
-    // Hot reload would add it again
-    for (html.ScriptElement script in body.querySelectorAll('script'))
-      if (script.src.contains('flutter_dropzone_web')) {
-        script.remove();
-      }
+    html.document.head.append(
+      html.StyleElement()..innerText = '@keyframes dropzoneReady {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}',
+    );
 
-    body.append(html.ScriptElement()
+    html.document.body.append(html.ScriptElement()
       ..src = 'assets/packages/flutter_dropzone_web/assets/flutter_dropzone.js'
       ..type = 'application/javascript');
   }
