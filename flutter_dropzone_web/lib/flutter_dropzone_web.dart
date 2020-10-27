@@ -36,6 +36,10 @@ class FlutterDropzoneView {
         if (operation != null) setOperation(operation);
         if (cursor != null) setCursor(cursor);
       });
+    if (!const bool.fromEnvironment('FLUTTER_WEB_USE_SKIA', defaultValue: false))
+      container.append(
+        StyleElement()..innerText = '@keyframes dropzoneReady {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}',
+      );
   }
 
   void init(Map<String, dynamic> params) {
