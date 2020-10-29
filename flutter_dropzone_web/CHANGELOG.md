@@ -1,3 +1,7 @@
+## [1.0.8] - 2020-08-29
+
+* Fix [#13](https://github.com/deakjahn/flutter_dropzone/issues/13).
+
 ## [1.0.8] - 2020-08-18
 
 * Fix [#12](https://github.com/deakjahn/flutter_dropzone/issues/12).
