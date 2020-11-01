@@ -31,11 +31,6 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
       return view.container;
     });
 
-    if (const bool.fromEnvironment('FLUTTER_WEB_USE_SKIA', defaultValue: false))
-      html.document.head.append(
-        html.StyleElement()..innerText = '@keyframes dropzoneReady {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}',
-      );
-
     html.document.body.append(html.ScriptElement()
       ..src = 'assets/packages/flutter_dropzone_web/assets/flutter_dropzone.js'
       ..type = 'application/javascript'

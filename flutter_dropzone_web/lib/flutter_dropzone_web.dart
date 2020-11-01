@@ -5,32 +5,42 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
 import 'package:js/js.dart';
 
 class FlutterDropzoneView {
+  final GlobalKey _currentDropzoneKey = GlobalKey();
   final int viewId;
   DivElement container;
   List<String> mime;
   DragOperation operation;
   CursorType cursor;
-  MutationObserver mutationObserver;
+
+  String get attachedEventType => 'flutterDropzoneAttached-${_currentDropzoneKey.hashCode}';
+
+  String get dispatchAttachedEventScript => 'document.dispatchEvent(new CustomEvent("$attachedEventType"));';
 
   FlutterDropzoneView(this.viewId) {
     container = DivElement()
       ..id = 'dropzone-container-$viewId'
       ..style.pointerEvents = 'auto'
       ..style.border = 'none';
-    mutationObserver = MutationObserver(_onMutation);
-    mutationObserver.observe(container, childList: true);
-
-    if (!const bool.fromEnvironment('FLUTTER_WEB_USE_SKIA', defaultValue: false))
-      container.append(
-        StyleElement()
-          ..innerText =
-              '@keyframes dropzoneReady {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}',
+    container.children.add(ScriptElement()..innerHtml = dispatchAttachedEventScript);
+    document.addEventListener(attachedEventType, (event) {
+      _nativeCreate(
+        container,
+        allowInterop(_onLoaded),
+        allowInterop(_onError),
+        allowInterop(_onHover),
+        allowInterop(_onDrop),
+        allowInterop(_onLeave),
       );
+      if (mime != null) setMIME(mime);
+      if (operation != null) setOperation(operation);
+      if (cursor != null) setCursor(cursor);
+    });
   }
 
   void init(Map<String, dynamic> params) {
@@ -99,20 +109,6 @@ class FlutterDropzoneView {
       FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
 
   void _onLeave(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
-
-  void _onMutation(List mutations, MutationObserver observer) {
-    _nativeCreate(
-      container,
-      allowInterop(_onLoaded),
-      allowInterop(_onError),
-      allowInterop(_onHover),
-      allowInterop(_onDrop),
-      allowInterop(_onLeave),
-    );
-    if (mime != null) setMIME(mime);
-    if (operation != null) setOperation(operation);
-    if (cursor != null) setCursor(cursor);
-  }
 }
 
 @JS('create')
