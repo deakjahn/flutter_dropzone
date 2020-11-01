@@ -15,31 +15,15 @@ class FlutterDropzoneView {
   List<String> mime;
   DragOperation operation;
   CursorType cursor;
+  MutationObserver mutationObserver;
 
   FlutterDropzoneView(this.viewId) {
     container = DivElement()
       ..id = 'dropzone-container-$viewId'
       ..style.pointerEvents = 'auto'
-      ..style.border = 'none'
-      ..style.animationName =
-          'dropzoneReady' // idea from https://keithclark.co.uk/articles/working-with-elements-before-the-dom-is-ready/
-      ..style.animationDuration = '0.001s';
-    EventListener listener;
-    listener = (event) {
-      container.removeEventListener('animationstart', listener);
-      _nativeCreate(
-        container,
-        allowInterop(_onLoaded),
-        allowInterop(_onError),
-        allowInterop(_onHover),
-        allowInterop(_onDrop),
-        allowInterop(_onLeave),
-      );
-      if (mime != null) setMIME(mime);
-      if (operation != null) setOperation(operation);
-      if (cursor != null) setCursor(cursor);
-    };
-    container.addEventListener('animationstart', listener);
+      ..style.border = 'none';
+    mutationObserver = MutationObserver(_onMutation);
+    mutationObserver.observe(container, childList: true);
 
     if (!const bool.fromEnvironment('FLUTTER_WEB_USE_SKIA', defaultValue: false))
       container.append(
@@ -115,6 +99,20 @@ class FlutterDropzoneView {
       FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
 
   void _onLeave(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
+
+  void _onMutation(List mutations, MutationObserver observer) {
+    _nativeCreate(
+      container,
+      allowInterop(_onLoaded),
+      allowInterop(_onError),
+      allowInterop(_onHover),
+      allowInterop(_onDrop),
+      allowInterop(_onLeave),
+    );
+    if (mime != null) setMIME(mime);
+    if (operation != null) setOperation(operation);
+    if (cursor != null) setCursor(cursor);
+  }
 }
 
 @JS('create')
