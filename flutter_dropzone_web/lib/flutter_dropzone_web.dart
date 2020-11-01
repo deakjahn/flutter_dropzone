@@ -11,24 +11,19 @@ import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_in
 import 'package:js/js.dart';
 
 class FlutterDropzoneView {
-  final GlobalKey _currentDropzoneKey = GlobalKey();
   final int viewId;
   DivElement container;
   List<String> mime;
   DragOperation operation;
   CursorType cursor;
 
-  String get attachedEventType => 'flutterDropzoneAttached-${_currentDropzoneKey.hashCode}';
-
-  String get dispatchAttachedEventScript => 'document.dispatchEvent(new CustomEvent("$attachedEventType"));';
-
   FlutterDropzoneView(this.viewId) {
     container = DivElement()
       ..id = 'dropzone-container-$viewId'
       ..style.pointerEvents = 'auto'
       ..style.border = 'none';
-    container.children.add(ScriptElement()..innerHtml = dispatchAttachedEventScript);
-    document.addEventListener(attachedEventType, (event) {
+    container.children.add(ScriptElement()..innerHtml = dispatchAttachedEventScript(viewId));
+    document.addEventListener(attachedEventType(viewId), (event) {
       _nativeCreate(
         container,
         allowInterop(_onLoaded),
@@ -42,6 +37,10 @@ class FlutterDropzoneView {
       if (cursor != null) setCursor(cursor);
     });
   }
+
+  String attachedEventType(int id) => 'flutter-dropzone-attached-${id}';
+
+  String dispatchAttachedEventScript(int id) => 'document.dispatchEvent(new CustomEvent("${attachedEventType(id)}"));';
 
   void init(Map<String, dynamic> params) {
     mime = params['mime'];
