@@ -36,7 +36,7 @@ class FlutterDropzoneView {
         if (operation != null) setOperation(operation);
         if (cursor != null) setCursor(cursor);
       });
-    if (!const bool.fromEnvironment('FLUTTER_WEB_USE_SKIA', defaultValue: false))
+    if (!_isCanvasKit())
       container.append(
         StyleElement()..innerText = '@keyframes dropzoneReady {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}',
       );
@@ -108,6 +108,9 @@ class FlutterDropzoneView {
 
   void _onLeave(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
 }
+
+@JS('isCanvasKit')
+external bool _isCanvasKit();
 
 @JS('create')
 external void _nativeCreate(dynamic container, Function onLoaded, Function onError, Function onHover, Function onDrop, Function onLeave);
