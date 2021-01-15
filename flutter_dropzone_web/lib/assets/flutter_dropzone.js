@@ -57,8 +57,7 @@ class FlutterDropzone {
 
 var flutter_dropzone_web = {
   isCanvasKit: function() {
-    //return window.useCanvasKit;
-    return true;
+    return window.flutterCanvasKit != null;
   },
 
   setMIME: function(container, mime) {
