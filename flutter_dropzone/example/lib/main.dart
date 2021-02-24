@@ -9,8 +9,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DropzoneViewController controller1;
-  DropzoneViewController controller2;
+  late DropzoneViewController controller1;
+  late DropzoneViewController controller2;
   String message1 = 'Drop something here';
   String message2 = 'Drop something here';
   bool highlighted1 = false;

@@ -49,7 +49,7 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.3"
+    version: "1.0.2"
   fake_async:
     dependency: transitive
     description:
@@ -68,21 +68,21 @@ packages:
       name: flutter_dropzone
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.9"
+    version: "2.0.0-nullsafety.2"
   flutter_dropzone_platform_interface:
     dependency: transitive
     description:
       name: flutter_dropzone_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "2.0.0-nullsafety.2"
   flutter_dropzone_web:
     dependency: transitive
     description:
       name: flutter_dropzone_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.10"
+    version: "2.0.0-nullsafety.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -134,7 +134,7 @@ packages:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "2.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
