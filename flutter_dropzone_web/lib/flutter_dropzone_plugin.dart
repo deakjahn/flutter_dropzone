@@ -15,7 +15,7 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   static final _views = <int, FlutterDropzoneView>{};
   static final _readyCompleter = Completer<bool>();
-  static Future<bool> _isReady;
+  static late Future<bool> _isReady;
 
   static void registerWith(Registrar registrar) {
     final self = FlutterDropzonePlugin();
@@ -32,73 +32,73 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
     });
 
     if (const bool.fromEnvironment('FLUTTER_WEB_USE_SKIA', defaultValue: false))
-      html.document.head.append(
+      html.document.head?.append(
         html.StyleElement()..innerText = '@keyframes dropzoneReady {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}',
       );
 
-    html.document.body.append(html.ScriptElement()
+    html.document.body?.append(html.ScriptElement()
       ..src = 'assets/packages/flutter_dropzone_web/assets/flutter_dropzone.js'
       ..type = 'application/javascript'
       ..defer = true);
   }
 
   @override
-  void init(Map<String, dynamic> params, {@required int viewId}) {
-    _views[viewId].init(params);
+  void init(Map<String, dynamic> params, {required int viewId}) {
+    _views[viewId]!.init(params);
   }
 
   @override
-  Future<bool> setOperation(DragOperation operation, {@required int viewId}) {
-    return _views[viewId].setOperation(operation);
+  Future<bool> setOperation(DragOperation operation, {required int viewId}) {
+    return _views[viewId]!.setOperation(operation);
   }
 
   @override
-  Future<bool> setCursor(CursorType cursor, {@required int viewId}) {
-    return _views[viewId].setCursor(cursor);
+  Future<bool> setCursor(CursorType cursor, {required int viewId}) {
+    return _views[viewId]!.setCursor(cursor);
   }
 
   @override
-  Future<bool> setMIME(List<String> mime, {@required int viewId}) {
-    return _views[viewId].setMIME(mime);
+  Future<bool> setMIME(List<String> mime, {required int viewId}) {
+    return _views[viewId]!.setMIME(mime);
   }
 
   @override
-  Future<List<dynamic>> pickFiles(bool multiple, {@required int viewId}) {
-    return _views[viewId].pickFiles(multiple);
+  Future<List<dynamic>> pickFiles(bool multiple, {required int viewId}) {
+    return _views[viewId]!.pickFiles(multiple);
   }
 
   @override
-  Future<String> getFilename(dynamic htmlFile, {@required int viewId}) {
-    return _views[viewId].getFilename(htmlFile);
+  Future<String> getFilename(dynamic htmlFile, {required int viewId}) {
+    return _views[viewId]!.getFilename(htmlFile);
   }
 
   @override
-  Future<int> getFileSize(dynamic htmlFile, {@required int viewId}) {
-    return _views[viewId].getFileSize(htmlFile);
+  Future<int> getFileSize(dynamic htmlFile, {required int viewId}) {
+    return _views[viewId]!.getFileSize(htmlFile);
   }
 
   @override
-  Future<String> getFileMIME(dynamic htmlFile, {@required int viewId}) {
-    return _views[viewId].getFileMIME(htmlFile);
+  Future<String> getFileMIME(dynamic htmlFile, {required int viewId}) {
+    return _views[viewId]!.getFileMIME(htmlFile);
   }
 
   @override
-  Future<String> createFileUrl(dynamic htmlFile, {@required int viewId}) {
-    return _views[viewId].createFileUrl(htmlFile);
+  Future<String> createFileUrl(dynamic htmlFile, {required int viewId}) {
+    return _views[viewId]!.createFileUrl(htmlFile);
   }
 
   @override
-  Future<bool> releaseFileUrl(String fileUrl, {@required int viewId}) {
-    return _views[viewId].releaseFileUrl(fileUrl);
+  Future<bool> releaseFileUrl(String fileUrl, {required int viewId}) {
+    return _views[viewId]!.releaseFileUrl(fileUrl);
   }
 
   @override
-  Future<Uint8List> getFileData(dynamic htmlFile, {@required int viewId}) {
-    return _views[viewId].getFileData(htmlFile);
+  Future<Uint8List> getFileData(dynamic htmlFile, {required int viewId}) {
+    return _views[viewId]!.getFileData(htmlFile);
   }
 
   @override
-  Widget buildView(Map<String, dynamic> creationParams, Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers, PlatformViewCreatedCallback onPlatformViewCreated) => FutureBuilder<bool>(
+  Widget buildView(Map<String, dynamic> creationParams, Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers, PlatformViewCreatedCallback onPlatformViewCreated) => FutureBuilder<bool>(
         future: _isReady,
         builder: (context, snapshot) {
           if (snapshot.hasData) {

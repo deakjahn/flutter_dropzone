@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +10,7 @@ class HtmlElementViewEx extends HtmlElementView {
   final PlatformViewCreatedCallback onPlatformViewCreated; //!!!
   final dynamic creationParams;
 
-  const HtmlElementViewEx({Key key, @required String viewType, this.onPlatformViewCreated, this.creationParams}) : super(key: key, viewType: viewType);
+  const HtmlElementViewEx({Key? key, required String viewType, required this.onPlatformViewCreated, this.creationParams}) : super(key: key, viewType: viewType);
 
   @override
   Widget build(BuildContext context) => PlatformViewLink(
@@ -49,14 +47,13 @@ class _HtmlElementViewControllerEx extends PlatformViewController {
   }
 
   @override
-  Future<void> clearFocus() => null;
+  Future<void> clearFocus() async {}
 
   @override
-  Future<void> dispatchPointerEvent(PointerEvent event) => null;
+  Future<void> dispatchPointerEvent(PointerEvent event) async {}
 
   @override
-  Future<void> dispose() {
-    if (_initialized) SystemChannels.platform_views.invokeMethod<void>('dispose', viewId);
-    return null;
+  Future<void> dispose() async {
+    if (_initialized) await SystemChannels.platform_views.invokeMethod<void>('dispose', viewId);
   }
 }

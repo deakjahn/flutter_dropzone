@@ -1,3 +1,9 @@
+# Changelog
+
+## [2.0.0] - 2021-02-24
+
+* Null safety
+
 ## [1.0.10] - 2021-02-14
 
 * README typo(https://github.com/deakjahn/flutter_dropzone/issues/21).

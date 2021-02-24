@@ -11,10 +11,10 @@ import 'package:js/js.dart';
 
 class FlutterDropzoneView {
   final int viewId;
-  DivElement container;
-  List<String> mime;
-  DragOperation operation;
-  CursorType cursor;
+  late DivElement container;
+  List<String>? mime;
+  DragOperation? operation;
+  CursorType? cursor;
 
   FlutterDropzoneView(this.viewId) {
     container = DivElement()
@@ -32,9 +32,9 @@ class FlutterDropzoneView {
           allowInterop(_onDrop),
           allowInterop(_onLeave),
         );
-        if (mime != null) setMIME(mime);
-        if (operation != null) setOperation(operation);
-        if (cursor != null) setCursor(cursor);
+        if (mime != null) setMIME(mime!);
+        if (operation != null) setOperation(operation!);
+        if (cursor != null) setCursor(cursor!);
       });
     if (!_isCanvasKit())
       container.append(
@@ -94,7 +94,7 @@ class FlutterDropzoneView {
     final completer = Completer<Uint8List>();
     final reader = FileReader();
     reader.readAsArrayBuffer(file);
-    reader.onLoad.listen((_) => completer.complete(reader.result));
+    reader.onLoad.listen((_) => completer.complete(reader.result as Uint8List));
     return completer.future;
   }
 

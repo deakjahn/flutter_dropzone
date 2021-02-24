@@ -12,29 +12,29 @@ typedef DropzoneViewCreatedCallback = void Function(DropzoneViewController contr
 // https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop
 
 class DropzoneView extends StatefulWidget {
-  final DragOperation operation;
-  final CursorType cursor;
-  final List<String> mime;
-  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
-  final DropzoneViewCreatedCallback onCreated;
+  final DragOperation? operation;
+  final CursorType? cursor;
+  final List<String>? mime;
+  final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
+  final DropzoneViewCreatedCallback? onCreated;
 
   /// Event called when the dropzone view has been loaded.
-  final VoidCallback onLoaded;
+  final VoidCallback? onLoaded;
 
   /// Event called if the dropzone view has an eror.
-  final ValueChanged<String> onError;
+  final ValueChanged<String?>? onError;
 
   /// Event called when the dropzone view is hovered during a drag-drop.
-  final VoidCallback onHover;
+  final VoidCallback? onHover;
 
   /// Event called when the user drops a file onto the dropzone.
   final ValueChanged<dynamic> onDrop;
 
   /// Event called when the user leaves a dropzone.
-  final VoidCallback onLeave;
+  final VoidCallback? onLeave;
 
   const DropzoneView({
-    Key key,
+    Key? key,
     this.operation,
     this.cursor,
     this.mime,
@@ -43,7 +43,7 @@ class DropzoneView extends StatefulWidget {
     this.onLoaded,
     this.onError,
     this.onHover,
-    @required this.onDrop,
+    required this.onDrop,
     this.onLeave,
   }) : super(key: key);
 
@@ -78,27 +78,25 @@ class DropzoneViewController {
     if (widget.onLoaded != null) {
       FlutterDropzonePlatform.instance //
           .onLoaded(viewId: viewId)
-          .listen((_) => widget.onLoaded());
+          .listen((_) => widget.onLoaded!());
     }
     if (widget.onError != null) {
       FlutterDropzonePlatform.instance //
           .onError(viewId: viewId)
-          .listen((msg) => widget.onError(msg.value));
+          .listen((msg) => widget.onError!(msg.value));
     }
     if (widget.onHover != null) {
       FlutterDropzonePlatform.instance //
           .onHover(viewId: viewId)
-          .listen((msg) => widget.onHover());
+          .listen((msg) => widget.onHover!());
     }
-    if (widget.onDrop != null) {
-      FlutterDropzonePlatform.instance //
+    FlutterDropzonePlatform.instance //
         .onDrop(viewId: viewId)
         .listen((msg) => widget.onDrop(msg.value));
-    }
     if (widget.onLeave != null) {
       FlutterDropzonePlatform.instance //
-        .onLeave(viewId: viewId)
-        .listen((msg) => widget.onLeave());
+          .onLeave(viewId: viewId)
+          .listen((msg) => widget.onLeave!());
     }
   }
 

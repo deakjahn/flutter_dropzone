@@ -30,22 +30,22 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   }
 
   /// Internal function to set up the platform view.
-  void init(Map<String, dynamic> params, {@required int viewId}) {
+  void init(Map<String, dynamic> params, {required int viewId}) {
     throw UnimplementedError('init');
   }
 
   /// Specify the [DragOperation] while dragging the file.
-  Future<bool> setOperation(DragOperation operation, {@required int viewId}) async {
+  Future<bool> setOperation(DragOperation operation, {required int viewId}) async {
     throw UnimplementedError('setOperation');
   }
 
   /// Specify the [CursorType] of the dropzone. [CursorType] is one the CSS cursor types.
-  Future<bool> setCursor(CursorType cursor, {@required int viewId}) async {
+  Future<bool> setCursor(CursorType cursor, {required int viewId}) async {
     throw UnimplementedError('setCursor');
   }
 
   /// Specify the list of accepted MIME types.
-  Future<bool> setMIME(List<String> mime, {@required int viewId}) async {
+  Future<bool> setMIME(List<String> mime, {required int viewId}) async {
     throw UnimplementedError('setMIME');
   }
 
@@ -53,79 +53,79 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   ///
   /// Set [multiple] to allow picking more than one file.
   /// Returns the list of files picked by the user.
-  Future<List<dynamic>> pickFiles(bool multiple, {@required int viewId}) async {
+  Future<List<dynamic>> pickFiles(bool multiple, {required int viewId}) async {
     throw UnimplementedError('pickFiles');
   }
 
   /// Get the filename of the passed HTML file.
-  Future<String> getFilename(dynamic htmlFile, {@required int viewId}) async {
+  Future<String> getFilename(dynamic htmlFile, {required int viewId}) async {
     throw UnimplementedError('getFilename');
   }
 
   /// Get the size of the passed HTML file.
-  Future<int> getFileSize(dynamic htmlFile, {@required int viewId}) async {
+  Future<int> getFileSize(dynamic htmlFile, {required int viewId}) async {
     throw UnimplementedError('getFileSize');
   }
 
   /// Get the MIME type of the passed HTML file.
-  Future<String> getFileMIME(dynamic htmlFile, {@required int viewId}) async {
+  Future<String> getFileMIME(dynamic htmlFile, {required int viewId}) async {
     throw UnimplementedError('getFileMIME');
   }
 
   /// Create a temporary URL to the passed HTML file.
   ///
   /// When finished, the URL should be released using [releaseFileUrl()].
-  Future<String> createFileUrl(dynamic htmlFile, {@required int viewId}) async {
+  Future<String> createFileUrl(dynamic htmlFile, {required int viewId}) async {
     throw UnimplementedError('createFileUrl');
   }
 
   /// Release a temporary URL previously created using [createFileUrl()].
-  Future<bool> releaseFileUrl(String fileUrl, {@required int viewId}) async {
+  Future<bool> releaseFileUrl(String fileUrl, {required int viewId}) async {
     throw UnimplementedError('releaseFileUrl');
   }
 
   /// Get the contents of the passed HTML file.
-  Future<Uint8List> getFileData(dynamic htmlFile, {@required int viewId}) async {
+  Future<Uint8List> getFileData(dynamic htmlFile, {required int viewId}) async {
     throw UnimplementedError('getFileData');
   }
 
   /// Event called when the dropzone view has been loaded.
-  Stream<DropzoneLoadedEvent> onLoaded({@required int viewId}) {
+  Stream<DropzoneLoadedEvent> onLoaded({required int viewId}) {
     return events.stream //
         .where((event) => event.viewId == viewId && event is DropzoneLoadedEvent)
         .cast<DropzoneLoadedEvent>();
   }
 
   /// Event called if the dropzone view has an eror.
-  Stream<DropzoneErrorEvent> onError({@required int viewId}) {
+  Stream<DropzoneErrorEvent> onError({required int viewId}) {
     return events.stream //
         .where((event) => event.viewId == viewId && event is DropzoneErrorEvent)
         .cast<DropzoneErrorEvent>();
   }
 
   /// Event called when the user hovers over a dropzone.
-  Stream<DropzoneHoverEvent> onHover({@required int viewId}) {
+  Stream<DropzoneHoverEvent> onHover({required int viewId}) {
     return events.stream //
         .where((event) => event.viewId == viewId && event is DropzoneHoverEvent)
         .cast<DropzoneHoverEvent>();
   }
 
   /// Event called when the user drops a file onto the dropzone.
-  Stream<DropzoneDropEvent> onDrop({@required int viewId}) {
+  Stream<DropzoneDropEvent> onDrop({required int viewId}) {
     return events.stream //
         .where((event) => event.viewId == viewId && event is DropzoneDropEvent)
         .cast<DropzoneDropEvent>();
   }
 
   /// Event called when the user leaves a dropzone.
-  Stream<DropzoneLeaveEvent> onLeave({@required int viewId}) {
+  Stream<DropzoneLeaveEvent> onLeave({required int viewId}) {
     return events.stream //
         .where((event) => event.viewId == viewId && event is DropzoneLeaveEvent)
         .cast<DropzoneLeaveEvent>();
   }
 
   /// Internal function to build the platform view.
-  Widget buildView(Map<String, dynamic> creationParams, Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers, PlatformViewCreatedCallback onPlatformViewCreated) {
+  Widget buildView(Map<String, dynamic> creationParams, Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers, PlatformViewCreatedCallback onPlatformViewCreated) {
     throw UnimplementedError('buildView');
   }
 
@@ -136,7 +136,7 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
 
 class DropzoneEvent<T> {
   final int viewId;
-  final T value;
+  final T? value;
 
   DropzoneEvent(this.viewId, [this.value]);
 }

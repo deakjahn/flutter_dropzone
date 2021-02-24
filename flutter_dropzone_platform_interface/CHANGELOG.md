@@ -1,3 +1,9 @@
+# Changelog
+
+## [2.0.0] - 2021-02-24
+
+* Null safety
+
 ## [1.0.3] - 2020-08-18
 
 * Fix [#7](https://github.com/deakjahn/flutter_dropzone/issues/7).
