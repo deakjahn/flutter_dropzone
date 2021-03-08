@@ -15,7 +15,7 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   static final _views = <int, FlutterDropzoneView>{};
   static final _readyCompleter = Completer<bool>();
-  static late Future<bool> _isReady;
+  static late final Future<bool> _isReady;
 
   static void registerWith(Registrar registrar) {
     final self = FlutterDropzonePlugin();

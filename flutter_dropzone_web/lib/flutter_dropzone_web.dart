@@ -11,7 +11,7 @@ import 'package:js/js.dart';
 
 class FlutterDropzoneView {
   final int viewId;
-  late DivElement container;
+  late final DivElement container;
   List<String>? mime;
   DragOperation? operation;
   CursorType? cursor;
