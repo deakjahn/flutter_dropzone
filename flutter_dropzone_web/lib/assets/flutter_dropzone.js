@@ -62,14 +62,17 @@ var flutter_dropzone_web = {
 
   setMIME: function(container, mime) {
     container.FlutterDropzone.setMIME(mime);
+    return true;
   },
 
   setOperation: function(container, operation) {
     container.FlutterDropzone.setOperation(operation);
+    return true;
   },
 
   setCursor: function(container, cursor) {
     container.style.cursor = cursor;
+    return true;
   },
 
   create: function(container, onLoaded, onError, onHover, onDrop, onLeave) {
