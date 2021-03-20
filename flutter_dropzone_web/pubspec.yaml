@@ -30,5 +30,4 @@ flutter:
         fileName: flutter_dropzone_plugin.dart
 
   assets:
-    - packages/flutter_dropzone_web/assets/flutter_dropzone.css
     - packages/flutter_dropzone_web/assets/flutter_dropzone.js

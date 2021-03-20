@@ -1,4 +1,0 @@
-@keyframes dropzoneReady {
-  from { clip: rect(1px, auto, auto, auto); }
-  to { clip: rect(0px, auto, auto, auto); }
-}

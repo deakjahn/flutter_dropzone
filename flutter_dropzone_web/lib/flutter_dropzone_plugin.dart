@@ -31,11 +31,6 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
       return view.container;
     });
 
-    html.document.head!.append(html.LinkElement()
-      ..rel = 'stylesheet'
-      ..type = 'text/css'
-      ..href = 'assets/packages/flutter_dropzone_web/assets/flutter_dropzone.css');
-
     html.document.body!.append(html.ScriptElement()
       ..src = 'assets/packages/flutter_dropzone_web/assets/flutter_dropzone.js' // ignore: unsafe_html
       ..type = 'application/javascript'

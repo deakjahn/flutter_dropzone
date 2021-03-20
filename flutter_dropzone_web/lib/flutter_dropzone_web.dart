@@ -21,7 +21,9 @@ class FlutterDropzoneView {
       ..id = 'dropzone-container-$viewId'
       ..style.pointerEvents = 'auto'
       ..style.border = 'none'
-      ..style.animationName = 'dropzoneReady' // idea from https://keithclark.co.uk/articles/working-with-elements-before-the-dom-is-ready/
+      // idea from https://keithclark.co.uk/articles/working-with-elements-before-the-dom-is-ready/
+      ..append(StyleElement()..innerText = '@keyframes dropzoneReady {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}')
+      ..style.animationName = 'dropzoneReady'
       ..style.animationDuration = '0.001s'
       ..addEventListener('animationstart', (event) {
         _nativeCreate(
@@ -36,10 +38,6 @@ class FlutterDropzoneView {
         if (operation != null) setOperation(operation!);
         if (cursor != null) setCursor(cursor!);
       });
-    if (!_isCanvasKit())
-      container.append(
-        StyleElement()..innerText = '@keyframes dropzoneReady {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}',
-      );
   }
 
   void init(Map<String, dynamic> params) {
