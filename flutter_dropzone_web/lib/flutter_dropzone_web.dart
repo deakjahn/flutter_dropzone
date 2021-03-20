@@ -17,13 +17,14 @@ class FlutterDropzoneView {
   CursorType? cursor;
 
   FlutterDropzoneView(this.viewId) {
+    final id = 'dropzone-container-$viewId';
     container = DivElement()
-      ..id = 'dropzone-container-$viewId'
+      ..id = id
       ..style.pointerEvents = 'auto'
       ..style.border = 'none'
       // idea from https://keithclark.co.uk/articles/working-with-elements-before-the-dom-is-ready/
-      ..append(StyleElement()..innerText = '@keyframes dropzoneReady {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}')
-      ..style.animationName = 'dropzoneReady'
+      ..append(StyleElement()..innerText = '@keyframes $id-animation {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}')
+      ..style.animationName = '$id-animation'
       ..style.animationDuration = '0.001s'
       ..addEventListener('animationstart', (event) {
         _nativeCreate(
