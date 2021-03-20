@@ -107,9 +107,6 @@ class FlutterDropzoneView {
   void _onLeave(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
 }
 
-@JS('isCanvasKit')
-external bool _isCanvasKit();
-
 @JS('create')
 external void _nativeCreate(dynamic container, Function onLoaded, Function onError, Function onHover, Function onDrop, Function onLeave);
 
