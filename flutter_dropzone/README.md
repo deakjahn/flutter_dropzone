@@ -9,11 +9,11 @@ It exposes a single platform view, `DropzoneView`:
 DropzoneView(
   operation: DragOperation.copy,
   cursor: CursorType.grab,
-  onCreated: (ctrl) => controller = ctrl,
+  onCreated: (DropzoneViewController ctrl) => controller = ctrl,
   onLoaded: () => print('Zone loaded'),
-  onError: (ev) => print('Error: $ev'),
+  onError: (String? ev) => print('Error: $ev'),
   onHover: () => print('Zone hovered'),
-  onDrop: (ev) => print('Drop: $ev'),
+  onDrop: (dynamic ev) => print('Drop: $ev'),
   onLeave: () => print('Zone left'),
 );
 ```
@@ -30,21 +30,7 @@ Stack(
 )
 ```
 
-## Using it in cross-platform apps
-
-It's a federated plugin, meaning that it will compile in cross platform apps that contain both Android/iOS and Web code.
-It will *not* function on the former, the view will simply return an error text instead of a drop zone. Use `if (kIsWeb)` from
-`import 'package:flutter/foundation.dart'` to only use it in Flutter Web. Still, the same app will still compile to
-Android and iOS, without the usual `dart:html` errors (this is what federated plugins are for).
-
 ## Using the controller
-
-There is a convenience function, `pickFiles()` on the controller returned by the view. It simply opens the usual File Open dialog
-in the browser and lets the user pick some files. It has nothing to do with the drag-and-drop operation (although it is the other
-possible way to select files) but by putting it into the web side of a federated plugin we can make sure it doesn't hurt the
-compilation on other platforms.
-
-*  `Future<List<dynamic>> pickFiles(bool multiple);`
 
 Because the files returned are HTML File API references with serious limitations, they can't be converted to regular Dart
 `File` objects. They are returned as `dynamic` objects and the controller has functions to extract information from these objects:
@@ -63,3 +49,17 @@ You can get a temporary URL using:
 
 but this will only be valid for the session. It's a regular URL, so you can use it to display the image the same way like loading
 from a regular web URL. Release it when you're done with the image.
+
+There is a convenience function, `pickFiles()` on the controller returned by the view. It simply opens the usual File Open dialog
+in the browser and lets the user pick some files. It has nothing to do with the drag-and-drop operation (although it is the other
+possible way to select files) but by putting it into the web side of a federated plugin we can make sure it doesn't hurt the
+compilation on other platforms.
+
+*  `Future<List<dynamic>> pickFiles(bool multiple);`
+
+## Using it in cross-platform apps
+
+It's a federated plugin, meaning that it will compile in cross platform apps that contain both Android/iOS and Web code.
+It will *not* function on the former, the view will simply return an error text instead of a drop zone. Use `if (kIsWeb)` from
+`import 'package:flutter/foundation.dart'` to only use it in Flutter Web. Still, the same app will still compile to
+Android and iOS, without the usual `dart:html` errors (this is what federated plugins are for).
