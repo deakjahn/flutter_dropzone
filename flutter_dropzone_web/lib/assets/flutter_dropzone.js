@@ -40,7 +40,7 @@ class FlutterDropzone {
       for (var i = 0; i < event.dataTransfer.items.length; i++) {
         var item = event.dataTransfer.items[i];
         var match = (item.kind === 'file');
-        if (this.dropMIME != null && !this.dropMIME.includes(item.mime))
+        if (this.dropMIME != null && !this.dropMIME.includes(item.type))
           match = false;
 
         if (match) {
