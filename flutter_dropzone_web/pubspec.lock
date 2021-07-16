@@ -58,9 +58,11 @@ packages:
   flutter_dropzone_platform_interface:
     dependency: "direct main"
     description:
-      path: "../flutter_dropzone_platform_interface"
-      relative: true
-    source: path
+      path: flutter_dropzone_platform_interface
+      ref: HEAD
+      resolved-ref: "94bf0641178d32abd150e6b06f066f6d5580b4f9"
+      url: "https://github.com/Supernova-Studio/flutter_dropzone.git"
+    source: git
     version: "2.0.0"
   flutter_test:
     dependency: "direct dev"
