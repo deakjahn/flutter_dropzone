@@ -28,7 +28,7 @@ class DropzoneView extends StatefulWidget {
   final VoidCallback? onHover;
 
   /// Event called when the user drops a file onto the dropzone.
-  final ValueChanged<dynamic> onDrop;
+  final void Function(dynamic file, ) onDrop;
 
   /// Event called when the user leaves a dropzone.
   final VoidCallback? onLeave;

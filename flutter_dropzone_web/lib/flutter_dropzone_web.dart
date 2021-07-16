@@ -115,6 +115,10 @@ class FlutterDropzoneView {
     window.console.log(event);
     FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
   }
+
+  void _pointerInfoFromMouseEvent(MouseEvent event) {
+
+  }
 }
 
 @JS('create')

@@ -153,15 +153,30 @@ class DropzoneErrorEvent extends DropzoneEvent<String> {
 
 /// Event called when the user hovers over a dropzone.
 class DropzoneHoverEvent extends DropzoneEvent {
-  DropzoneHoverEvent(int viewId) : super(viewId, null);
+  final DropzonePointerInfo pointerInfo;
+
+  DropzoneHoverEvent(int viewId, this.pointerInfo) : super(viewId, null);
 }
 
 /// Event called when the user drops a file onto the dropzone.
 class DropzoneDropEvent extends DropzoneEvent<dynamic> {
-  DropzoneDropEvent(int viewId, dynamic file) : super(viewId, file);
+  final DropzonePointerInfo pointerInfo;
+
+  DropzoneDropEvent(int viewId, dynamic file, this.pointerInfo) : super(viewId, file);
 }
 
 /// Event called when the user leaves a dropzone.
 class DropzoneLeaveEvent extends DropzoneEvent {
-  DropzoneLeaveEvent(int viewId) : super(viewId, null);
+  final DropzonePointerInfo pointerInfo;
+
+  DropzoneLeaveEvent(int viewId, this.pointerInfo) : super(viewId, null);
+}
+
+class DropzonePointerInfo {
+  final double x;
+  final double y;
+  final double screenX;
+  final double screenY;
+
+  DropzonePointerInfo(this.x, this.y, this.screenX, this.screenY);
 }
