@@ -23,7 +23,8 @@ class FlutterDropzoneView {
       ..style.pointerEvents = 'auto'
       ..style.border = 'none'
       // idea from https://keithclark.co.uk/articles/working-with-elements-before-the-dom-is-ready/
-      ..append(StyleElement()..innerText = '@keyframes $id-animation {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}')
+      ..append(StyleElement()
+        ..innerText = '@keyframes $id-animation {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}')
       ..style.animationName = '$id-animation'
       ..style.animationDuration = '0.001s'
       ..addEventListener('animationstart', (event) {
@@ -103,21 +104,26 @@ class FlutterDropzoneView {
 
   void _onHover(MouseEvent event) {
     window.console.log(event);
-    FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId));
+    FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId, _pointerInfoFromMouseEvent(event)));
   }
 
   void _onDrop(MouseEvent event, File data) {
     window.console.log(event);
-    FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
+    FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data, _pointerInfoFromMouseEvent(event)));
   }
 
   void _onLeave(MouseEvent event) {
     window.console.log(event);
-    FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
+    FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId, _pointerInfoFromMouseEvent(event)));
   }
 
-  void _pointerInfoFromMouseEvent(MouseEvent event) {
-
+  DropzonePointerInfo _pointerInfoFromMouseEvent(MouseEvent event) {
+    return DropzonePointerInfo(
+      event.client.x.toDouble(),
+      event.client.y.toDouble(),
+      event.screen.x.toDouble(),
+      event.screen.y.toDouble(),
+    );
   }
 }
 

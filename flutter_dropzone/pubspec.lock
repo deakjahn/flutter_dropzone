@@ -60,7 +60,7 @@ packages:
     description:
       path: flutter_dropzone_platform_interface
       ref: HEAD
-      resolved-ref: c5fd6bcbdecc3ee97ce5b406a6011619f8929f09
+      resolved-ref: "69332678154412971f69d19bb437f18218729f97"
       url: "https://github.com/Supernova-Studio/flutter_dropzone.git"
     source: git
     version: "2.0.0"
@@ -69,7 +69,7 @@ packages:
     description:
       path: flutter_dropzone_web
       ref: HEAD
-      resolved-ref: c5fd6bcbdecc3ee97ce5b406a6011619f8929f09
+      resolved-ref: "69332678154412971f69d19bb437f18218729f97"
       url: "https://github.com/Supernova-Studio/flutter_dropzone.git"
     source: git
     version: "2.0.3"
@@ -117,14 +117,14 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.11.0"
+    version: "1.11.1"
   plugin_platform_interface:
     dependency: "direct dev"
     description:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   sky_engine:
     dependency: transitive
     description: flutter

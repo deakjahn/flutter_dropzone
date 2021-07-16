@@ -25,13 +25,13 @@ class DropzoneView extends StatefulWidget {
   final ValueChanged<String?>? onError;
 
   /// Event called when the dropzone view is hovered during a drag-drop.
-  final VoidCallback? onHover;
+  final ValueChanged<DropzonePointerInfo>? onHover;
 
   /// Event called when the user drops a file onto the dropzone.
-  final void Function(dynamic file, ) onDrop;
+  final void Function(dynamic file, DropzonePointerInfo pointerInfo) onDrop;
 
   /// Event called when the user leaves a dropzone.
-  final VoidCallback? onLeave;
+  final ValueChanged<DropzonePointerInfo>? onLeave;
 
   const DropzoneView({
     Key? key,
@@ -88,15 +88,15 @@ class DropzoneViewController {
     if (widget.onHover != null) {
       FlutterDropzonePlatform.instance //
           .onHover(viewId: viewId)
-          .listen((msg) => widget.onHover!());
+          .listen((msg) => widget.onHover!(msg.pointerInfo));
     }
     FlutterDropzonePlatform.instance //
         .onDrop(viewId: viewId)
-        .listen((msg) => widget.onDrop(msg.value));
+        .listen((msg) => widget.onDrop(msg.value, msg.pointerInfo));
     if (widget.onLeave != null) {
       FlutterDropzonePlatform.instance //
           .onLeave(viewId: viewId)
-          .listen((msg) => widget.onLeave!());
+          .listen((msg) => widget.onLeave!(msg.pointerInfo));
     }
   }
 
