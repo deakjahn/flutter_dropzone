@@ -101,11 +101,20 @@ class FlutterDropzoneView {
 
   void _onError(String error) => FlutterDropzonePlatform.instance.events.add(DropzoneErrorEvent(viewId, error));
 
-  void _onHover(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId));
+  void _onHover(MouseEvent event) {
+    window.console.log(event);
+    FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId));
+  }
 
-  void _onDrop(MouseEvent event, File data) => FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
+  void _onDrop(MouseEvent event, File data) {
+    window.console.log(event);
+    FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
+  }
 
-  void _onLeave(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
+  void _onLeave(MouseEvent event) {
+    window.console.log(event);
+    FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
+  }
 }
 
 @JS('create')
