@@ -103,17 +103,14 @@ class FlutterDropzoneView {
   void _onError(String error) => FlutterDropzonePlatform.instance.events.add(DropzoneErrorEvent(viewId, error));
 
   void _onHover(MouseEvent event) {
-    window.console.log(event);
     FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId, _pointerInfoFromMouseEvent(event)));
   }
 
   void _onDrop(MouseEvent event, File data) {
-    window.console.log(event);
     FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data, _pointerInfoFromMouseEvent(event)));
   }
 
   void _onLeave(MouseEvent event) {
-    window.console.log(event);
     FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId, _pointerInfoFromMouseEvent(event)));
   }
 
