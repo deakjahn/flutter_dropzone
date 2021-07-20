@@ -60,7 +60,7 @@ packages:
     description:
       path: flutter_dropzone_platform_interface
       ref: HEAD
-      resolved-ref: "69332678154412971f69d19bb437f18218729f97"
+      resolved-ref: c464563f5a9237b2631c9055ca2044a4d4c67b20
       url: "https://github.com/Supernova-Studio/flutter_dropzone.git"
     source: git
     version: "2.0.0"
@@ -69,7 +69,7 @@ packages:
     description:
       path: flutter_dropzone_web
       ref: HEAD
-      resolved-ref: "69332678154412971f69d19bb437f18218729f97"
+      resolved-ref: c464563f5a9237b2631c9055ca2044a4d4c67b20
       url: "https://github.com/Supernova-Studio/flutter_dropzone.git"
     source: git
     version: "2.0.3"
