@@ -26,6 +26,8 @@ class FlutterDropzoneView {
       ..append(StyleElement()..innerText = '@keyframes $id-animation {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}')
       ..style.animationName = '$id-animation'
       ..style.animationDuration = '0.001s'
+      ..style.width = '100%'
+      ..style.height = '100%'
       ..addEventListener('animationstart', (event) {
         _nativeCreate(
           container,
