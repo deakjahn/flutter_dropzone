@@ -74,7 +74,7 @@ class DropzoneViewController {
   final int viewId;
   final DropzoneView widget;
 
-  DropzoneViewController._create(this.viewId, this.widget) : assert(FlutterDropzonePlatform.instance != null) {
+  DropzoneViewController._create(this.viewId, this.widget) {
     if (widget.onLoaded != null) {
       FlutterDropzonePlatform.instance //
           .onLoaded(viewId: viewId)
