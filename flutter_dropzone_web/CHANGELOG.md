@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.0.4] - 2021-09-09
+
+* Fix [#29](https://github.com/deakjahn/flutter_dropzone/pull/29).
+* Flutter fixed (https://github.com/flutter/flutter/issues/56181).
+
 ## [2.0.3] - 2021-06-10
 
 * Fix [#27](https://github.com/deakjahn/flutter_dropzone/pull/27).

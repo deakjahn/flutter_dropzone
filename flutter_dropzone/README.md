@@ -5,7 +5,7 @@ A Flutter Web plugin to handle drag-and-drop (files) *into* Flutter. If you're i
 
 It exposes a single platform view, `DropzoneView`: 
 
-``` dart
+```dart
 DropzoneView(
   operation: DragOperation.copy,
   cursor: CursorType.grab,
@@ -21,7 +21,7 @@ DropzoneView(
 The view itself has no display, it's just the dropzone area. Use a `Stack` to put it into the background of other widgets that
 provide your UI:
 
-``` dart
+```dart
 Stack(
   children: [
     DropzoneView(...),
