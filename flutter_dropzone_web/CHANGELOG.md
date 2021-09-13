@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.5] - 2021-09-13
+
+* Temporarily reverting Flutter fix (https://github.com/flutter/flutter/issues/56181).
+
 ## [2.0.4] - 2021-09-09
 
 * Fix [#29](https://github.com/deakjahn/flutter_dropzone/pull/29).
