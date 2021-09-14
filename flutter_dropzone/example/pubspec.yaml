@@ -14,7 +14,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_dropzone: ^2.1.0
+  flutter_dropzone: ^3.0.0
   pedantic: ^1.11.0
 
 dev_dependency_overrides:
