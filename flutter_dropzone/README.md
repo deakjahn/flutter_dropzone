@@ -64,7 +64,7 @@ It will *not* function on the former, the view will simply return an error text 
 `import 'package:flutter/foundation.dart'` to only use it in Flutter Web. Still, the same app will still compile to
 Android and iOS, without the usual `dart:html` errors (this is what federated plugins are for).
 
-### Breaking changes
+## Breaking changes
 
 3.0.0 had to be a breaking change because a bug I reported earlier was fixed in Flutter 2.5 stable: https://github.com/flutter/flutter/issues/56181
 

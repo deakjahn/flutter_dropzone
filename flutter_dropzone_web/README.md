@@ -20,7 +20,7 @@ dependencies:
 
 Once you have `flutter_dropzone` in `pubspec.yaml` you should be able to use `package:flutter_dropzone` as normal.
 
-### Breaking changes
+## Breaking changes
 
 3.0.0 had to be a breaking change because a bug I reported earlier was fixed in Flutter 2.5 stable: https://github.com/flutter/flutter/issues/56181
 
