@@ -63,3 +63,11 @@ It's a federated plugin, meaning that it will compile in cross platform apps tha
 It will *not* function on the former, the view will simply return an error text instead of a drop zone. Use `if (kIsWeb)` from
 `import 'package:flutter/foundation.dart'` to only use it in Flutter Web. Still, the same app will still compile to
 Android and iOS, without the usual `dart:html` errors (this is what federated plugins are for).
+
+### Breaking changes
+
+2.1.0 had to be a breaking change because a bug I reported earlier was fixed in Flutter 2.5 stable: https://github.com/flutter/flutter/issues/56181
+
+Previously, as a workaround, the plugin had its own modified version of `HtmlElementView` but with the fix, it's no longer necessary. However, leaving it out would break
+the functioning of the plugin for people how haven't yet moved on to 2.5. You have to stay with the latest 2.0.x version of `flutter_dropzone` if you're not yet ready to upgrade
+your Flutter for any reason.

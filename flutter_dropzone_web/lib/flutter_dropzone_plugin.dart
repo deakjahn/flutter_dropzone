@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
 import 'package:flutter_dropzone_web/flutter_dropzone_web.dart';
-import 'package:flutter_dropzone_web/html_element_view.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 class FlutterDropzonePlugin extends FlutterDropzonePlatform {
@@ -97,7 +96,7 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
         future: _isReady,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return HtmlElementViewEx(
+            return HtmlElementView(
               viewType: 'com.creativephotocloud.plugins/dropzone',
               onPlatformViewCreated: onPlatformViewCreated,
             );
