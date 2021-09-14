@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.1] - 2021-09-14
+
+* Fix [#31](https://github.com/deakjahn/flutter_dropzone/issues/31).
+
 ## [3.0.0] - 2021-09-14
 
 * Breaking change: Fix (https://github.com/flutter/flutter/issues/56181). This version is compatible with Flutter 2.5 (stable) and later.
