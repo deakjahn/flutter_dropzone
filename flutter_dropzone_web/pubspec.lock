@@ -61,7 +61,14 @@ packages:
       name: flutter_dropzone_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.2"
+  flutter_lints:
+    dependency: "direct dev"
+    description:
+      name: flutter_lints
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -79,6 +86,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  lints:
+    dependency: transitive
+    description:
+      name: lints
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   matcher:
     dependency: transitive
     description:
@@ -100,20 +114,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  pedantic:
-    dependency: "direct dev"
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.11.1"
   plugin_platform_interface:
     dependency: transitive
     description:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   sky_engine:
     dependency: transitive
     description: flutter

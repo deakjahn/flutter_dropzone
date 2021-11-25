@@ -92,6 +92,11 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
+  Stream<List<int>> getFileStream(dynamic htmlFile, {required int viewId}) {
+    return _views[viewId]!.getFileStream(htmlFile);
+  }
+
+  @override
   Widget buildView(Map<String, dynamic> creationParams, Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers, PlatformViewCreatedCallback onPlatformViewCreated) => FutureBuilder<bool>(
         future: _isReady,
         builder: (context, snapshot) {
@@ -101,9 +106,9 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
               onPlatformViewCreated: onPlatformViewCreated,
             );
           } else if (snapshot.hasError)
-            return Center(child: Text('Error loading library'));
+            return const Center(child: Text('Error loading library'));
           else
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
         },
       );
 }

@@ -154,4 +154,9 @@ class DropzoneViewController {
   Future<Uint8List> getFileData(dynamic htmlFile) {
     return FlutterDropzonePlatform.instance.getFileData(htmlFile, viewId: viewId);
   }
+
+  /// Get the contents of the passed HTML file as a chunked stream.
+  Stream<List<int>> getFileStream(dynamic htmlFile) {
+    return FlutterDropzonePlatform.instance.getFileStream(htmlFile, viewId: viewId);
+  }
 }

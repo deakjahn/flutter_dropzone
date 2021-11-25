@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.2] - 2021-11-25
+
+* getFileStream() added. Fix [#42](https://github.com/deakjahn/flutter_dropzone/issues/42).
+
 ## [3.0.0] - 2021-09-14
 
 * Breaking change: Fix (https://github.com/flutter/flutter/issues/56181). This version is compatible with Flutter 2.5 (stable) and later.

@@ -39,6 +39,7 @@ Because the files returned are HTML File API references with serious limitations
 *  `Future<int> getFileSize(dynamic htmlFile);`
 *  `Future<String> getFileMIME(dynamic htmlFile);`
 *  `Future<Uint8List> getFileData(dynamic htmlFile);`
+*  `Stream<List<int>> getFileStream(dynamic htmlFile);`
 
 You can't have a permanent link to the file (and no file path, either). If you need to retain the full file data, use `getFileData()`
 to get the actual contents and store it yourself into localStorage, IndexedDB, uploading to your server, whatever.

@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.2] - 2021-11-25
+
+* Fix [#42](https://github.com/deakjahn/flutter_dropzone/issues/42).
+
 ## [3.0.1] - 2021-09-14
 
 * Fix [#31](https://github.com/deakjahn/flutter_dropzone/issues/31).

@@ -99,6 +99,20 @@ class FlutterDropzoneView {
     return completer.future;
   }
 
+  Stream<List<int>> getFileStream(File file) async* {
+    const int chunkSize = 1024 * 1024;
+    final reader = FileReader();
+    int start = 0;
+    while (start < file.size) {
+      final end = start + chunkSize > file.size ? file.size : start + chunkSize;
+      final blob = file.slice(start, end);
+      reader.readAsArrayBuffer(blob);
+      await reader.onLoad.first;
+      yield reader.result as List<int>;
+      start += chunkSize;
+    }
+  }
+
   void _onLoaded() => FlutterDropzonePlatform.instance.events.add(DropzoneLoadedEvent(viewId));
 
   void _onError(String error) => FlutterDropzonePlatform.instance.events.add(DropzoneErrorEvent(viewId, error));
