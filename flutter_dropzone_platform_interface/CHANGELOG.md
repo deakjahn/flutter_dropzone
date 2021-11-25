@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.1] - 2021-11-25
+
+* getFileStream() added
+
 ## [2.0.0] - 2021-02-24
 
 * Null safety
