@@ -90,7 +90,7 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   }
 
   /// Get the contents of the passed HTML file as a chunked stream.
-  Stream<List<int>> getFileStream(dynamic htmlFile) async* {
+  Stream<List<int>> getFileStream(dynamic htmlFile, {required int viewId}) async* {
     throw UnimplementedError('getFileStream');
   }
 
