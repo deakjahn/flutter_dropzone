@@ -65,6 +65,11 @@ class MethodChannelFlutterDropzone extends FlutterDropzonePlatform {
   }
 
   @override
+  Stream<List<int>> getFileStream(dynamic htmlFile, {required int viewId}) async* {
+    throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
+  }
+
+  @override
   Widget buildView(Map<String, dynamic> creationParams, Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers, PlatformViewCreatedCallback onPlatformViewCreated) {
     return Text('DropzoneView: $defaultTargetPlatform is not supported');
   }
