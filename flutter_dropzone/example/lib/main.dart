@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
           onLeave: () => print('Zone 2 left'),
           onDrop: (ev) {
             print('Zone 2 drop: ${ev.name}');
-            setState(() async {
+            setState(() {
               message2 = '${ev.name} dropped';
             });
             final stream = controller2.getFileStream(ev);
