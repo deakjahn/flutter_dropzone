@@ -62,12 +62,14 @@ class _MyAppState extends State<MyApp> {
             setState(() => highlighted1 = false);
             print('Zone 1 left');
           },
-          onDrop: (ev) {
+          onDrop: (ev) async {
             print('Zone 1 drop: ${ev.name}');
             setState(() {
               message1 = '${ev.name} dropped';
               highlighted1 = false;
             });
+            final bytes = await controller1.getFileData(ev);
+            print(bytes.sublist(0, 20));
           },
         ),
       );
@@ -82,9 +84,11 @@ class _MyAppState extends State<MyApp> {
           onLeave: () => print('Zone 2 left'),
           onDrop: (ev) {
             print('Zone 2 drop: ${ev.name}');
-            setState(() {
+            setState(() async {
               message2 = '${ev.name} dropped';
             });
+            final stream = controller2.getFileStream(ev);
+            print(stream);
           },
         ),
       );
