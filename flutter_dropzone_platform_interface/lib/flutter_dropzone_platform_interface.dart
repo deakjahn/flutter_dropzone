@@ -72,6 +72,11 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
     throw UnimplementedError('getFileMIME');
   }
 
+  /// Get the last modified data of the passed HTML file.
+  Future<DateTime> getFileLastModified(dynamic htmlFile, {required int viewId}) async {
+    throw UnimplementedError('getFileLastModified');
+  }
+
   /// Create a temporary URL to the passed HTML file.
   ///
   /// When finished, the URL should be released using [releaseFileUrl()].

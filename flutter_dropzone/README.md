@@ -38,6 +38,7 @@ Because the files returned are HTML File API references with serious limitations
 *  `Future<String> getFilename(dynamic htmlFile);`
 *  `Future<int> getFileSize(dynamic htmlFile);`
 *  `Future<String> getFileMIME(dynamic htmlFile);`
+*  `Future<DateTime> getFileLastModified(dynamic htmlFile);`
 *  `Future<Uint8List> getFileData(dynamic htmlFile);`
 *  `Stream<List<int>> getFileStream(dynamic htmlFile);`
 

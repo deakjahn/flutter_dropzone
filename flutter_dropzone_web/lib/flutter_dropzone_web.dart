@@ -82,6 +82,10 @@ class FlutterDropzoneView {
     return file.type;
   }
 
+  Future<DateTime> getFileLastModified(File file) async {
+    return file.lastModifiedDate;
+  }
+
   Future<String> createFileUrl(File file) async {
     return Url.createObjectUrlFromBlob(file);
   }
