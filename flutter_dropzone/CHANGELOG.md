@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.3] - 2021-11-27
+
+* getFileLastModified() added
+
 ## [3.0.2] - 2021-11-25
 
 * getFileStream() added. Fix [#42](https://github.com/deakjahn/flutter_dropzone/issues/42).
