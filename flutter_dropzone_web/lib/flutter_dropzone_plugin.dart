@@ -77,6 +77,11 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
+  Future<DateTime> getFileLastModified(dynamic htmlFile, {required int viewId}) {
+    return _views[viewId]!.getFileLastModified(htmlFile);
+  }
+
+  @override
   Future<String> createFileUrl(dynamic htmlFile, {required int viewId}) {
     return _views[viewId]!.createFileUrl(htmlFile);
   }

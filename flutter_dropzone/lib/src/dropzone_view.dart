@@ -138,6 +138,11 @@ class DropzoneViewController {
     return FlutterDropzonePlatform.instance.getFileMIME(htmlFile, viewId: viewId);
   }
 
+  /// Get the last modified date of the passed HTML file.
+  Future<DateTime> getFileLastModified(dynamic htmlFile) {
+    return FlutterDropzonePlatform.instance.getFileLastModified(htmlFile, viewId: viewId);
+  }
+
   /// Create a temporary URL to the passed HTML file.
   ///
   /// When finished, the URL should be released using [releaseFileUrl()].

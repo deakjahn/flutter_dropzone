@@ -50,6 +50,11 @@ class MethodChannelFlutterDropzone extends FlutterDropzonePlatform {
   }
 
   @override
+  Future<DateTime> getFileLastModified(dynamic htmlFile, {required int viewId}) async {
+    throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
+  }
+
+  @override
   Future<String> createFileUrl(dynamic htmlFile, {required int viewId}) async {
     throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
   }
