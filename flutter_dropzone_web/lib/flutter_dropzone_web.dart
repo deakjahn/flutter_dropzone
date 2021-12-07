@@ -64,8 +64,13 @@ class FlutterDropzoneView {
   Future<List<dynamic>> pickFiles(bool multiple) {
     final completer = Completer<List<dynamic>>();
     final picker = FileUploadInputElement();
+    final isSafari = window.navigator.userAgent.toLowerCase().contains('safari');
+    if (isSafari) document.body!.append(picker);
     picker.multiple = multiple;
-    picker.onChange.listen((_) => completer.complete(picker.files));
+    picker.onChange.listen((_) {
+      completer.complete(picker.files);
+      if (isSafari) picker.remove();
+    });
     picker.click();
     return completer.future;
   }
