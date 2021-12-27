@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.4] - 2021-12-27
+
+* Fix [#48](https://github.com/deakjahn/flutter_dropzone/issues/48).
+
 ## [2.0.3] - 2021-11-27
 
 * getFileLastModified() added

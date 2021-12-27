@@ -30,7 +30,7 @@ class MethodChannelFlutterDropzone extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<List<dynamic>> pickFiles(bool multiple, {required int viewId}) {
+  Future<List<dynamic>> pickFiles(bool multiple, {List<String> mime = const [], required int viewId}) {
     throw UnsupportedError('DropzoneView: $defaultTargetPlatform is not supported');
   }
 

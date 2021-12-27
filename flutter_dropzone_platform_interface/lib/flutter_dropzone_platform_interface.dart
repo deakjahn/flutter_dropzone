@@ -52,8 +52,9 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   /// Convenience function to display the browser File Open dialog.
   ///
   /// Set [multiple] to allow picking more than one file.
+  /// Specify the list of accepted MIME types in [mime].
   /// Returns the list of files picked by the user.
-  Future<List<dynamic>> pickFiles(bool multiple, {required int viewId}) async {
+  Future<List<dynamic>> pickFiles(bool multiple, {List<String> mime = const [], required int viewId}) async {
     throw UnimplementedError('pickFiles');
   }
 
