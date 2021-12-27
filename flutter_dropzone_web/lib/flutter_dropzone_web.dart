@@ -23,9 +23,7 @@ class FlutterDropzoneView {
       ..style.pointerEvents = 'auto'
       ..style.border = 'none'
       // idea from https://keithclark.co.uk/articles/working-with-elements-before-the-dom-is-ready/
-      ..append(StyleElement()
-        ..innerText =
-            '@keyframes $id-animation {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}')
+      ..append(StyleElement()..innerText = '@keyframes $id-animation {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}')
       ..style.animationName = '$id-animation'
       ..style.animationDuration = '0.001s'
       ..style.width = '100%'
@@ -60,16 +58,16 @@ class FlutterDropzoneView {
   }
 
   Future<bool> setCursor(CursorType cursor) async {
-    return _nativeSetCursor(
-        container, describeEnum(cursor).toLowerCase().replaceAll('_', '-'));
+    return _nativeSetCursor(container, describeEnum(cursor).toLowerCase().replaceAll('_', '-'));
   }
 
-  Future<List<dynamic>> pickFiles(bool multiple) {
+  Future<List<dynamic>> pickFiles(bool multiple, List<String> mime) {
     final completer = Completer<List<dynamic>>();
     final picker = FileUploadInputElement();
     final isSafari = window.navigator.userAgent.toLowerCase().contains('safari');
     if (isSafari) document.body!.append(picker);
     picker.multiple = multiple;
+    if (mime.isNotEmpty) picker.accept = mime.join(',');
     picker.onChange.listen((_) {
       completer.complete(picker.files);
       if (isSafari) picker.remove();
@@ -91,9 +89,7 @@ class FlutterDropzoneView {
   }
 
   Future<DateTime> getFileLastModified(File file) async {
-    return file.lastModified != null
-        ? DateTime.fromMillisecondsSinceEpoch(file.lastModified!)
-        : file.lastModifiedDate;
+    return file.lastModified != null ? DateTime.fromMillisecondsSinceEpoch(file.lastModified!) : file.lastModifiedDate;
   }
 
   Future<String> createFileUrl(File file) async {
@@ -127,26 +123,19 @@ class FlutterDropzoneView {
     }
   }
 
-  void _onLoaded() =>
-      FlutterDropzonePlatform.instance.events.add(DropzoneLoadedEvent(viewId));
+  void _onLoaded() => FlutterDropzonePlatform.instance.events.add(DropzoneLoadedEvent(viewId));
 
-  void _onError(String error) => FlutterDropzonePlatform.instance.events
-      .add(DropzoneErrorEvent(viewId, error));
+  void _onError(String error) => FlutterDropzonePlatform.instance.events.add(DropzoneErrorEvent(viewId, error));
 
-  void _onHover(MouseEvent event) =>
-      FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId));
+  void _onHover(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId));
 
-  void _onDrop(MouseEvent event, File data) =>
-      FlutterDropzonePlatform.instance.events
-          .add(DropzoneDropEvent(viewId, data));
+  void _onDrop(MouseEvent event, File data) => FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
 
-  void _onLeave(MouseEvent event) =>
-      FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
+  void _onLeave(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
 }
 
 @JS('create')
-external void _nativeCreate(dynamic container, Function onLoaded,
-    Function onError, Function onHover, Function onDrop, Function onLeave);
+external void _nativeCreate(dynamic container, Function onLoaded, Function onError, Function onHover, Function onDrop, Function onLeave);
 
 @JS('setMIME')
 external bool _nativeSetMIME(dynamic container, List<String> mime);
