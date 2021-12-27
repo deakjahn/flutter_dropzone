@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -41,6 +43,12 @@ class _MyAppState extends State<MyApp> {
                     Center(child: Text(message2)),
                   ],
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  print(await controller1.pickFiles(mime: ['image/jpeg', 'image/png']));
+                },
+                child: const Text('Pick file'),
               ),
             ],
           ),

@@ -119,8 +119,8 @@ class DropzoneViewController {
   ///
   /// Set [multiple] to allow picking more than one file.
   /// Returns the list of files picked by the user.
-  Future<List<dynamic>> pickFiles({bool multiple = false}) {
-    return FlutterDropzonePlatform.instance.pickFiles(multiple, viewId: viewId);
+  Future<List<dynamic>> pickFiles({bool multiple = false, List<String> mime = const []}) {
+    return FlutterDropzonePlatform.instance.pickFiles(multiple, mime: mime, viewId: viewId);
   }
 
   /// Get the filename of the passed HTML file.

@@ -57,7 +57,7 @@ in the browser and lets the user pick some files. It has nothing to do with the 
 possible way to select files) but by putting it into the web side of a federated plugin we can make sure it doesn't hurt the
 compilation on other platforms.
 
-*  `Future<List<dynamic>> pickFiles(bool multiple);`
+*  `Future<List<dynamic>> pickFiles(bool multiple, List<String> mime);`
 
 ## Using it in cross-platform apps
 
