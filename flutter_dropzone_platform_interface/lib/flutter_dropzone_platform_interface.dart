@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'dart:html';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -168,8 +169,8 @@ class DropzoneHoverEvent extends DropzoneEvent {
 }
 
 /// Event called when the user drops a file onto the dropzone.
-class DropzoneDropEvent extends DropzoneEvent<dynamic> {
-  DropzoneDropEvent(int viewId, dynamic file) : super(viewId, file);
+class DropzoneDropEvent extends DropzoneEvent<List<dynamic>> {
+  DropzoneDropEvent(int viewId, List<dynamic> files) : super(viewId, files.cast<File>());
 }
 
 /// Event called when the user leaves a dropzone.

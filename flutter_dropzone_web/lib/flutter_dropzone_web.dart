@@ -129,7 +129,7 @@ class FlutterDropzoneView {
 
   void _onHover(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId));
 
-  void _onDrop(MouseEvent event, File data) => FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
+  void _onDrop(MouseEvent event, List<dynamic> data) => FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data));
 
   void _onLeave(MouseEvent event) => FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
 }

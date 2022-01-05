@@ -36,6 +36,8 @@ class FlutterDropzone {
   drop_handler(event) {
     event.preventDefault();
 
+    var files = [];
+
     if (event.dataTransfer.items) {
       for (var i = 0; i < event.dataTransfer.items.length; i++) {
         var item = event.dataTransfer.items[i];
@@ -45,13 +47,15 @@ class FlutterDropzone {
 
         if (match) {
           var file = event.dataTransfer.items[i].getAsFile();
-          this.onDrop(event, file);
+          files.push(file);
         }
       }
     } else {
       for (var i = 0; i < ev.dataTransfer.files.length; i++)
-        this.onDrop(event, event.dataTransfer.files[i]);
+        files.push(event.dataTransfer.files[i]);
     }
+
+    this.onDrop(event, files);
   }
 
   setMIME(mime) {
