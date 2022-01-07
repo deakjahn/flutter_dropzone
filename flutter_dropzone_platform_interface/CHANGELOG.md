@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.5] - 2022-01-07
+
+* First step [#49](https://github.com/deakjahn/flutter_dropzone/pull/49).
+
 ## [2.0.4] - 2021-12-27
 
 * Fix [#48](https://github.com/deakjahn/flutter_dropzone/issues/48).
