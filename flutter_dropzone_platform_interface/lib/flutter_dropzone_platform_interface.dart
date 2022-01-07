@@ -107,7 +107,7 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
         .cast<DropzoneLoadedEvent>();
   }
 
-  /// Event called if the dropzone view has an eror.
+  /// Event called if the dropzone view has an error.
   Stream<DropzoneErrorEvent> onError({required int viewId}) {
     return events.stream //
         .where((event) => event.viewId == viewId && event is DropzoneErrorEvent)
@@ -126,6 +126,13 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
     return events.stream //
         .where((event) => event.viewId == viewId && event is DropzoneDropEvent)
         .cast<DropzoneDropEvent>();
+  }
+
+  /// Event called when the user drops multiple files onto the dropzone.
+  Stream<DropzoneDropMultipleEvent> onDropMultiple({required int viewId}) {
+    return events.stream //
+        .where((event) => event.viewId == viewId && event is DropzoneDropMultipleEvent)
+        .cast<DropzoneDropMultipleEvent>();
   }
 
   /// Event called when the user leaves a dropzone.
@@ -157,7 +164,7 @@ class DropzoneLoadedEvent extends DropzoneEvent {
   DropzoneLoadedEvent(int viewId) : super(viewId, null);
 }
 
-/// Event called if the dropzone view has an eror.
+/// Event called if the dropzone view has an error.
 class DropzoneErrorEvent extends DropzoneEvent<String> {
   DropzoneErrorEvent(int viewId, String error) : super(viewId, error);
 }
@@ -170,6 +177,11 @@ class DropzoneHoverEvent extends DropzoneEvent {
 /// Event called when the user drops a file onto the dropzone.
 class DropzoneDropEvent extends DropzoneEvent<dynamic> {
   DropzoneDropEvent(int viewId, dynamic file) : super(viewId, file);
+}
+
+/// Event called when the user drops multiple files onto the dropzone.
+class DropzoneDropMultipleEvent extends DropzoneEvent<List<dynamic>> {
+  DropzoneDropMultipleEvent(int viewId, List<dynamic> files) : super(viewId, files);
 }
 
 /// Event called when the user leaves a dropzone.
