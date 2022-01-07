@@ -79,6 +79,9 @@ class _MyAppState extends State<MyApp> {
             final bytes = await controller1.getFileData(ev);
             print(bytes.sublist(0, 20));
           },
+          onDropMultiple: (ev) async {
+            print('Zone 1 drop multiple: $ev');
+          },
         ),
       );
 
@@ -96,7 +99,10 @@ class _MyAppState extends State<MyApp> {
               message2 = '${ev.name} dropped';
             });
             final stream = controller2.getFileStream(ev);
-            print(stream);
+            print(stream.take(20));
+          },
+          onDropMultiple: (ev) async {
+            print('Zone 2 drop multiple: $ev');
           },
         ),
       );

@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_dropzone_platform_interface: ^2.0.4
+  flutter_dropzone_platform_interface: ^2.0.5
   flutter_dropzone_web: ^3.0.7
 
 dev_dependencies:

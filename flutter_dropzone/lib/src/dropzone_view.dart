@@ -21,14 +21,17 @@ class DropzoneView extends StatefulWidget {
   /// Event called when the dropzone view has been loaded.
   final VoidCallback? onLoaded;
 
-  /// Event called if the dropzone view has an eror.
+  /// Event called if the dropzone view has an error.
   final ValueChanged<String?>? onError;
 
   /// Event called when the dropzone view is hovered during a drag-drop.
   final VoidCallback? onHover;
 
   /// Event called when the user drops a file onto the dropzone.
-  final ValueChanged<dynamic> onDrop;
+  final ValueChanged<dynamic>? onDrop;
+
+  /// Event called when the user drops multiple files onto the dropzone.
+  final ValueChanged<List<dynamic>?>? onDropMultiple;
 
   /// Event called when the user leaves a dropzone.
   final VoidCallback? onLeave;
@@ -43,9 +46,11 @@ class DropzoneView extends StatefulWidget {
     this.onLoaded,
     this.onError,
     this.onHover,
-    required this.onDrop,
+    this.onDrop,
+    this.onDropMultiple,
     this.onLeave,
-  }) : super(key: key);
+  })  : assert(onDrop != null || onDropMultiple != null, 'Either onDrop or onDropMultiple is required'),
+        super(key: key);
 
   @override
   _DropzoneViewState createState() => _DropzoneViewState();
@@ -90,9 +95,16 @@ class DropzoneViewController {
           .onHover(viewId: viewId)
           .listen((msg) => widget.onHover!());
     }
-    FlutterDropzonePlatform.instance //
-        .onDrop(viewId: viewId)
-        .listen((msg) => widget.onDrop(msg.value));
+    if (widget.onDrop != null) {
+      FlutterDropzonePlatform.instance //
+          .onDrop(viewId: viewId)
+          .listen((msg) => widget.onDrop!(msg.value));
+    }
+    if (widget.onDropMultiple != null) {
+      FlutterDropzonePlatform.instance //
+          .onDropMultiple(viewId: viewId)
+          .listen((msg) => widget.onDropMultiple!(msg.value));
+    }
     if (widget.onLeave != null) {
       FlutterDropzonePlatform.instance //
           .onLeave(viewId: viewId)

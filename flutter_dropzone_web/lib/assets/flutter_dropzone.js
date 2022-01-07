@@ -1,8 +1,9 @@
 if (typeof FlutterDropzone === 'undefined') {
 class FlutterDropzone {
-  constructor(container, onLoaded, onError, onHover, onDrop, onLeave) {
+  constructor(container, onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave) {
     this.onHover = onHover;
     this.onDrop = onDrop;
+    this.onDropMultiple = onDropMultiple;
     this.onLeave = onLeave;
     this.dropMIME = null;
     this.dropOperation = 'copy';
@@ -14,9 +15,10 @@ class FlutterDropzone {
     if (onLoaded != null) onLoaded();
   }
 
-  updateHandlers(onLoaded, onError, onHover, onDrop, onLeave) {
+  updateHandlers(onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave) {
     this.onHover = onHover;
     this.onDrop = onDrop;
+    this.onDropMultiple = onDropMultiple;
     this.onLeave = onLeave;
     this.dropMIME = null;
     this.dropOperation = 'copy';
@@ -36,6 +38,7 @@ class FlutterDropzone {
   drop_handler(event) {
     event.preventDefault();
 
+    var files = [];
     if (event.dataTransfer.items) {
       for (var i = 0; i < event.dataTransfer.items.length; i++) {
         var item = event.dataTransfer.items[i];
@@ -45,13 +48,18 @@ class FlutterDropzone {
 
         if (match) {
           var file = event.dataTransfer.items[i].getAsFile();
-          this.onDrop(event, file);
+          if (this.onDrop != null) this.onDrop(event, file);
+          files.push(file);
         }
       }
     } else {
       for (var i = 0; i < ev.dataTransfer.files.length; i++)
-        this.onDrop(event, event.dataTransfer.files[i]);
+        var file = event.dataTransfer.files[i];
+        if (this.onDrop != null) this.onDrop(event, file);
+        files.push(file);
     }
+
+    if (this.onDropMultiple != null && files.length > 0) this.onDropMultiple(event, files);
   }
 
   setMIME(mime) {
@@ -79,11 +87,11 @@ var flutter_dropzone_web = {
     return true;
   },
 
-  create: function(container, onLoaded, onError, onHover, onDrop, onLeave) {
+  create: function(container, onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave) {
     if (container.FlutterDropzone === undefined)
-      container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onHover, onDrop, onLeave);
+      container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave);
     else
-      container.FlutterDropzone.updateHandlers(onLoaded, onError, onHover, onDrop, onLeave);
+      container.FlutterDropzone.updateHandlers(onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave);
   },
 };
 
