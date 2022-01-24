@@ -68,7 +68,7 @@ packages:
       name: flutter_dropzone
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.4"
+    version: "3.0.5"
   flutter_dropzone_platform_interface:
     dependency: transitive
     description:
@@ -82,7 +82,7 @@ packages:
       name: flutter_dropzone_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.7"
+    version: "3.0.8"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -141,7 +141,7 @@ packages:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.2"
   sky_engine:
     dependency: transitive
     description: flutter

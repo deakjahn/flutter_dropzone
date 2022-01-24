@@ -1,6 +1,7 @@
 if (typeof FlutterDropzone === 'undefined') {
 class FlutterDropzone {
   constructor(container, onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave) {
+    this.onError = onError;
     this.onHover = onHover;
     this.onDrop = onDrop;
     this.onDropMultiple = onDropMultiple;
@@ -16,6 +17,7 @@ class FlutterDropzone {
   }
 
   updateHandlers(onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave) {
+    this.onError = onError;
     this.onHover = onHover;
     this.onDrop = onDrop;
     this.onDropMultiple = onDropMultiple;
@@ -50,6 +52,9 @@ class FlutterDropzone {
           var file = event.dataTransfer.items[i].getAsFile();
           if (this.onDrop != null) this.onDrop(event, file);
           files.push(file);
+        }
+        else {
+          if (this.onError != null) this.onError("Wrong type");
         }
       }
     } else {
