@@ -132,7 +132,7 @@ if (typeof FlutterDropzone === "undefined") {
     }
   }
 
-  const flutter_dropzone_web = {
+  var flutter_dropzone_web = {
     setMIME: function (container, mime) {
       container.FlutterDropzone.setMIME(mime);
       return true;
