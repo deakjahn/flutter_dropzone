@@ -133,22 +133,22 @@ if (typeof FlutterDropzone === "undefined") {
   }
 
   const flutter_dropzone_web = {
-    setMIME(container, mime) {
+    setMIME: function (container, mime) {
       container.FlutterDropzone.setMIME(mime);
       return true;
     },
 
-    setOperation(container, operation) {
+    setOperation: function (container, operation) {
       container.FlutterDropzone.setOperation(operation);
       return true;
     },
 
-    setCursor(container, cursor) {
+    setCursor: function (container, cursor) {
       container.style.cursor = cursor;
       return true;
     },
 
-    create(
+    create: function (
       container,
       onLoaded,
       onError,
