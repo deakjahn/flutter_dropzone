@@ -60,7 +60,7 @@ if (typeof FlutterDropzone === "undefined") {
 
       const test = event.dataTransfer.getData("text");
       console.log("text");
-      console.log(text);
+      console.log(test);
       console.log(event.dataTransfer);
       console.log(event.dataTransfer.item);
       console.log("done");
