@@ -86,9 +86,8 @@ if (typeof FlutterDropzone === "undefined") {
               item.getAsString(function (text) {
                 if (that.onDrop) {
                   that.onDrop(event, text);
+                  strings.push(text);
                 }
-
-                strings.push(text);
               });
               break;
             default:
