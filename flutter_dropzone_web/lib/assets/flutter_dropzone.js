@@ -86,7 +86,7 @@ if (typeof FlutterDropzone === "undefined") {
 
               break;
             case "string":
-              const text = event.dataTransfer.items[i];
+              const text = event.dataTransfer.getAsString();
 
               if (this.onDrop) {
                 this.onDrop(event, text);
