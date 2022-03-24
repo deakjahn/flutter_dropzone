@@ -25,13 +25,15 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
     FlutterDropzonePlatform.instance = self;
 
     // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory('com.creativephotocloud.plugins/dropzone', (viewId) {
+    ui.platformViewRegistry.registerViewFactory(
+        'com.creativephotocloud.plugins/dropzone', (viewId) {
       final view = _views[viewId] = FlutterDropzoneView(viewId);
       return view.container;
     });
 
     html.document.body!.append(html.ScriptElement()
-      ..src = 'assets/packages/flutter_dropzone_web/assets/flutter_dropzone.js' // ignore: unsafe_html
+      ..src =
+          'assets/packages/flutter_dropzone_web/assets/flutter_dropzone.js' // ignore: unsafe_html
       ..type = 'application/javascript'
       ..defer = true);
   }
@@ -57,7 +59,8 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<List<dynamic>> pickFiles(bool multiple, {List<String> mime = const [], required int viewId}) {
+  Future<List<dynamic>> pickFiles(bool multiple,
+      {List<String> mime = const [], required int viewId}) {
     return _views[viewId]!.pickFiles(multiple, mime);
   }
 
@@ -77,7 +80,8 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<DateTime> getFileLastModified(dynamic htmlFile, {required int viewId}) {
+  Future<DateTime> getFileLastModified(dynamic htmlFile,
+      {required int viewId}) {
     return _views[viewId]!.getFileLastModified(htmlFile);
   }
 
@@ -102,7 +106,11 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Widget buildView(Map<String, dynamic> creationParams, Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers, PlatformViewCreatedCallback onPlatformViewCreated) => FutureBuilder<bool>(
+  Widget buildView(
+          Map<String, dynamic> creationParams,
+          Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers,
+          PlatformViewCreatedCallback onPlatformViewCreated) =>
+      FutureBuilder<bool>(
         future: _isReady,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
