@@ -24,7 +24,9 @@ if (typeof FlutterDropzone === "undefined") {
       );
       container.addEventListener("drop", this.drop_handler.bind(this));
 
-      if (onLoaded != null) onLoaded();
+      if (onLoaded) {
+        onLoaded();
+      }
     }
 
     updateHandlers(
@@ -47,12 +49,12 @@ if (typeof FlutterDropzone === "undefined") {
     dragover_handler(event) {
       event.preventDefault();
       event.dataTransfer.dropEffect = this.dropOperation;
-      if (this.onHover != null) this.onHover(event);
+      if (this.onHover) this.onHover(event);
     }
 
     dragleave_handler(event) {
       event.preventDefault();
-      if (this.onLeave != null) this.onLeave(event);
+      if (this.onLeave) this.onLeave(event);
     }
 
     drop_handler(event) {
@@ -64,31 +66,61 @@ if (typeof FlutterDropzone === "undefined") {
       console.log(event.dataTransfer);
       console.log("done");
 
-      var files = [];
+      const files = [];
+      const strings = [];
       if (event.dataTransfer.items) {
-        for (var i = 0; i < event.dataTransfer.items.length; i++) {
-          var item = event.dataTransfer.items[i];
-          var match = item.kind === "file";
-          if (this.dropMIME != null && !this.dropMIME.includes(item.type))
-            match = false;
+        for (let i = 0; i < event.dataTransfer.items.length; i += 1) {
+          const item = event.dataTransfer.items[i];
 
-          if (match) {
-            var file = event.dataTransfer.items[i].getAsFile();
-            if (this.onDrop != null) this.onDrop(event, file);
-            files.push(file);
-          } else {
-            if (this.onError != null) this.onError(`Wrong type: ${item.kind}`);
+          switch (item.kind) {
+            case "file":
+              if (!this.dropMIME || this.dropMIME.includes(item.type)) {
+                const file = event.dataTransfer.items[i].getAsFile();
+
+                if (this.onDrop) {
+                  this.onDrop(event, file);
+                }
+
+                files.push(file);
+              }
+
+              break;
+            case "string":
+              const text = event.dataTransfer.items[i].getAsString();
+
+              if (this.onDrop) {
+                this.onDrop(event, text);
+              }
+
+              strings.push(text);
+              break;
+            default:
+              if (this.onError) {
+                this.onError(`Wrong type: ${item.kind}`);
+              }
+              break;
           }
         }
       } else {
-        for (var i = 0; i < ev.dataTransfer.files.length; i++)
-          var file = event.dataTransfer.files[i];
-        if (this.onDrop != null) this.onDrop(event, file);
-        files.push(file);
+        // not sure if this is useful. maybe an IE thing?
+        for (let i = 0; i < event.dataTransfer.files.length; i += 1) {
+          const file = event.dataTransfer.files[i];
+          if (this.onDrop) {
+            this.onDrop(event, file);
+          }
+          files.push(file);
+        }
       }
 
-      if (this.onDropMultiple != null && files.length > 0)
-        this.onDropMultiple(event, files);
+      if (this.onDropMultiple) {
+        if (files.length > 0) {
+          this.onDropMultiple(event, files);
+        }
+
+        if (strings.length > 0) {
+          this.onDropMultiple(event, strings);
+        }
+      }
     }
 
     setMIME(mime) {
@@ -100,23 +132,23 @@ if (typeof FlutterDropzone === "undefined") {
     }
   }
 
-  var flutter_dropzone_web = {
-    setMIME: function (container, mime) {
+  const flutter_dropzone_web = {
+    setMIME(container, mime) {
       container.FlutterDropzone.setMIME(mime);
       return true;
     },
 
-    setOperation: function (container, operation) {
+    setOperation(container, operation) {
       container.FlutterDropzone.setOperation(operation);
       return true;
     },
 
-    setCursor: function (container, cursor) {
+    setCursor(container, cursor) {
       container.style.cursor = cursor;
       return true;
     },
 
-    create: function (
+    create(
       container,
       onLoaded,
       onError,
