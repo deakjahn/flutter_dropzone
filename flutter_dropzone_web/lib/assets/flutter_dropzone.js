@@ -58,11 +58,10 @@ if (typeof FlutterDropzone === "undefined") {
     drop_handler(event) {
       event.preventDefault();
 
-      const test = event.dataTransfer.getData("text");
-      console.log("text");
-      console.log(test);
+      const textData = event.dataTransfer.getData("text");
+      console.log("textData");
+      console.log(textData);
       console.log(event.dataTransfer);
-      console.log(event.dataTransfer.item);
       console.log("done");
 
       var files = [];
@@ -78,7 +77,7 @@ if (typeof FlutterDropzone === "undefined") {
             if (this.onDrop != null) this.onDrop(event, file);
             files.push(file);
           } else {
-            if (this.onError != null) this.onError("Wrong type");
+            if (this.onError != null) this.onError(`Wrong type: ${item.kind}`);
           }
         }
       } else {
