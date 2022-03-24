@@ -32,7 +32,7 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
     });
 
     html.document.body!.append(html.ScriptElement()
-      ..src = 'packages/flutter_dropzone_web/assets/flutter_dropzone.js'
+      ..src = 'assets/packages/flutter_dropzone_web/assets/flutter_dropzone.js'
       ..type = 'application/javascript'
       ..defer = true);
   }
