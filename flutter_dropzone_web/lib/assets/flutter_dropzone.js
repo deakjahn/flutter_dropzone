@@ -60,11 +60,8 @@ if (typeof FlutterDropzone === "undefined") {
     drop_handler(event) {
       event.preventDefault();
 
-      const textData = event.dataTransfer.getData("text");
-      console.log("textData");
-      console.log(textData);
-      console.log(event.dataTransfer);
-      console.log("done");
+      // could use this for string
+      // const textData = event.dataTransfer.getData("text");
 
       const files = [];
       const strings = [];
@@ -75,7 +72,7 @@ if (typeof FlutterDropzone === "undefined") {
           switch (item.kind) {
             case "file":
               if (!this.dropMIME || this.dropMIME.includes(item.type)) {
-                const file = event.dataTransfer.items[i].getAsFile();
+                const file = item.getAsFile();
 
                 if (this.onDrop) {
                   this.onDrop(event, file);
@@ -83,16 +80,15 @@ if (typeof FlutterDropzone === "undefined") {
 
                 files.push(file);
               }
-
               break;
             case "string":
-              const text = event.dataTransfer.getAsString();
+              const text = item.getAsString(function (s) {
+                if (this.onDrop) {
+                  this.onDrop(event, text);
+                }
 
-              if (this.onDrop) {
-                this.onDrop(event, text);
-              }
-
-              strings.push(text);
+                strings.push(text);
+              });
               break;
             default:
               if (this.onError) {
