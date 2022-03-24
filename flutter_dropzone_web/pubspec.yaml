@@ -14,7 +14,9 @@ dependencies:
     sdk: flutter
 
   flutter_dropzone_platform_interface:
-    path: ../flutter_dropzone_platform_interface
+    git:
+      url: https://github.com/sgehrman/flutter_dropzone
+      path: flutter_dropzone_platform_interface
 
   js: ^0.6.3
 
