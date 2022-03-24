@@ -82,9 +82,10 @@ if (typeof FlutterDropzone === "undefined") {
               }
               break;
             case "string":
+              const that = this;
               const text = item.getAsString(function (s) {
-                if (this.onDrop) {
-                  this.onDrop(event, text);
+                if (that.onDrop) {
+                  that.onDrop(event, text);
                 }
 
                 strings.push(text);
