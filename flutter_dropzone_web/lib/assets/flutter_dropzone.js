@@ -59,7 +59,11 @@ if (typeof FlutterDropzone === "undefined") {
       event.preventDefault();
 
       const test = event.dataTransfer.getData("text");
+      console.log("text");
       console.log(text);
+      console.log(event.dataTransfer);
+      console.log(event.dataTransfer.item);
+      console.log("done");
 
       var files = [];
       if (event.dataTransfer.items) {
