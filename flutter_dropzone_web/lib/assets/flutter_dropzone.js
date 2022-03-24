@@ -86,7 +86,7 @@ if (typeof FlutterDropzone === "undefined") {
 
               break;
             case "string":
-              const text = event.dataTransfer.items[i].getAsString();
+              const text = event.dataTransfer.items[i];
 
               if (this.onDrop) {
                 this.onDrop(event, text);
@@ -132,6 +132,7 @@ if (typeof FlutterDropzone === "undefined") {
     }
   }
 
+  // must be var, some kind of wacko global
   var flutter_dropzone_web = {
     setMIME: function (container, mime) {
       container.FlutterDropzone.setMIME(mime);
