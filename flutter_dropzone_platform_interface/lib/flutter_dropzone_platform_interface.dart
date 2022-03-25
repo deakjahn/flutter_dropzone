@@ -10,7 +10,43 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'method_channel_flutter_dropzone.dart';
 
 enum DragOperation { copy, move, link, copyMove, copyLink, linkMove, all }
-enum CursorType { alias, all_scroll, auto, cell, context_menu, col_resize, copy, crosshair, Default, e_resize, ew_resize, grab, grabbing, help, move, n_resize, ne_resize, nesw_resize, ns_resize, nw_resize, nwse_resize, no_drop, none, not_allowed, pointer, progress, row_resize, s_resize, se_resize, sw_resize, text, w_resize, wait, zoom_in, zoom_out }
+enum CursorType {
+  alias,
+  all_scroll,
+  auto,
+  cell,
+  context_menu,
+  col_resize,
+  copy,
+  crosshair,
+  Default,
+  e_resize,
+  ew_resize,
+  grab,
+  grabbing,
+  help,
+  move,
+  n_resize,
+  ne_resize,
+  nesw_resize,
+  ns_resize,
+  nw_resize,
+  nwse_resize,
+  no_drop,
+  none,
+  not_allowed,
+  pointer,
+  progress,
+  row_resize,
+  s_resize,
+  se_resize,
+  sw_resize,
+  text,
+  w_resize,
+  wait,
+  zoom_in,
+  zoom_out
+}
 
 abstract class FlutterDropzonePlatform extends PlatformInterface {
   static final _token = Object();
@@ -35,7 +71,8 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   }
 
   /// Specify the [DragOperation] while dragging the file.
-  Future<bool> setOperation(DragOperation operation, {required int viewId}) async {
+  Future<bool> setOperation(DragOperation operation,
+      {required int viewId}) async {
     throw UnimplementedError('setOperation');
   }
 
@@ -54,7 +91,8 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   /// Set [multiple] to allow picking more than one file.
   /// Specify the list of accepted MIME types in [mime].
   /// Returns the list of files picked by the user.
-  Future<List<dynamic>> pickFiles(bool multiple, {List<String> mime = const [], required int viewId}) async {
+  Future<List<dynamic>> pickFiles(bool multiple,
+      {List<String> mime = const [], required int viewId}) async {
     throw UnimplementedError('pickFiles');
   }
 
@@ -74,7 +112,8 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   }
 
   /// Get the last modified data of the passed HTML file.
-  Future<DateTime> getFileLastModified(dynamic htmlFile, {required int viewId}) async {
+  Future<DateTime> getFileLastModified(dynamic htmlFile,
+      {required int viewId}) async {
     throw UnimplementedError('getFileLastModified');
   }
 
@@ -96,14 +135,16 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   }
 
   /// Get the contents of the passed HTML file as a chunked stream.
-  Stream<List<int>> getFileStream(dynamic htmlFile, {required int viewId}) async* {
+  Stream<List<int>> getFileStream(dynamic htmlFile,
+      {required int viewId}) async* {
     throw UnimplementedError('getFileStream');
   }
 
   /// Event called when the dropzone view has been loaded.
   Stream<DropzoneLoadedEvent> onLoaded({required int viewId}) {
     return events.stream //
-        .where((event) => event.viewId == viewId && event is DropzoneLoadedEvent)
+        .where(
+            (event) => event.viewId == viewId && event is DropzoneLoadedEvent)
         .cast<DropzoneLoadedEvent>();
   }
 
@@ -131,7 +172,8 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   /// Event called when the user drops multiple files onto the dropzone.
   Stream<DropzoneDropMultipleEvent> onDropMultiple({required int viewId}) {
     return events.stream //
-        .where((event) => event.viewId == viewId && event is DropzoneDropMultipleEvent)
+        .where((event) =>
+            event.viewId == viewId && event is DropzoneDropMultipleEvent)
         .cast<DropzoneDropMultipleEvent>();
   }
 
@@ -143,7 +185,10 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   }
 
   /// Internal function to build the platform view.
-  Widget buildView(Map<String, dynamic> creationParams, Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers, PlatformViewCreatedCallback onPlatformViewCreated) {
+  Widget buildView(
+      Map<String, dynamic> creationParams,
+      Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers,
+      PlatformViewCreatedCallback onPlatformViewCreated) {
     throw UnimplementedError('buildView');
   }
 
@@ -181,7 +226,8 @@ class DropzoneDropEvent extends DropzoneEvent<dynamic> {
 
 /// Event called when the user drops multiple files onto the dropzone.
 class DropzoneDropMultipleEvent extends DropzoneEvent<List<dynamic>> {
-  DropzoneDropMultipleEvent(int viewId, List<dynamic> files) : super(viewId, files);
+  DropzoneDropMultipleEvent(int viewId, List<dynamic> files)
+      : super(viewId, files);
 }
 
 /// Event called when the user leaves a dropzone.
