@@ -25,7 +25,7 @@ packages:
     description:
       path: flutter_dropzone_platform_interface
       ref: HEAD
-      resolved-ref: e047e12acda308a90568d8c6fe19f7b7da0e3be6
+      resolved-ref: "2930dac973b124637d01bd7fd14941695f9bc751"
       url: "https://github.com/sgehrman/flutter_dropzone"
     source: git
     version: "4.0.0"

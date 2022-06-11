@@ -18,23 +18,11 @@ class DropzoneView extends StatefulWidget {
   final List<String>? mime;
   final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
   final DropzoneViewCreatedCallback? onCreated;
-
-  /// Event called when the dropzone view has been loaded.
   final VoidCallback? onLoaded;
-
-  /// Event called if the dropzone view has an error.
   final ValueChanged<String?>? onError;
-
-  /// Event called when the dropzone view is hovered during a drag-drop.
   final VoidCallback? onHover;
-
-  /// Event called when the user drops a file onto the dropzone.
   final ValueChanged<dynamic>? onDrop;
-
-  /// Event called when the user drops multiple files onto the dropzone.
   final ValueChanged<List<dynamic>?>? onDropMultiple;
-
-  /// Event called when the user leaves a dropzone.
   final VoidCallback? onLeave;
 
   const DropzoneView({
