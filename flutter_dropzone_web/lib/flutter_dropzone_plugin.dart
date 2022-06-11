@@ -106,21 +106,22 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
 
   @override
   Widget buildView(
-          Map<String, dynamic> creationParams,
-          Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers,
-          PlatformViewCreatedCallback onPlatformViewCreated) =>
-      FutureBuilder<bool>(
-        future: _isReady,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return HtmlElementView(
-              viewType: 'com.creativephotocloud.plugins/dropzone',
-              onPlatformViewCreated: onPlatformViewCreated,
-            );
-          } else if (snapshot.hasError)
-            return const Center(child: Text('Error loading library'));
-          else
-            return const Center(child: CircularProgressIndicator());
-        },
-      );
+      Map<String, dynamic> creationParams,
+      Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers,
+      PlatformViewCreatedCallback onPlatformViewCreated) {
+    return FutureBuilder<bool>(
+      future: _isReady,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return HtmlElementView(
+            viewType: 'com.creativephotocloud.plugins/dropzone',
+            onPlatformViewCreated: onPlatformViewCreated,
+          );
+        } else if (snapshot.hasError)
+          return const SizedBox(); //  const Center(child: Text('Error loading library'));
+        else
+          return const SizedBox(); // const Center(child: CircularProgressIndicator());
+      },
+    );
+  }
 }
