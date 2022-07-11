@@ -1,5 +1,46 @@
 # Changelog
 
+## [3.0.8] - 2022-01-10
+
+* Implement [#49](https://github.com/deakjahn/flutter_dropzone/pull/49).
+
+## [3.0.7] - 2021-12-27
+
+* Fix [#48](https://github.com/deakjahn/flutter_dropzone/pull/48).
+
+## [3.0.6] - 2021-12-09
+
+* Fix [#47](https://github.com/deakjahn/flutter_dropzone/pull/47).
+
+## [3.0.5] - 2021-12-07
+
+* Fix [#45](https://github.com/deakjahn/flutter_dropzone/issues/45).
+
+## [3.0.4] - 2021-11-27
+
+* getFileLastModified() added
+
+## [3.0.2] - 2021-11-25
+
+* Fix [#42](https://github.com/deakjahn/flutter_dropzone/issues/42).
+
+## [3.0.1] - 2021-09-14
+
+* Fix [#31](https://github.com/deakjahn/flutter_dropzone/issues/31).
+
+## [3.0.0] - 2021-09-14
+
+* Breaking change: Fix (https://github.com/flutter/flutter/issues/56181). This version is compatible with Flutter 2.5 (stable) and later.
+
+## [2.0.5] - 2021-09-13
+
+* Temporarily reverting Flutter fix (https://github.com/flutter/flutter/issues/56181).
+
+## [2.0.4] - 2021-09-09
+
+* Fix [#29](https://github.com/deakjahn/flutter_dropzone/pull/29).
+* Flutter fixed (https://github.com/flutter/flutter/issues/56181).
+
 ## [2.0.3] - 2021-06-10
 
 * Fix [#27](https://github.com/deakjahn/flutter_dropzone/pull/27).

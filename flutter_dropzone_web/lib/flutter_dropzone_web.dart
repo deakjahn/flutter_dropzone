@@ -27,6 +27,8 @@ class FlutterDropzoneView {
         ..innerText = '@keyframes $id-animation {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}')
       ..style.animationName = '$id-animation'
       ..style.animationDuration = '0.001s'
+      ..style.width = '100%'
+      ..style.height = '100%'
       ..addEventListener('animationstart', (event) {
         _nativeCreate(
           container,
@@ -34,6 +36,7 @@ class FlutterDropzoneView {
           allowInterop(_onError),
           allowInterop(_onHover),
           allowInterop(_onDrop),
+          allowInterop(_onDropMultiple),
           allowInterop(_onLeave),
         );
         if (mime != null) setMIME(mime!);
@@ -60,11 +63,17 @@ class FlutterDropzoneView {
     return _nativeSetCursor(container, describeEnum(cursor).toLowerCase().replaceAll('_', '-'));
   }
 
-  Future<List<dynamic>> pickFiles(bool multiple) {
+  Future<List<dynamic>> pickFiles(bool multiple, List<String> mime) {
     final completer = Completer<List<dynamic>>();
     final picker = FileUploadInputElement();
+    final isSafari = window.navigator.userAgent.toLowerCase().contains('safari');
+    if (isSafari) document.body!.append(picker);
     picker.multiple = multiple;
-    picker.onChange.listen((_) => completer.complete(picker.files));
+    if (mime.isNotEmpty) picker.accept = mime.join(',');
+    picker.onChange.listen((_) {
+      completer.complete(picker.files);
+      if (isSafari) picker.remove();
+    });
     picker.click();
     return completer.future;
   }
@@ -79,6 +88,10 @@ class FlutterDropzoneView {
 
   Future<String> getFileMIME(File file) async {
     return file.type;
+  }
+
+  Future<DateTime> getFileLastModified(File file) async {
+    return file.lastModified != null ? DateTime.fromMillisecondsSinceEpoch(file.lastModified!) : file.lastModifiedDate;
   }
 
   Future<String> createFileUrl(File file) async {
@@ -98,6 +111,20 @@ class FlutterDropzoneView {
     return completer.future;
   }
 
+  Stream<List<int>> getFileStream(File file) async* {
+    const int chunkSize = 1024 * 1024;
+    final reader = FileReader();
+    int start = 0;
+    while (start < file.size) {
+      final end = start + chunkSize > file.size ? file.size : start + chunkSize;
+      final blob = file.slice(start, end);
+      reader.readAsArrayBuffer(blob);
+      await reader.onLoad.first;
+      yield reader.result as List<int>;
+      start += chunkSize;
+    }
+  }
+
   void _onLoaded() => FlutterDropzonePlatform.instance.events.add(DropzoneLoadedEvent(viewId));
 
   void _onError(String error) => FlutterDropzonePlatform.instance.events.add(DropzoneErrorEvent(viewId, error));
@@ -110,6 +137,12 @@ class FlutterDropzoneView {
     FlutterDropzonePlatform.instance.events.add(DropzoneDropEvent(viewId, data, _pointerInfoFromMouseEvent(event)));
   }
 
+  void _onDropMultiple(MouseEvent event, List<dynamic> data) =>
+      FlutterDropzonePlatform.instance.events
+          .add(DropzoneDropMultipleEvent(viewId, data, _pointerInfoFromMouseEvent(event)));
+
+  void _onLeave(MouseEvent event) =>
+      FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
   void _onLeave(MouseEvent event) {
     FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId, _pointerInfoFromMouseEvent(event)));
   }
@@ -125,7 +158,14 @@ class FlutterDropzoneView {
 }
 
 @JS('create')
-external void _nativeCreate(dynamic container, Function onLoaded, Function onError, Function onHover, Function onDrop, Function onLeave);
+external void _nativeCreate(
+    dynamic container,
+    Function onLoaded,
+    Function onError,
+    Function onHover,
+    Function onDrop,
+    Function onDropMultiple,
+    Function onLeave);
 
 @JS('setMIME')
 external bool _nativeSetMIME(dynamic container, List<String> mime);

@@ -3,7 +3,7 @@ description: A common platform interface for the flutter_dropzone plugin.
 homepage: https://github.com/deakjahn/flutter_dropzone
 # NOTE: We strongly prefer non-breaking changes, even at the expense of a
 # less-clean API. See https://flutter.dev/go/platform-interface-breaking-changes
-version: 2.0.0
+version: 2.0.5
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -19,4 +19,4 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  pedantic: ^1.11.0
+  flutter_lints: ^1.0.4

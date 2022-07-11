@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -42,6 +44,13 @@ class _MyAppState extends State<MyApp> {
                   ],
                 ),
               ),
+              ElevatedButton(
+                onPressed: () async {
+                  print(await controller1
+                      .pickFiles(mime: ['image/jpeg', 'image/png']));
+                },
+                child: const Text('Pick file'),
+              ),
             ],
           ),
         ),
@@ -62,12 +71,17 @@ class _MyAppState extends State<MyApp> {
             setState(() => highlighted1 = false);
             print('Zone 1 left');
           },
-          onDrop: (ev) {
+          onDrop: (ev) async {
             print('Zone 1 drop: ${ev.name}');
             setState(() {
               message1 = '${ev.name} dropped';
               highlighted1 = false;
             });
+            final bytes = await controller1.getFileData(ev);
+            print(bytes.sublist(0, 20));
+          },
+          onDropMultiple: (ev) async {
+            print('Zone 1 drop multiple: $ev');
           },
         ),
       );
@@ -85,6 +99,11 @@ class _MyAppState extends State<MyApp> {
             setState(() {
               message2 = '${ev.name} dropped';
             });
+            final stream = controller2.getFileStream(ev);
+            print(stream.take(20));
+          },
+          onDropMultiple: (ev) async {
+            print('Zone 2 drop multiple: $ev');
           },
         ),
       );

@@ -21,14 +21,18 @@ class DropzoneView extends StatefulWidget {
   /// Event called when the dropzone view has been loaded.
   final VoidCallback? onLoaded;
 
-  /// Event called if the dropzone view has an eror.
+  /// Event called if the dropzone view has an error.
   final ValueChanged<String?>? onError;
 
   /// Event called when the dropzone view is hovered during a drag-drop.
   final ValueChanged<DropzonePointerInfo>? onHover;
 
   /// Event called when the user drops a file onto the dropzone.
-  final void Function(dynamic file, DropzonePointerInfo pointerInfo) onDrop;
+  final void Function(dynamic file, DropzonePointerInfo pointerInfo)? onDrop;
+
+  /// Event called when the user drops multiple files onto the dropzone.
+  /// final void Function(dynamic file, DropzonePointerInfo pointerInfo) onDrop;
+  final void Function(List<dynamic>? files, DropzonePointerInfo pointerInfo)? onDropMultiple;
 
   /// Event called when the user leaves a dropzone.
   final ValueChanged<DropzonePointerInfo>? onLeave;
@@ -43,9 +47,11 @@ class DropzoneView extends StatefulWidget {
     this.onLoaded,
     this.onError,
     this.onHover,
-    required this.onDrop,
+    this.onDrop,
+    this.onDropMultiple,
     this.onLeave,
-  }) : super(key: key);
+  })  : assert(onDrop != null || onDropMultiple != null, 'Either onDrop or onDropMultiple is required'),
+        super(key: key);
 
   @override
   _DropzoneViewState createState() => _DropzoneViewState();
@@ -74,7 +80,7 @@ class DropzoneViewController {
   final int viewId;
   final DropzoneView widget;
 
-  DropzoneViewController._create(this.viewId, this.widget) : assert(FlutterDropzonePlatform.instance != null) {
+  DropzoneViewController._create(this.viewId, this.widget) {
     if (widget.onLoaded != null) {
       FlutterDropzonePlatform.instance //
           .onLoaded(viewId: viewId)
@@ -90,9 +96,16 @@ class DropzoneViewController {
           .onHover(viewId: viewId)
           .listen((msg) => widget.onHover!(msg.pointerInfo));
     }
-    FlutterDropzonePlatform.instance //
-        .onDrop(viewId: viewId)
-        .listen((msg) => widget.onDrop(msg.value, msg.pointerInfo));
+    if (widget.onDrop != null) {
+      FlutterDropzonePlatform.instance //
+          .onDrop(viewId: viewId)
+          .listen((msg) => widget.onDrop!(msg.value, msg.pointerInfo));
+    }
+    if (widget.onDropMultiple != null) {
+      FlutterDropzonePlatform.instance //
+          .onDropMultiple(viewId: viewId)
+          .listen((msg) => widget.onDropMultiple!(msg.value, msg.pointerInfo));
+    }
     if (widget.onLeave != null) {
       FlutterDropzonePlatform.instance //
           .onLeave(viewId: viewId)
@@ -119,8 +132,8 @@ class DropzoneViewController {
   ///
   /// Set [multiple] to allow picking more than one file.
   /// Returns the list of files picked by the user.
-  Future<List<dynamic>> pickFiles({bool multiple = false}) {
-    return FlutterDropzonePlatform.instance.pickFiles(multiple, viewId: viewId);
+  Future<List<dynamic>> pickFiles({bool multiple = false, List<String> mime = const []}) {
+    return FlutterDropzonePlatform.instance.pickFiles(multiple, mime: mime, viewId: viewId);
   }
 
   /// Get the filename of the passed HTML file.
@@ -138,6 +151,11 @@ class DropzoneViewController {
     return FlutterDropzonePlatform.instance.getFileMIME(htmlFile, viewId: viewId);
   }
 
+  /// Get the last modified date of the passed HTML file.
+  Future<DateTime> getFileLastModified(dynamic htmlFile) {
+    return FlutterDropzonePlatform.instance.getFileLastModified(htmlFile, viewId: viewId);
+  }
+
   /// Create a temporary URL to the passed HTML file.
   ///
   /// When finished, the URL should be released using [releaseFileUrl()].
@@ -153,5 +171,10 @@ class DropzoneViewController {
   /// Get the contents of the passed HTML file.
   Future<Uint8List> getFileData(dynamic htmlFile) {
     return FlutterDropzonePlatform.instance.getFileData(htmlFile, viewId: viewId);
+  }
+
+  /// Get the contents of the passed HTML file as a chunked stream.
+  Stream<List<int>> getFileStream(dynamic htmlFile) {
+    return FlutterDropzonePlatform.instance.getFileStream(htmlFile, viewId: viewId);
   }
 }
