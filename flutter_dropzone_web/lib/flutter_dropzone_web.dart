@@ -138,11 +138,8 @@ class FlutterDropzoneView {
   }
 
   void _onDropMultiple(MouseEvent event, List<dynamic> data) =>
-      FlutterDropzonePlatform.instance.events
-          .add(DropzoneDropMultipleEvent(viewId, data, _pointerInfoFromMouseEvent(event)));
+      FlutterDropzonePlatform.instance.events.add(DropzoneDropMultipleEvent(viewId, data, _pointerInfoFromMouseEvent(event)));
 
-  void _onLeave(MouseEvent event) =>
-      FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
   void _onLeave(MouseEvent event) {
     FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId, _pointerInfoFromMouseEvent(event)));
   }
@@ -159,13 +156,14 @@ class FlutterDropzoneView {
 
 @JS('create')
 external void _nativeCreate(
-    dynamic container,
-    Function onLoaded,
-    Function onError,
-    Function onHover,
-    Function onDrop,
-    Function onDropMultiple,
-    Function onLeave);
+  dynamic container,
+  Function onLoaded,
+  Function onError,
+  Function onHover,
+  Function onDrop,
+  Function onDropMultiple,
+  Function onLeave,
+);
 
 @JS('setMIME')
 external bool _nativeSetMIME(dynamic container, List<String> mime);
