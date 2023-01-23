@@ -16,25 +16,13 @@ if (typeof FlutterDropzone === 'undefined') {
             if (onLoaded != null) onLoaded();
         }
 
-        async getFile(fileEntry) {
-            try {
-                return await new Promise((resolve, reject) => fileEntry.file(resolve, reject));
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
-        file_handler(fileEntry, files, event) {
+        file_handler(fileEntry, file, files, event) {
             if (fileEntry.isFile) {
-                this.getFile(fileEntry).then(file => {
-                    if (this.onDrop != null) this.onDrop(event, file, "file");
-                    files.push(file)
-                });
+                if (this.onDrop != null) this.onDrop(event, file, "file");
+                files.push(file)
             } else if (fileEntry.isDirectory) {
-                this.getFile(fileEntry).then(file => {
-                    if (this.onDrop != null) this.onDrop(event, file, "folder");
-                    files.push(file)
-                });
+                if (this.onDrop != null) this.onDrop(event, file, "folder");
+                files.push(file)
             }
         }
 
@@ -73,7 +61,8 @@ if (typeof FlutterDropzone === 'undefined') {
                                 var fileEntry = item.webkitGetAsEntry();
 
                                 if (fileEntry) {
-                                    this.file_handler(fileEntry, files, event);
+                                    var file = item.getAsFile();
+                                    this.file_handler(fileEntry, file, files, event);
                                 }
                             }
                             break;
