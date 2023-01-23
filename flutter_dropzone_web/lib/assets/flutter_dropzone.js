@@ -31,11 +31,9 @@ if (typeof FlutterDropzone === 'undefined') {
                     files.push(file)
                 });
             } else if (fileEntry.isDirectory) {
-                let directoryReader = fileEntry.createReader()
-                directoryReader.readEntries((entries) => {
-                    for (var i = 0; i < entries.length; i++) {
-                        this.file_handler(entries[i], files, event);
-                    }
+                this.getFile(fileEntry).then(file => {
+                    if (this.onDrop != null) this.onDrop(event, file);
+                    files.push(file)
                 });
             }
         }
