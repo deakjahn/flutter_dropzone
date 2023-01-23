@@ -27,12 +27,12 @@ if (typeof FlutterDropzone === 'undefined') {
         file_handler(fileEntry, files, event) {
             if (fileEntry.isFile) {
                 this.getFile(fileEntry).then(file => {
-                    if (this.onDrop != null) this.onDrop(event, file);
+                    if (this.onDrop != null) this.onDrop(event, file, "file");
                     files.push(file)
                 });
             } else if (fileEntry.isDirectory) {
                 this.getFile(fileEntry).then(file => {
-                    if (this.onDrop != null) this.onDrop(event, file);
+                    if (this.onDrop != null) this.onDrop(event, file, "folder");
                     files.push(file)
                 });
             }
@@ -80,7 +80,7 @@ if (typeof FlutterDropzone === 'undefined') {
 
                         case "string":
                             item.getAsString((text) => {
-                                if (this.onDrop != null) this.onDrop(event, text);
+                                if (this.onDrop != null) this.onDrop(event, text, "string");
                                 strings.push(text);
                             });
                             break;
@@ -93,7 +93,7 @@ if (typeof FlutterDropzone === 'undefined') {
             } else {
                 for (var i = 0; i < ev.dataTransfer.files.length; i++)
                     var file = event.dataTransfer.files[i];
-                if (this.onDrop != null) this.onDrop(event, file);
+                if (this.onDrop != null) this.onDrop(event, file, "ev");
                 files.push(file);
             }
 

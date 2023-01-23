@@ -13,7 +13,7 @@ DropzoneView(
   onLoaded: () => print('Zone loaded'),
   onError: (String? ev) => print('Error: $ev'),
   onHover: () => print('Zone hovered'),
-  onDrop: (dynamic ev) => print('Drop: $ev'),
+  onDrop: (dynamic ev, String source) => print('Drop: $ev from $source'),
   onDropMultiple: (List<dynamic> ev) => print('Drop multiple: $ev'),
   onLeave: () => print('Zone left'),
 );

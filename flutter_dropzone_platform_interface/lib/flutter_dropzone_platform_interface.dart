@@ -221,7 +221,9 @@ class DropzoneHoverEvent extends DropzoneEvent {
 
 /// Event called when the user drops a file onto the dropzone.
 class DropzoneDropEvent extends DropzoneEvent<dynamic> {
-  DropzoneDropEvent(int viewId, dynamic file) : super(viewId, file);
+  final String source;
+
+  DropzoneDropEvent(int viewId, dynamic file, String this.source) : super(viewId, file);
 }
 
 /// Event called when the user drops multiple files onto the dropzone.

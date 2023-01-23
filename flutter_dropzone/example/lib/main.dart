@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
             setState(() => highlighted1 = false);
             print('Zone 1 left');
           },
-          onDrop: (ev) async {
+          onDrop: (ev, _) async {
             print('Zone 1 drop: ${ev.name}');
             setState(() {
               message1 = '${ev.name} dropped';
@@ -94,7 +94,7 @@ class _MyAppState extends State<MyApp> {
           onError: (ev) => print('Zone 2 error: $ev'),
           onHover: () => print('Zone 2 hovered'),
           onLeave: () => print('Zone 2 left'),
-          onDrop: (ev) {
+          onDrop: (ev, _) {
             print('Zone 2 drop: ${ev.name}');
             setState(() {
               message2 = '${ev.name} dropped';
