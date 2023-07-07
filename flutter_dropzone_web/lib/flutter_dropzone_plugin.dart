@@ -36,7 +36,7 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
     );
 
     html.document.body!.append(html.ScriptElement()
-      ..src = scriptUrl // ignore: unsafe_html
+      ..src = scriptUrl
       ..type = 'application/javascript'
       ..defer = true);
   }
