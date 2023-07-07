@@ -30,10 +30,13 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
       final view = _views[viewId] = FlutterDropzoneView(viewId);
       return view.container;
     });
+    // ignore: undefined_prefixed_name
+    final scriptUrl = ui.webOnlyAssetManager.getAssetUrl(
+      'packages/flutter_dropzone_web/assets/flutter_dropzone.js',
+    );
 
     html.document.body!.append(html.ScriptElement()
-      ..src =
-          'assets/packages/flutter_dropzone_web/assets/flutter_dropzone.js' // ignore: unsafe_html
+      ..src = scriptUrl // ignore: unsafe_html
       ..type = 'application/javascript'
       ..defer = true);
   }
