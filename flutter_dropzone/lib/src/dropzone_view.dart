@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -55,7 +54,7 @@ class DropzoneView extends StatefulWidget {
         super(key: key);
 
   @override
-  _DropzoneViewState createState() => _DropzoneViewState();
+  State<DropzoneView> createState() => _DropzoneViewState();
 }
 
 class _DropzoneViewState extends State<DropzoneView> {
