@@ -3,7 +3,6 @@ library flutter_dropzone_web;
 
 import 'dart:async';
 import 'dart:html';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
