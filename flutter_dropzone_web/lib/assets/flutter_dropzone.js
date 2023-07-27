@@ -1,9 +1,10 @@
 if (typeof FlutterDropzone === 'undefined') {
 class FlutterDropzone {
-  constructor(container, onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave) {
+  constructor(container, onLoaded, onError, onHover, onDrop, onDropInvalid, onDropMultiple, onLeave) {
     this.onError = onError;
     this.onHover = onHover;
     this.onDrop = onDrop;
+    this.onDropInvalid = onDropInvalid;
     this.onDropMultiple = onDropMultiple;
     this.onLeave = onLeave;
     this.dropMIME = null;
@@ -16,11 +17,12 @@ class FlutterDropzone {
     if (onLoaded != null) onLoaded();
   }
 
-  updateHandlers(onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave) {
+  updateHandlers(onLoaded, onError, onHover, onDrop, onDropInvalid, onDropMultiple, onLeave) {
     this.onError = onError;
     this.onHover = onHover;
     this.onDrop = onDrop;
     this.onDropMultiple = onDropMultiple;
+    this.onDropInvalid = onDropInvalid;
     this.onLeave = onLeave;
     this.dropMIME = null;
     this.dropOperation = 'copy';
@@ -51,6 +53,9 @@ class FlutterDropzone {
               var file = item.getAsFile();
               if (this.onDrop != null) this.onDrop(event, file);
               files.push(file);
+            }
+            else {
+              if (this.onDropInvalid != null) this.onDropInvalid(event, item.type);
             }
             break;
 
@@ -105,11 +110,11 @@ var flutter_dropzone_web = {
     return true;
   },
 
-  create: function(container, onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave) {
+  create: function(container, onLoaded, onError, onHover, onDrop, onDropInvalid, onDropMultiple, onLeave) {
     if (container.FlutterDropzone === undefined)
-      container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave);
+      container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onHover, onDrop, onDropInvalid, onDropMultiple, onLeave);
     else
-      container.FlutterDropzone.updateHandlers(onLoaded, onError, onHover, onDrop, onDropMultiple, onLeave);
+      container.FlutterDropzone.updateHandlers(onLoaded, onError, onHover, onDrop, onDropInvalid, onDropMultiple, onLeave);
   },
 };
 

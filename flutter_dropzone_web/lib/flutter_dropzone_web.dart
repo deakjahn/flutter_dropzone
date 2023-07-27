@@ -36,6 +36,7 @@ class FlutterDropzoneView {
           allowInterop(_onError),
           allowInterop(_onHover),
           allowInterop(_onDrop),
+          allowInterop(_onDropInvalid),
           allowInterop(_onDropMultiple),
           allowInterop(_onLeave),
         );
@@ -142,6 +143,10 @@ class FlutterDropzoneView {
       FlutterDropzonePlatform.instance.events
           .add(DropzoneDropEvent(viewId, data));
 
+  void _onDropInvalid(MouseEvent event, String mime) =>
+      FlutterDropzonePlatform.instance.events
+          .add(DropzoneDropInvalidEvent(viewId, mime));
+
   void _onDropMultiple(MouseEvent event, List<dynamic> data) =>
       FlutterDropzonePlatform.instance.events
           .add(DropzoneDropMultipleEvent(viewId, data));
@@ -157,6 +162,7 @@ external void _nativeCreate(
     Function onError,
     Function onHover,
     Function onDrop,
+    Function onDropInvalid,
     Function onDropMultiple,
     Function onLeave);
 

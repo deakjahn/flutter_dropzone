@@ -8,22 +8,22 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_dropzone: ^3.0.4
-  flutter_lints: ^2.0.0
+  flutter_dropzone: ^3.0.6
+  flutter_lints: ^2.0.2
 
-dev_dependency_overrides:
+dependency_overrides:
   flutter_dropzone:
-    path: ../flutter_dropzone/
+    path: ../../flutter_dropzone/
   flutter_dropzone_platform_interface:
-    path: ../flutter_dropzone_platform_interface/
+    path: ../../flutter_dropzone_platform_interface/
   flutter_dropzone_web:
-    path: ../flutter_dropzone_web/
+    path: ../../flutter_dropzone_web/
 
 flutter:
   uses-material-design: true

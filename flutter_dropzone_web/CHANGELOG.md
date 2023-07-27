@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.10] - coming
+
+* Implement [#66](https://github.com/deakjahn/flutter_dropzone/issues/66).
+
 ## [3.0.9] - 2023-07-08
 
 * Implement [#65](https://github.com/deakjahn/flutter_dropzone/pull/65).

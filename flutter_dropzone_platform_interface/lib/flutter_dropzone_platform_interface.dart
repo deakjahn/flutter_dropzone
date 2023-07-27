@@ -169,6 +169,13 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
         .cast<DropzoneDropEvent>();
   }
 
+  /// Event called when the user tries to drop an invalid file onto the dropzone.
+  Stream<DropzoneDropInvalidEvent> onDropInvalid({required int viewId}) {
+    return events.stream //
+        .where((event) => event.viewId == viewId && event is DropzoneDropInvalidEvent)
+        .cast<DropzoneDropInvalidEvent>();
+  }
+
   /// Event called when the user drops multiple files onto the dropzone.
   Stream<DropzoneDropMultipleEvent> onDropMultiple({required int viewId}) {
     return events.stream //
@@ -222,6 +229,11 @@ class DropzoneHoverEvent extends DropzoneEvent {
 /// Event called when the user drops a file onto the dropzone.
 class DropzoneDropEvent extends DropzoneEvent<dynamic> {
   DropzoneDropEvent(int viewId, dynamic file) : super(viewId, file);
+}
+
+/// Event called when the user tries to drop an invalid file onto the dropzone.
+class DropzoneDropInvalidEvent extends DropzoneEvent<dynamic> {
+  DropzoneDropInvalidEvent(int viewId, String mime) : super(viewId, mime);
 }
 
 /// Event called when the user drops multiple files onto the dropzone.

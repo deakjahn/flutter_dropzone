@@ -46,8 +46,7 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  print(await controller1
-                      .pickFiles(mime: ['image/jpeg', 'image/png']));
+                  print(await controller1.pickFiles(mime: ['image/jpeg', 'image/png']));
                 },
                 child: const Text('Pick file'),
               ),
@@ -80,6 +79,7 @@ class _MyAppState extends State<MyApp> {
             final bytes = await controller1.getFileData(ev);
             print(bytes.sublist(0, 20));
           },
+          onDropInvalid: (ev) => print('Zone 1 invalid MIME: $ev'),
           onDropMultiple: (ev) async {
             print('Zone 1 drop multiple: $ev');
           },
@@ -89,6 +89,7 @@ class _MyAppState extends State<MyApp> {
   Widget buildZone2(BuildContext context) => Builder(
         builder: (context) => DropzoneView(
           operation: DragOperation.move,
+          mime: const ['image/jpeg'],
           onCreated: (ctrl) => controller2 = ctrl,
           onLoaded: () => print('Zone 2 loaded'),
           onError: (ev) => print('Zone 2 error: $ev'),
@@ -102,6 +103,7 @@ class _MyAppState extends State<MyApp> {
             final stream = controller2.getFileStream(ev);
             print(stream.take(20));
           },
+          onDropInvalid: (ev) => print('Zone 2 invalid MIME: $ev'),
           onDropMultiple: (ev) async {
             print('Zone 2 drop multiple: $ev');
           },
