@@ -10,6 +10,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'method_channel_flutter_dropzone.dart';
 
 enum DragOperation { copy, move, link, copyMove, copyLink, linkMove, all }
+
 enum CursorType {
   alias,
   all_scroll,
@@ -172,7 +173,8 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   /// Event called when the user tries to drop an invalid file onto the dropzone.
   Stream<DropzoneDropInvalidEvent> onDropInvalid({required int viewId}) {
     return events.stream //
-        .where((event) => event.viewId == viewId && event is DropzoneDropInvalidEvent)
+        .where((event) =>
+            event.viewId == viewId && event is DropzoneDropInvalidEvent)
         .cast<DropzoneDropInvalidEvent>();
   }
 

@@ -2,7 +2,7 @@
 
 ## [3.0.6] - coming
 
-* Implement [#66](https://github.com/deakjahn/flutter_dropzone/issues/66).
+* Fix [#66](https://github.com/deakjahn/flutter_dropzone/issues/66).
 
 ## [3.0.5] - 2022-01-10
 
