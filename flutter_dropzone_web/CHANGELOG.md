@@ -1,6 +1,6 @@
 # Changelog
 
-## [3.0.10] - coming
+## [3.0.10] - 2023-07-27
 
 * Fix [#66](https://github.com/deakjahn/flutter_dropzone/issues/66).
 * Fix [#67](https://github.com/deakjahn/flutter_dropzone/issues/67).
