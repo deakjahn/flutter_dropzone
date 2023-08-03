@@ -114,7 +114,6 @@ class _MyAppState extends State<MyApp> {
               print('Zone 2 drop: ${ev.name}');
               setState(() {
                 message2 = '${ev.name} dropped';
-                highlighted1 = false;
               });
               final bytes = await controller2.getFileData(ev);
               print(bytes.sublist(0, min(bytes.length, 20)));
@@ -122,7 +121,6 @@ class _MyAppState extends State<MyApp> {
               print('Zone 2 drop: $ev');
               setState(() {
                 message2 = 'text dropped';
-                highlighted1 = false;
               });
               print(ev.substring(0, min(ev.length, 20)));
             } else
