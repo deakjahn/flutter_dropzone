@@ -49,7 +49,8 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  print(await controller1.pickFiles(mime: ['image/jpeg', 'image/png']));
+                  print(await controller1
+                      .pickFiles(mime: ['image/jpeg', 'image/png']));
                 },
                 child: const Text('Pick file'),
               ),
@@ -82,16 +83,14 @@ class _MyAppState extends State<MyApp> {
               });
               final bytes = await controller1.getFileData(ev);
               print(bytes.sublist(0, min(bytes.length, 20)));
-            }
-            else if (ev is String) {
+            } else if (ev is String) {
               print('Zone 1 drop: $ev');
               setState(() {
                 message1 = 'text dropped';
                 highlighted1 = false;
               });
               print(ev.substring(0, min(ev.length, 20)));
-            }
-            else
+            } else
               print('Zone 1 unknown type: ${ev.runtimeType}');
           },
           onDropInvalid: (ev) => print('Zone 1 invalid MIME: $ev'),
@@ -119,16 +118,14 @@ class _MyAppState extends State<MyApp> {
               });
               final bytes = await controller2.getFileData(ev);
               print(bytes.sublist(0, min(bytes.length, 20)));
-            }
-            else if (ev is String) {
+            } else if (ev is String) {
               print('Zone 2 drop: $ev');
               setState(() {
                 message1 = 'text dropped';
                 highlighted1 = false;
               });
               print(ev.substring(0, min(ev.length, 20)));
-            }
-            else
+            } else
               print('Zone 2 unknown type: ${ev.runtimeType}');
           },
           onDropInvalid: (ev) => print('Zone 2 invalid MIME: $ev'),
