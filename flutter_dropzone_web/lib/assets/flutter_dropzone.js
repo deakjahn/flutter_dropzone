@@ -39,7 +39,7 @@ class FlutterDropzone {
     if (this.onLeave != null) this.onLeave(event);
   }
 
-  drop_handler(event) {
+  async drop_handler(event) {
     event.preventDefault();
 
     var files = [];
@@ -61,10 +61,9 @@ class FlutterDropzone {
 
           case "string":
             const that = this;
-            item.getAsString(function (text) {
-              if (that.onDrop != null) that.onDrop(event, text);
-              strings.push(text);
-            });
+            var text = await this.#getItemAsString(item);
+            if (that.onDrop != null) that.onDrop(event, text);
+            strings.push(text);
             break;
 
           default:
@@ -83,6 +82,14 @@ class FlutterDropzone {
       if (files.length > 0) this.onDropMultiple(event, files);
       if (strings.length > 0) this.onDropMultiple(event, strings);
     }
+  }
+
+  #getItemAsString(item) {
+    return new Promise((resolve, reject) => {
+      item.getAsString(function (text) {
+        resolve(text);
+      });
+    })
   }
 
   setMIME(mime) {
