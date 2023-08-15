@@ -1,6 +1,6 @@
 # Changelog
 
-## [3.0.12] - coming
+## [3.0.12] - 2023-08-15
 
 * Fixing onDropMultiple with strings
 
