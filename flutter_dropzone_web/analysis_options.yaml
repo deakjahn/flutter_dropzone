@@ -2,9 +2,16 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude: [build/**]
+  errors:
+    deprecated_member_use_from_same_package: ignore
+    lines_longer_than_80_chars: ignore
 
 linter:
   rules:
     non_constant_identifier_names: false
+    constant_identifier_names: false
     omit_local_variable_types: false
+    no_leading_underscores_for_local_identifiers: false
     curly_braces_in_flow_control_structures: false
+    avoid_print: false
+    unnecessary_breaks: true

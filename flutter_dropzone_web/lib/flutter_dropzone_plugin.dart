@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:html' as html;
-import 'dart:typed_data';
-import 'dart:ui' as ui;
+import 'dart:ui_web' as ui;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -31,7 +30,7 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
       return view.container;
     });
     // ignore: undefined_prefixed_name
-    final scriptUrl = ui.webOnlyAssetManager.getAssetUrl(
+    final scriptUrl = ui.assetManager.getAssetUrl(
       'packages/flutter_dropzone_web/assets/flutter_dropzone.js',
     );
 

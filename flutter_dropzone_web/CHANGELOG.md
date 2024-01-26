@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.13] - 2024-01-27
+
+* Fix [#73](https://github.com/deakjahn/flutter_dropzone/issues/73).
+
 ## [3.0.12] - 2023-08-15
 
 * Fixing onDropMultiple with strings

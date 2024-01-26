@@ -12,13 +12,13 @@ dependencies:
     sdk: flutter
 
   flutter_dropzone_platform_interface: ^2.0.6
-  flutter_dropzone_web: ^3.0.12
+  flutter_dropzone_web: ^3.0.13
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.2
+  flutter_lints: ^3.0.0
   plugin_platform_interface: ^2.0.0
 
 dependency_overrides:
