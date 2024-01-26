@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.7] - 2024-01-27
+
+* Fix [#73](https://github.com/deakjahn/flutter_dropzone/issues/73).
+
 ## [3.0.6] - 2023-07-27
 
 * Fix [#66](https://github.com/deakjahn/flutter_dropzone/issues/66).
