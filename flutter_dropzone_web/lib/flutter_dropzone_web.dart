@@ -77,6 +77,10 @@ class FlutterDropzoneView {
       completer.complete(picker.files);
       if (isSafari) picker.remove();
     });
+    picker.on['cancel'].listen((_) {
+      completer.complete([]);
+      if (isSafari) picker.remove();
+    });
     picker.click();
     return completer.future;
   }
