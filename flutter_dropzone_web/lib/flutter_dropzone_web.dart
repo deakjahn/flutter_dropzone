@@ -36,13 +36,20 @@ class FlutterDropzoneView {
   void _startCallback(web.Event event) {
     createJS(
       container,
-      js.allowInterop(_onLoaded),
-      js.allowInterop(_onError),
-      js.allowInterop(_onHover),
-      js.allowInterop(_onDrop),
-      js.allowInterop(_onDropInvalid),
-      js.allowInterop(_onDropMultiple),
-      js.allowInterop(_onLeave),
+      _onLoaded.toJS,
+      _onError.toJS,
+      _onHover.toJS,
+      _onDrop.toJS,
+      _onDropInvalid.toJS,
+      _onDropMultiple.toJS,
+      _onLeave.toJS,
+      // js.allowInterop(_onLoaded).toJS,
+      // js.allowInterop(_onError).toJS,
+      // js.allowInterop(_onHover).toJS,
+      // js.allowInterop(_onDrop).toJS,
+      // js.allowInterop(_onDropInvalid).toJS,
+      // js.allowInterop(_onDropMultiple).toJS,
+      // js.allowInterop(_onLeave).toJS,
     );
     if (mime != null) setMIME(mime!);
     if (operation != null) setOperation(operation!);
@@ -55,17 +62,17 @@ class FlutterDropzoneView {
     cursor = params['cursor'];
   }
 
-  Future<bool> setMIME(List<String> mime) async {
-    return setMimeJS(container, mime);
+  Future<bool> setMIME(List<String> mimes) async {
+    return setMimeJS(container, [for (final mime in mimes) mime.toJS].toJS);
   }
 
   Future<bool> setOperation(DragOperation operation) async {
-    return setOperationJS(container, operation.name);
+    return setOperationJS(container, operation.name.toJS);
   }
 
   Future<bool> setCursor(CursorType cursor) async {
     return setCursorJS(
-        container, cursor.name.toLowerCase().replaceAll('_', '-'));
+        container, cursor.name.toLowerCase().replaceAll('_', '-').toJS);
   }
 
   Future<List<dynamic>> pickFiles(bool multiple, List<String> mime) {
@@ -82,8 +89,7 @@ class FlutterDropzoneView {
         final list = List.generate(
             picker.files!.length, (index) => picker.files!.item(index));
         completer.complete(list);
-      }
-      else
+      } else
         completer.complete([]);
       if (isSafari) picker.remove();
     }
@@ -159,17 +165,17 @@ class FlutterDropzoneView {
   void _onHover(web.MouseEvent event) =>
       FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId));
 
-  void _onDrop(web.MouseEvent event, dynamic data) =>
+  void _onDrop(web.MouseEvent event, web.File data) =>
       FlutterDropzonePlatform.instance.events
           .add(DropzoneDropEvent(viewId, data));
 
-  void _onDropInvalid(web.MouseEvent event, String mime) =>
+  void _onDropInvalid(web.MouseEvent event, JSString mime) =>
       FlutterDropzonePlatform.instance.events
-          .add(DropzoneDropInvalidEvent(viewId, mime));
+          .add(DropzoneDropInvalidEvent(viewId, mime.toDart));
 
-  void _onDropMultiple(web.MouseEvent event, List<dynamic> data) =>
+  void _onDropMultiple(web.MouseEvent event, JSArray<web.File> data) =>
       FlutterDropzonePlatform.instance.events
-          .add(DropzoneDropMultipleEvent(viewId, data));
+          .add(DropzoneDropMultipleEvent(viewId, data.toDart));
 
   void _onLeave(web.MouseEvent event) =>
       FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
@@ -178,19 +184,19 @@ class FlutterDropzoneView {
 @JS('create')
 external void createJS(
     web.HTMLDivElement container,
-    Function onLoaded,
-    Function onError,
-    Function onHover,
-    Function onDrop,
-    Function onDropInvalid,
-    Function onDropMultiple,
-    Function onLeave);
+    JSFunction onLoaded,
+    JSFunction onError,
+    JSFunction onHover,
+    JSFunction onDrop,
+    JSFunction onDropInvalid,
+    JSFunction onDropMultiple,
+    JSFunction onLeave);
 
 @JS('setMIME')
-external bool setMimeJS(web.HTMLDivElement container, List<String> mime);
+external bool setMimeJS(web.HTMLDivElement container, JSArray<JSString> mime);
 
 @JS('setOperation')
-external bool setOperationJS(web.HTMLDivElement container, String operation);
+external bool setOperationJS(web.HTMLDivElement container, JSString operation);
 
 @JS('setCursor')
-external bool setCursorJS(web.HTMLDivElement container, String cursor);
+external bool setCursorJS(web.HTMLDivElement container, JSString cursor);
