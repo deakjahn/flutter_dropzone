@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:web/web.dart' as web;
+import 'dart:js_interop';
 import 'dart:ui_web' as ui;
 
 import 'package:flutter/foundation.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
 import 'package:flutter_dropzone_web/flutter_dropzone_web.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:web/web.dart' as web;
 
 class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   static final _views = <int, FlutterDropzoneView>{};
@@ -18,14 +19,18 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   static void registerWith(Registrar registrar) {
     final self = FlutterDropzonePlugin();
     _isReady = _readyCompleter.future;
-    html.window.addEventListener('flutter_dropzone_web_ready', (_) {
+
+    void readyHandler() {
       if (!_readyCompleter.isCompleted) _readyCompleter.complete(true);
-    });
+    }
+
+    web.window
+        .addEventListener('flutter_dropzone_web_ready', readyHandler.toJS);
     FlutterDropzonePlatform.instance = self;
 
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
-        'com.creativephotocloud.plugins/dropzone', (viewId) {
+        'io.flutter.plugins.flutter_dropzone/dropzone', (viewId) {
       final view = _views[viewId] = FlutterDropzoneView(viewId);
       return view.container;
     });
@@ -117,7 +122,7 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return HtmlElementView(
-              viewType: 'com.creativephotocloud.plugins/dropzone',
+              viewType: 'io.flutter.plugins.flutter_dropzone/dropzone',
               onPlatformViewCreated: onPlatformViewCreated,
             );
           } else if (snapshot.hasError)
