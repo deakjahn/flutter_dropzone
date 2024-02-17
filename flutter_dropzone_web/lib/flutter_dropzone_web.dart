@@ -175,7 +175,7 @@ class FlutterDropzoneView {
       FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
 }
 
-@JS("create")
+@JS('create')
 external void createJS(
     web.HTMLDivElement container,
     Function onLoaded,
@@ -186,11 +186,11 @@ external void createJS(
     Function onDropMultiple,
     Function onLeave);
 
-@JS("setMIME")
+@JS('setMIME')
 external bool setMimeJS(web.HTMLDivElement container, List<String> mime);
 
-@JS("setOperation")
+@JS('setOperation')
 external bool setOperationJS(web.HTMLDivElement container, String operation);
 
-@JS("setCursor")
+@JS('setCursor')
 external bool setCursorJS(web.HTMLDivElement container, String cursor);
