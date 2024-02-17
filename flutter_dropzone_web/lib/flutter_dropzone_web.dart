@@ -116,11 +116,11 @@ class FlutterDropzoneView {
   }
 
   Future<String> createFileUrl(web.File file) async {
-    return createObjectUrlJS(file);
+    return web.URL.createObjectURL(file);
   }
 
   Future<bool> releaseFileUrl(String fileUrl) async {
-    revokeObjectUrlJS(fileUrl);
+    web.URL.revokeObjectURL(fileUrl);
     return true;
   }
 
@@ -194,9 +194,3 @@ external bool setOperationJS(web.HTMLDivElement container, String operation);
 
 @JS("setCursor")
 external bool setCursorJS(web.HTMLDivElement container, String cursor);
-
-@JS("createObjectUrl")
-external String createObjectUrlJS(web.Blob object);
-
-@JS("revokeObjectUrl")
-external void revokeObjectUrlJS(String url);
