@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:html' as html;
+import 'package:web/web.dart' as web;
 import 'dart:ui_web' as ui;
 
 import 'package:flutter/foundation.dart';
@@ -34,7 +34,7 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
       'packages/flutter_dropzone_web/assets/flutter_dropzone.js',
     );
 
-    html.document.body!.append(html.ScriptElement()
+    web.document.body!.append(web.HTMLScriptElement()
       ..src = scriptUrl
       ..type = 'application/javascript'
       ..defer = true);
