@@ -6,7 +6,6 @@ import 'dart:js_interop';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
-import 'package:js/js.dart' as js;
 import 'package:web/web.dart' as web;
 
 class FlutterDropzoneView {
