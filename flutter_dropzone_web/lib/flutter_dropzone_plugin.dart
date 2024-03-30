@@ -11,6 +11,9 @@ import 'package:flutter_dropzone_web/flutter_dropzone_web.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:web/web.dart' as web;
 
+const web.EventStreamProvider<web.Event> _flutterDropzoneWebReadyEvent =
+    web.EventStreamProvider<web.Event>('flutter_dropzone_web_ready');
+
 class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   static final _views = <int, FlutterDropzoneView>{};
   static final _readyCompleter = Completer<bool>();
@@ -24,8 +27,9 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
       if (!_readyCompleter.isCompleted) _readyCompleter.complete(true);
     }
 
-    web.window
-        .addEventListener('flutter_dropzone_web_ready', readyHandler.toJS);
+    _flutterDropzoneWebReadyEvent.forTarget(web.window).listen((event) {
+      readyHandler();
+    });
     FlutterDropzonePlatform.instance = self;
 
     // ignore: undefined_prefixed_name
