@@ -130,7 +130,8 @@ class FlutterDropzoneView {
   }
 
   Future<Uint8List> getFileData(web.File file) async {
-    return file.arrayBuffer() as Uint8List;
+    final arrayBuffer= await file.arrayBuffer().toDart;
+    return arrayBuffer.toDart.asUint8List();
     // final completer = Completer<Uint8List>();
     // final reader = web.FileReader();
     // reader.readAsArrayBuffer(file);
