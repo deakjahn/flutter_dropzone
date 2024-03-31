@@ -22,6 +22,9 @@ Once you have `flutter_dropzone` in `pubspec.yaml` you should be able to use `pa
 
 ## Breaking changes
 
+4.0.0 is a breaking change because Flutter is actively working on the underlying web support and we're trying to follow suit.
+See: https://github.com/deakjahn/flutter_dropzone/issues/78
+
 3.0.0 had to be a breaking change because a bug I reported earlier was fixed in Flutter 2.5 stable: https://github.com/flutter/flutter/issues/56181
 
 Previously, as a workaround, the plugin had its own modified version of `HtmlElementView` but with the fix, it's no longer necessary. However, leaving it out would break
