@@ -42,13 +42,6 @@ class FlutterDropzoneView {
       _onDropInvalid.toJS,
       _onDropMultiple.toJS,
       _onLeave.toJS,
-      // js.allowInterop(_onLoaded).toJS,
-      // js.allowInterop(_onError).toJS,
-      // js.allowInterop(_onHover).toJS,
-      // js.allowInterop(_onDrop).toJS,
-      // js.allowInterop(_onDropInvalid).toJS,
-      // js.allowInterop(_onDropMultiple).toJS,
-      // js.allowInterop(_onLeave).toJS,
     );
     if (mime != null) setMIME(mime!);
     if (operation != null) setOperation(operation!);
@@ -130,19 +123,11 @@ class FlutterDropzoneView {
   }
 
   Future<Uint8List> getFileData(web.File file) async {
-    final arrayBuffer= await file.arrayBuffer().toDart;
+    final arrayBuffer = await file.arrayBuffer().toDart;
     return arrayBuffer.toDart.asUint8List();
-    // final completer = Completer<Uint8List>();
-    // final reader = web.FileReader();
-    // reader.readAsArrayBuffer(file);
-    // reader.onload = (_) {
-    //   completer.complete(reader.result as Uint8List);
-    // }.toJS;
-    // return completer.future;
   }
 
   Stream<List<int>> getFileStream(web.File file) async* {
-    // final reader = file.stream().getReader();
     const int chunkSize = 1024 * 1024;
     final reader = web.FileReader();
     int start = 0;

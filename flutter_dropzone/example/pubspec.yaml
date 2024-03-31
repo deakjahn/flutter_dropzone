@@ -2,7 +2,8 @@ name: flutter_dropzone_example
 description: Demonstrates how to use the flutter_dropzone plugin.
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.15.0 <4.0.0"
+  flutter: ">=3.13.0"
 
 dependencies:
   flutter:
@@ -14,8 +15,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_dropzone: ^3.0.6
-  flutter_lints: ^2.0.2
+  flutter_dropzone: ^4.0.0
+  flutter_lints: ^3.0.2
 
 dependency_overrides:
   flutter_dropzone:

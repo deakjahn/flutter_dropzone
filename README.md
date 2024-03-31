@@ -6,6 +6,9 @@ See the README files of the individual subprojects:
 
 ## Breaking changes
 
+4.0.x is compatible with Flutter 3.13 (stable) and later. If you're not yet ready to upgrade from a previous version of Flutter, stay with the latest 3.0.x version of `flutter_dropzone`.
+See the [README of the web implementation][3] for details.
+
 3.0.x is compatible with Flutter 2.5 (stable) and later. If you're not yet ready to upgrade from a previous version of Flutter, stay with the latest 2.0.x version of `flutter_dropzone`.
 See the [README of the web implementation][3] for details.
 
