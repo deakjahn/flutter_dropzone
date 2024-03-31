@@ -135,8 +135,8 @@ class DropzoneViewController {
   }
 
   /// Specify the list of accepted MIME types.
-  Future<bool> setMIME(List<String> mime) {
-    return FlutterDropzonePlatform.instance.setMIME(mime, viewId: viewId);
+  Future<bool> setMIME(List<String> mimes) {
+    return FlutterDropzonePlatform.instance.setMIME(mimes, viewId: viewId);
   }
 
   /// Convenience function to display the browser File Open dialog.

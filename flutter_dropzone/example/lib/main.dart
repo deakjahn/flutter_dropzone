@@ -1,8 +1,10 @@
-import 'dart:html';
+// ignore_for_file: avoid_print
+
 import 'dart:math' show min;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
+import 'package:web/web.dart' as web;
 
 void main() => runApp(const MyApp());
 
@@ -75,7 +77,7 @@ class _MyAppState extends State<MyApp> {
             print('Zone 1 left');
           },
           onDrop: (ev) async {
-            if (ev is File) {
+            if (ev is web.File) {
               print('Zone 1 drop: ${ev.name}');
               setState(() {
                 message1 = '${ev.name} dropped';
@@ -110,7 +112,7 @@ class _MyAppState extends State<MyApp> {
           onHover: () => print('Zone 2 hovered'),
           onLeave: () => print('Zone 2 left'),
           onDrop: (ev) async {
-            if (ev is File) {
+            if (ev is web.File) {
               print('Zone 2 drop: ${ev.name}');
               setState(() {
                 message2 = '${ev.name} dropped';

@@ -2,48 +2,57 @@
 library flutter_dropzone_web;
 
 import 'dart:async';
-import 'dart:html';
+import 'dart:js_interop';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
-import 'package:js/js.dart';
+import 'package:web/web.dart' as web;
 
 class FlutterDropzoneView {
   final int viewId;
-  late final DivElement container;
+  late final web.HTMLDivElement container;
   List<String>? mime;
   DragOperation? operation;
   CursorType? cursor;
 
   FlutterDropzoneView(this.viewId) {
     final id = 'dropzone-container-$viewId';
-    container = DivElement()
+    container = web.HTMLDivElement()
       ..id = id
       ..style.pointerEvents = 'auto'
       ..style.border = 'none'
       // idea from https://keithclark.co.uk/articles/working-with-elements-before-the-dom-is-ready/
-      ..append(StyleElement()
+      ..append(web.HTMLStyleElement()
         ..innerText =
             '@keyframes $id-animation {from { clip: rect(1px, auto, auto, auto); } to { clip: rect(0px, auto, auto, auto); }}')
       ..style.animationName = '$id-animation'
       ..style.animationDuration = '0.001s'
       ..style.width = '100%'
       ..style.height = '100%'
-      ..addEventListener('animationstart', (event) {
-        _nativeCreate(
-          container,
-          allowInterop(_onLoaded),
-          allowInterop(_onError),
-          allowInterop(_onHover),
-          allowInterop(_onDrop),
-          allowInterop(_onDropInvalid),
-          allowInterop(_onDropMultiple),
-          allowInterop(_onLeave),
-        );
-        if (mime != null) setMIME(mime!);
-        if (operation != null) setOperation(operation!);
-        if (cursor != null) setCursor(cursor!);
-      });
+      ..addEventListener('animationstart', _startCallback.toJS);
+  }
+
+  void _startCallback(web.Event event) {
+    createJS(
+      container,
+      _onLoaded.toJS,
+      _onError.toJS,
+      _onHover.toJS,
+      _onDrop.toJS,
+      _onDropInvalid.toJS,
+      _onDropMultiple.toJS,
+      _onLeave.toJS,
+      // js.allowInterop(_onLoaded).toJS,
+      // js.allowInterop(_onError).toJS,
+      // js.allowInterop(_onHover).toJS,
+      // js.allowInterop(_onDrop).toJS,
+      // js.allowInterop(_onDropInvalid).toJS,
+      // js.allowInterop(_onDropMultiple).toJS,
+      // js.allowInterop(_onLeave).toJS,
+    );
+    if (mime != null) setMIME(mime!);
+    if (operation != null) setOperation(operation!);
+    if (cursor != null) setCursor(cursor!);
   }
 
   void init(Map<String, dynamic> params) {
@@ -52,83 +61,96 @@ class FlutterDropzoneView {
     cursor = params['cursor'];
   }
 
-  Future<bool> setMIME(List<String> mime) async {
-    return _nativeSetMIME(container, mime);
+  Future<bool> setMIME(List<String> mimes) async {
+    return setMimeJS(container, [for (final mime in mimes) mime.toJS].toJS);
   }
 
   Future<bool> setOperation(DragOperation operation) async {
-    return _nativeSetOperation(container, describeEnum(operation));
+    return setOperationJS(container, operation.name.toJS);
   }
 
   Future<bool> setCursor(CursorType cursor) async {
-    return _nativeSetCursor(
-        container, describeEnum(cursor).toLowerCase().replaceAll('_', '-'));
+    return setCursorJS(
+        container, cursor.name.toLowerCase().replaceAll('_', '-').toJS);
   }
 
   Future<List<dynamic>> pickFiles(bool multiple, List<String> mime) {
     final completer = Completer<List<dynamic>>();
-    final picker = FileUploadInputElement();
+    final picker = web.HTMLInputElement();
     final isSafari =
-        window.navigator.userAgent.toLowerCase().contains('safari');
-    if (isSafari) document.body!.append(picker);
+        web.window.navigator.userAgent.toLowerCase().contains('safari');
+    if (isSafari) web.document.body!.append(picker);
     picker.multiple = multiple;
     if (mime.isNotEmpty) picker.accept = mime.join(',');
-    picker.onChange.listen((_) {
-      completer.complete(picker.files);
+
+    void onChangeHandler() {
+      if (picker.files != null) {
+        final list = List.generate(
+            picker.files!.length, (index) => picker.files!.item(index));
+        completer.complete(list);
+      } else
+        completer.complete([]);
       if (isSafari) picker.remove();
-    });
-    picker.on['cancel'].listen((_) {
+    }
+
+    void onCancelHandler() {
       completer.complete([]);
       if (isSafari) picker.remove();
-    });
+    }
+
+    picker.onchange = onChangeHandler.toJS;
+    picker.oncancel = onCancelHandler.toJS;
     picker.click();
     return completer.future;
   }
 
-  Future<String> getFilename(File file) async {
+  Future<String> getFilename(web.File file) async {
     return file.name;
   }
 
-  Future<int> getFileSize(File file) async {
+  Future<int> getFileSize(web.File file) async {
     return file.size;
   }
 
-  Future<String> getFileMIME(File file) async {
+  Future<String> getFileMIME(web.File file) async {
     return file.type;
   }
 
-  Future<DateTime> getFileLastModified(File file) async {
-    return file.lastModified != null
-        ? DateTime.fromMillisecondsSinceEpoch(file.lastModified!)
-        : file.lastModifiedDate;
+  Future<DateTime> getFileLastModified(web.File file) async {
+    return DateTime.fromMillisecondsSinceEpoch(file.lastModified);
   }
 
-  Future<String> createFileUrl(File file) async {
-    return Url.createObjectUrlFromBlob(file);
+  Future<String> createFileUrl(web.File file) async {
+    return web.URL.createObjectURL(file);
   }
 
   Future<bool> releaseFileUrl(String fileUrl) async {
-    Url.revokeObjectUrl(fileUrl);
+    web.URL.revokeObjectURL(fileUrl);
     return true;
   }
 
-  Future<Uint8List> getFileData(File file) async {
-    final completer = Completer<Uint8List>();
-    final reader = FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onLoad.listen((_) => completer.complete(reader.result as Uint8List));
-    return completer.future;
+  Future<Uint8List> getFileData(web.File file) async {
+    final arrayBuffer= await file.arrayBuffer().toDart;
+    return arrayBuffer.toDart.asUint8List();
+    // final completer = Completer<Uint8List>();
+    // final reader = web.FileReader();
+    // reader.readAsArrayBuffer(file);
+    // reader.onload = (_) {
+    //   completer.complete(reader.result as Uint8List);
+    // }.toJS;
+    // return completer.future;
   }
 
-  Stream<List<int>> getFileStream(File file) async* {
+  Stream<List<int>> getFileStream(web.File file) async* {
+    // final reader = file.stream().getReader();
     const int chunkSize = 1024 * 1024;
-    final reader = FileReader();
+    final reader = web.FileReader();
     int start = 0;
     while (start < file.size) {
       final end = start + chunkSize > file.size ? file.size : start + chunkSize;
       final blob = file.slice(start, end);
       reader.readAsArrayBuffer(blob);
-      await reader.onLoad.first;
+      await reader.onLoadEnd.first; //???
       yield reader.result as List<int>;
       start += chunkSize;
     }
@@ -140,41 +162,41 @@ class FlutterDropzoneView {
   void _onError(String error) => FlutterDropzonePlatform.instance.events
       .add(DropzoneErrorEvent(viewId, error));
 
-  void _onHover(MouseEvent event) =>
+  void _onHover(web.MouseEvent event) =>
       FlutterDropzonePlatform.instance.events.add(DropzoneHoverEvent(viewId));
 
-  void _onDrop(MouseEvent event, dynamic data) =>
+  void _onDrop(web.MouseEvent event, web.File data) =>
       FlutterDropzonePlatform.instance.events
           .add(DropzoneDropEvent(viewId, data));
 
-  void _onDropInvalid(MouseEvent event, String mime) =>
+  void _onDropInvalid(web.MouseEvent event, JSString mime) =>
       FlutterDropzonePlatform.instance.events
-          .add(DropzoneDropInvalidEvent(viewId, mime));
+          .add(DropzoneDropInvalidEvent(viewId, mime.toDart));
 
-  void _onDropMultiple(MouseEvent event, List<dynamic> data) =>
+  void _onDropMultiple(web.MouseEvent event, JSArray<web.File> data) =>
       FlutterDropzonePlatform.instance.events
-          .add(DropzoneDropMultipleEvent(viewId, data));
+          .add(DropzoneDropMultipleEvent(viewId, data.toDart));
 
-  void _onLeave(MouseEvent event) =>
+  void _onLeave(web.MouseEvent event) =>
       FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
 }
 
 @JS('create')
-external void _nativeCreate(
-    dynamic container,
-    Function onLoaded,
-    Function onError,
-    Function onHover,
-    Function onDrop,
-    Function onDropInvalid,
-    Function onDropMultiple,
-    Function onLeave);
+external void createJS(
+    web.HTMLDivElement container,
+    JSFunction onLoaded,
+    JSFunction onError,
+    JSFunction onHover,
+    JSFunction onDrop,
+    JSFunction onDropInvalid,
+    JSFunction onDropMultiple,
+    JSFunction onLeave);
 
 @JS('setMIME')
-external bool _nativeSetMIME(dynamic container, List<String> mime);
+external bool setMimeJS(web.HTMLDivElement container, JSArray<JSString> mime);
 
 @JS('setOperation')
-external bool _nativeSetOperation(dynamic container, String operation);
+external bool setOperationJS(web.HTMLDivElement container, JSString operation);
 
 @JS('setCursor')
-external bool _nativeSetCursor(dynamic container, String cursor);
+external bool setCursorJS(web.HTMLDivElement container, JSString cursor);
