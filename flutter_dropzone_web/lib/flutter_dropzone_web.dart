@@ -72,11 +72,12 @@ class FlutterDropzoneView {
     final picker = web.HTMLInputElement();
     final isSafari =
         web.window.navigator.userAgent.toLowerCase().contains('safari');
+    picker.type = 'file';
     if (isSafari) web.document.body!.append(picker);
     picker.multiple = multiple;
     if (mime.isNotEmpty) picker.accept = mime.join(',');
 
-    void onChangeHandler() {
+    void onChangeHandler(web.Event evt) {
       if (picker.files != null) {
         final list = List.generate(
             picker.files!.length, (index) => picker.files!.item(index));
@@ -86,7 +87,7 @@ class FlutterDropzoneView {
       if (isSafari) picker.remove();
     }
 
-    void onCancelHandler() {
+    void onCancelHandler(web.Event evt) {
       completer.complete([]);
       if (isSafari) picker.remove();
     }
