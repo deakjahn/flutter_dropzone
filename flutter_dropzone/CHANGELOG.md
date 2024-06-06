@@ -1,5 +1,10 @@
 # Changelog
 
+## [4.0.1] - 2024-06-06
+
+* Implement [#88](https://github.com/deakjahn/flutter_dropzone/pull/88).
+* Fix [#84](https://github.com/deakjahn/flutter_dropzone/issues/84).
+
 ## [4.0.0] - 2024-03-31
 
 * Implement [#76](https://github.com/deakjahn/flutter_dropzone/pull/76).
