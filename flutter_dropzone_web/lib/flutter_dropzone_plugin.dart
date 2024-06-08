@@ -20,7 +20,8 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   static late final Future<bool> _isReady;
 
   static void registerWith(Registrar registrar) {
-    final self = FlutterDropzonePlugin();
+    FlutterDropzonePlatform.instance = FlutterDropzonePlugin();
+
     _isReady = _readyCompleter.future;
 
     void readyHandler() {
@@ -30,7 +31,6 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
     _flutterDropzoneWebReadyEvent.forTarget(web.window).listen((event) {
       readyHandler();
     });
-    FlutterDropzonePlatform.instance = self;
 
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
