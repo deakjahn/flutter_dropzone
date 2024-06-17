@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.0.2] - 2024-06-06
+
+* Incremented `flutter_dropzone_web` versioning to apply changes from 4.0.1
+
 ## [4.0.1] - 2024-06-06
 
 * Implement [#88](https://github.com/deakjahn/flutter_dropzone/pull/88).
