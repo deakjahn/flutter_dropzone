@@ -20,7 +20,6 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
 
   static void registerWith(Registrar registrar) {
     FlutterDropzonePlatform.instance = FlutterDropzonePlugin();
-
     _isReady = _readyCompleter.future;
 
     void readyHandler() {
