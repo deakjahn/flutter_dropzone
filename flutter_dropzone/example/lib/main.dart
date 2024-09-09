@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print
 
+import 'dart:async' show Completer;
 import 'dart:math' show min;
+import 'dart:typed_data' show Uint8List, BytesBuilder;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
@@ -51,8 +53,7 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  print(await controller1
-                      .pickFiles(mime: ['image/jpeg', 'image/png']));
+                  print(await controller1.pickFiles(mime: ['image/jpeg', 'image/png']));
                 },
                 child: const Text('Pick file'),
               ),
@@ -84,6 +85,7 @@ class _MyAppState extends State<MyApp> {
                 highlighted1 = false;
               });
               final bytes = await controller1.getFileData(ev);
+              print('Read bytes with length ${bytes.length}');
               print(bytes.sublist(0, min(bytes.length, 20)));
             } else if (ev is String) {
               print('Zone 1 drop: $ev');
@@ -117,7 +119,9 @@ class _MyAppState extends State<MyApp> {
               setState(() {
                 message2 = '${ev.name} dropped';
               });
-              final bytes = await controller2.getFileData(ev);
+              final fileStream = controller2.getFileStream(ev);
+              final bytes = await collectBytes(fileStream);
+              print('Streamed bytes with length ${bytes.length}');
               print(bytes.sublist(0, min(bytes.length, 20)));
             } else if (ev is String) {
               print('Zone 2 drop: $ev');
@@ -134,4 +138,16 @@ class _MyAppState extends State<MyApp> {
           },
         ),
       );
+
+  Future<Uint8List> collectBytes(Stream<List<int>> source) {
+    var bytes = BytesBuilder(copy: false);
+    var completer = Completer<Uint8List>.sync();
+    source.listen(
+      bytes.add,
+      onError: completer.completeError,
+      onDone: () => completer.complete(bytes.takeBytes()),
+      cancelOnError: true,
+    );
+    return completer.future;
+  }
 }
