@@ -1,11 +1,15 @@
 if (typeof FlutterDropzone === 'undefined') {
 class FlutterDropzone {
-  constructor(container, onLoaded, onError, onHover, onDrop, onDropInvalid, onDropMultiple, onLeave) {
+  constructor(container, onLoaded, onError, onHover, onDrop, onDropFile, onDropString, onDropInvalid, onDropMultiple, onDropFiles, onDropStrings, onLeave) {
     this.onError = onError;
     this.onHover = onHover;
     this.onDrop = onDrop;
+    this.onDropFile = onDropFile;
+    this.onDropString = onDropString;
     this.onDropInvalid = onDropInvalid;
     this.onDropMultiple = onDropMultiple;
+    this.onDropFiles = onDropFiles;
+    this.onDropStrings = onDropStrings;
     this.onLeave = onLeave;
     this.dropMIME = null;
     this.dropOperation = 'copy';
@@ -17,11 +21,15 @@ class FlutterDropzone {
     if (onLoaded != null) onLoaded();
   }
 
-  updateHandlers(onLoaded, onError, onHover, onDrop, onDropInvalid, onDropMultiple, onLeave) {
+  updateHandlers(onLoaded, onError, onHover, onDrop, onDropFile, onDropString, onDropInvalid, onDropMultiple, onDropFiles, onDropStrings, onLeave) {
     this.onError = onError;
     this.onHover = onHover;
     this.onDrop = onDrop;
+    this.onDropFile = onDropFile;
+    this.onDropString = onDropString;
     this.onDropMultiple = onDropMultiple;
+    this.onDropFiles = onDropFiles;
+    this.onDropStrings = onDropStrings;
     this.onDropInvalid = onDropInvalid;
     this.onLeave = onLeave;
     this.dropMIME = null;
@@ -52,6 +60,7 @@ class FlutterDropzone {
             if (this.dropMIME == null || this.dropMIME.includes(item.type)) {
               var file = item.getAsFile();
               if (this.onDrop != null) this.onDrop(event, file);
+              if (this.onDropFile != null) this.onDropFile(event, file);
               files.push(file);
             }
             else {
@@ -62,7 +71,8 @@ class FlutterDropzone {
           case "string":
             const that = this;
             var text = await this.#getItemAsString(item);
-            if (that.onDrop != null) that.onDrop(event, text);
+            // if (that.onDrop != null) that.onDrop(event, text);
+            if (that.onDropString != null) that.onDropString(event, text);
             strings.push(text);
             break;
 
@@ -75,13 +85,17 @@ class FlutterDropzone {
       for (var i = 0; i < ev.dataTransfer.files.length; i++)
         var file = event.dataTransfer.files[i];
         if (this.onDrop != null) this.onDrop(event, file);
+        if (this.onDropFile != null) this.onDropFile(event, file);
         files.push(file);
     }
 
     if (this.onDropMultiple != null) {
       if (files.length > 0) this.onDropMultiple(event, files);
-      if (strings.length > 0) this.onDropMultiple(event, strings);
+      // if (strings.length > 0) this.onDropMultiple(event, strings);
     }
+
+    if (this.onDropFiles != null && files.length > 0) this.onDropFiles(event, files);
+    if (this.onDropStrings != null && strings.length > 0) this.onDropStrings(event,strings);
   }
 
   #getItemAsString(item) {
@@ -117,11 +131,11 @@ var flutter_dropzone_web = {
     return true;
   },
 
-  create: function(container, onLoaded, onError, onHover, onDrop, onDropInvalid, onDropMultiple, onLeave) {
+  create: function(container, onLoaded, onError, onHover, onDrop, onDropFile, onDropString, onDropInvalid, onDropMultiple, onDropFiles, onDropStrings, onLeave) {
     if (container.FlutterDropzone === undefined)
-      container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onHover, onDrop, onDropInvalid, onDropMultiple, onLeave);
+      container.FlutterDropzone = new FlutterDropzone(container, onLoaded, onError, onHover, onDrop, onDropFile, onDropString, onDropInvalid, onDropMultiple, onDropFiles, onDropStrings, onLeave);
     else
-      container.FlutterDropzone.updateHandlers(onLoaded, onError, onHover, onDrop, onDropInvalid, onDropMultiple, onLeave);
+      container.FlutterDropzone.updateHandlers(onLoaded, onError, onHover, onDrop, onDropFile, onDropString, onDropInvalid, onDropMultiple, onDropFiles, onDropStrings, onLeave);
   },
 };
 

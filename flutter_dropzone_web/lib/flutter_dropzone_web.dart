@@ -39,8 +39,12 @@ class FlutterDropzoneView {
       _onError.toJS,
       _onHover.toJS,
       _onDrop.toJS,
+      _onDropFile.toJS,
+      _onDropString.toJS,
       _onDropInvalid.toJS,
       _onDropMultiple.toJS,
+      _onDropFiles.toJS,
+      _onDropStrings.toJS,
       _onLeave.toJS,
     );
     if (mime != null) setMIME(mime!);
@@ -67,8 +71,8 @@ class FlutterDropzoneView {
         container, cursor.name.toLowerCase().replaceAll('_', '-').toJS);
   }
 
-  Future<List<dynamic>> pickFiles(bool multiple, List<String> mime) {
-    final completer = Completer<List<dynamic>>();
+  Future<List<web.File>> pickFiles(bool multiple, List<String> mime) {
+    final completer = Completer<List<web.File>>();
     final picker = web.HTMLInputElement();
     final isSafari =
         web.window.navigator.userAgent.toLowerCase().contains('safari');
@@ -80,7 +84,7 @@ class FlutterDropzoneView {
     void onChangeHandler(web.Event evt) {
       if (picker.files != null) {
         final list = List.generate(
-            picker.files!.length, (index) => picker.files!.item(index));
+            picker.files!.length, (index) => picker.files!.item(index)!);
         completer.complete(list);
       } else
         completer.complete([]);
@@ -153,6 +157,14 @@ class FlutterDropzoneView {
       FlutterDropzonePlatform.instance.events
           .add(DropzoneDropEvent(viewId, data));
 
+  void _onDropFile(web.MouseEvent event, web.File data) =>
+      FlutterDropzonePlatform.instance.events
+          .add(DropzoneDropFileEvent(viewId, data));
+
+  void _onDropString(web.MouseEvent event, JSString s) =>
+      FlutterDropzonePlatform.instance.events
+          .add(DropzoneDropStringEvent(viewId, s.toDart));
+
   void _onDropInvalid(web.MouseEvent event, JSString mime) =>
       FlutterDropzonePlatform.instance.events
           .add(DropzoneDropInvalidEvent(viewId, mime.toDart));
@@ -160,6 +172,14 @@ class FlutterDropzoneView {
   void _onDropMultiple(web.MouseEvent event, JSArray<web.File> data) =>
       FlutterDropzonePlatform.instance.events
           .add(DropzoneDropMultipleEvent(viewId, data.toDart));
+
+  void _onDropFiles(web.MouseEvent event, JSArray<web.File> data) =>
+      FlutterDropzonePlatform.instance.events
+          .add(DropzoneDropFilesEvent(viewId, data.toDart));
+
+  void _onDropStrings(web.MouseEvent event, JSArray<JSString> data) =>
+      FlutterDropzonePlatform.instance.events
+          .add(DropzoneDropStringsEvent(viewId, data.toDart.map((s) => s.toDart).toList()));
 
   void _onLeave(web.MouseEvent event) =>
       FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));
@@ -172,8 +192,12 @@ external void createJS(
     JSFunction onError,
     JSFunction onHover,
     JSFunction onDrop,
+    JSFunction onDropFile,
+    JSFunction onDropString,
     JSFunction onDropInvalid,
     JSFunction onDropMultiple,
+    JSFunction onDropFiles,
+    JSFunction onDropStrings,
     JSFunction onLeave);
 
 @JS('setMIME')

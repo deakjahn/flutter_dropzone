@@ -6,7 +6,6 @@ import 'dart:typed_data' show Uint8List, BytesBuilder;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
-import 'package:web/web.dart' as web;
 
 void main() => runApp(const MyApp());
 
@@ -53,8 +52,7 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  print(await controller1
-                      .pickFiles(mime: ['image/jpeg', 'image/png']));
+                  print(await controller1.pickFiles(mime: ['image/jpeg', 'image/png']));
                 },
                 child: const Text('Pick file'),
               ),
@@ -69,7 +67,7 @@ class _MyAppState extends State<MyApp> {
           cursor: CursorType.grab,
           onCreated: (ctrl) => controller1 = ctrl,
           onLoaded: () => print('Zone 1 loaded'),
-          onError: (ev) => print('Zone 1 error: $ev'),
+          onError: (error) => print('Zone 1 error: $error'),
           onHover: () {
             setState(() => highlighted1 = true);
             print('Zone 1 hovered');
@@ -78,30 +76,27 @@ class _MyAppState extends State<MyApp> {
             setState(() => highlighted1 = false);
             print('Zone 1 left');
           },
-          onDrop: (ev) async {
-            if (ev is web.File) {
-              print('Zone 1 drop: ${ev.name}');
-              setState(() {
-                message1 = '${ev.name} dropped';
-                highlighted1 = false;
-              });
-              final bytes = await controller1.getFileData(ev);
-              print('Read bytes with length ${bytes.length}');
-              print(bytes.sublist(0, min(bytes.length, 20)));
-            } else if (ev is String) {
-              print('Zone 1 drop: $ev');
-              setState(() {
-                message1 = 'text dropped';
-                highlighted1 = false;
-              });
-              print(ev.substring(0, min(ev.length, 20)));
-            } else
-              print('Zone 1 unknown type: ${ev.runtimeType}');
+          onDropFile: (file) async {
+            print('Zone 1 drop: ${file.name}');
+            setState(() {
+              message1 = '${file.name} dropped';
+              highlighted1 = false;
+            });
+            final bytes = await controller1.getFileData(file);
+            print('Read bytes with length ${bytes.length}');
+            print(bytes.sublist(0, min(bytes.length, 20)));
           },
-          onDropInvalid: (ev) => print('Zone 1 invalid MIME: $ev'),
-          onDropMultiple: (ev) async {
-            print('Zone 1 drop multiple: $ev');
+          onDropString: (s) {
+            print('Zone 1 drop: $s');
+            setState(() {
+              message1 = 'text dropped';
+              highlighted1 = false;
+            });
+            print(s.substring(0, min(s.length, 20)));
           },
+          onDropInvalid: (mime) => print('Zone 1 invalid MIME: $mime'),
+          onDropFiles: (files) => print('Zone 1 drop multiple: $files'),
+          onDropStrings: (strings) => print('Zone 1 drop multiple: $strings'),
         ),
       );
 
@@ -111,32 +106,29 @@ class _MyAppState extends State<MyApp> {
           mime: const ['image/jpeg'],
           onCreated: (ctrl) => controller2 = ctrl,
           onLoaded: () => print('Zone 2 loaded'),
-          onError: (ev) => print('Zone 2 error: $ev'),
+          onError: (error) => print('Zone 2 error: $error'),
           onHover: () => print('Zone 2 hovered'),
           onLeave: () => print('Zone 2 left'),
-          onDrop: (ev) async {
-            if (ev is web.File) {
-              print('Zone 2 drop: ${ev.name}');
-              setState(() {
-                message2 = '${ev.name} dropped';
-              });
-              final fileStream = controller2.getFileStream(ev);
-              final bytes = await collectBytes(fileStream);
-              print('Streamed bytes with length ${bytes.length}');
-              print(bytes.sublist(0, min(bytes.length, 20)));
-            } else if (ev is String) {
-              print('Zone 2 drop: $ev');
-              setState(() {
-                message2 = 'text dropped';
-              });
-              print(ev.substring(0, min(ev.length, 20)));
-            } else
-              print('Zone 2 unknown type: ${ev.runtimeType}');
+          onDropFile: (file) async {
+            print('Zone 2 drop: ${file.name}');
+            setState(() {
+              message2 = '${file.name} dropped';
+            });
+            final fileStream = controller2.getFileStream(file);
+            final bytes = await collectBytes(fileStream);
+            print('Streamed bytes with length ${bytes.length}');
+            print(bytes.sublist(0, min(bytes.length, 20)));
           },
-          onDropInvalid: (ev) => print('Zone 2 invalid MIME: $ev'),
-          onDropMultiple: (ev) async {
-            print('Zone 2 drop multiple: $ev');
+          onDropString: (s) {
+            print('Zone 2 drop: $s');
+            setState(() {
+              message2 = 'text dropped';
+            });
+            print(s.substring(0, min(s.length, 20)));
           },
+          onDropInvalid: (mime) => print('Zone 2 invalid MIME: $mime'),
+          onDropFiles: (files) => print('Zone 2 drop multiple: $files'),
+          onDropStrings: (strings) => print('Zone 2 drop multiple: $strings'),
         ),
       );
 

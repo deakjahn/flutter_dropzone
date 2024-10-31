@@ -68,34 +68,34 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<List<dynamic>> pickFiles(bool multiple,
+  Future<List<web.File>> pickFiles(bool multiple,
       {List<String> mime = const [], required int viewId}) {
     return _views[viewId]!.pickFiles(multiple, mime);
   }
 
   @override
-  Future<String> getFilename(dynamic htmlFile, {required int viewId}) {
+  Future<String> getFilename(web.File htmlFile, {required int viewId}) {
     return _views[viewId]!.getFilename(htmlFile);
   }
 
   @override
-  Future<int> getFileSize(dynamic htmlFile, {required int viewId}) {
+  Future<int> getFileSize(web.File htmlFile, {required int viewId}) {
     return _views[viewId]!.getFileSize(htmlFile);
   }
 
   @override
-  Future<String> getFileMIME(dynamic htmlFile, {required int viewId}) {
+  Future<String> getFileMIME(web.File htmlFile, {required int viewId}) {
     return _views[viewId]!.getFileMIME(htmlFile);
   }
 
   @override
-  Future<DateTime> getFileLastModified(dynamic htmlFile,
+  Future<DateTime> getFileLastModified(web.File htmlFile,
       {required int viewId}) {
     return _views[viewId]!.getFileLastModified(htmlFile);
   }
 
   @override
-  Future<String> createFileUrl(dynamic htmlFile, {required int viewId}) {
+  Future<String> createFileUrl(web.File htmlFile, {required int viewId}) {
     return _views[viewId]!.createFileUrl(htmlFile);
   }
 
@@ -105,12 +105,12 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<Uint8List> getFileData(dynamic htmlFile, {required int viewId}) {
+  Future<Uint8List> getFileData(web.File htmlFile, {required int viewId}) {
     return _views[viewId]!.getFileData(htmlFile);
   }
 
   @override
-  Stream<List<int>> getFileStream(dynamic htmlFile, {required int viewId}) {
+  Stream<List<int>> getFileStream(web.File htmlFile, {required int viewId}) {
     return _views[viewId]!.getFileStream(htmlFile);
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
+import 'package:web/web.dart' as web;
 
 typedef DropzoneViewCreatedCallback = void Function(
     DropzoneViewController controller);
@@ -28,13 +29,27 @@ class DropzoneView extends StatefulWidget {
   final VoidCallback? onHover;
 
   /// Event called when the user drops a file onto the dropzone.
+  @Deprecated('Use onDropFile or onDropString instead.')
   final ValueChanged<dynamic>? onDrop;
+
+  /// Event called when the user drops a file onto the dropzone.
+  final ValueChanged<web.File>? onDropFile;
+
+  /// Event called when the user drops a string onto the dropzone.
+  final ValueChanged<String>? onDropString;
 
   /// Event called when the user tries to drop an invalid file onto the dropzone.
   final ValueChanged<String?>? onDropInvalid;
 
   /// Event called when the user drops multiple files onto the dropzone.
+  @Deprecated('Use onDropFiles or onDropStrings instead.')
   final ValueChanged<List<dynamic>?>? onDropMultiple;
+
+  /// Event called when the user drops multiple files onto the dropzone.
+  final ValueChanged<List<web.File>?>? onDropFiles;
+
+  /// Event called when the user drops multiple strings onto the dropzone.
+  final ValueChanged<List<String>?>? onDropStrings;
 
   /// Event called when the user leaves a dropzone.
   final VoidCallback? onLeave;
@@ -49,13 +64,17 @@ class DropzoneView extends StatefulWidget {
     this.onLoaded,
     this.onError,
     this.onHover,
+    @Deprecated('Use onDropFile or onDropString instead.')
     this.onDrop,
+    this.onDropFile,
+    this.onDropString,
     this.onDropInvalid,
+    @Deprecated('Use onDropFiles or onDropStrings instead.')
     this.onDropMultiple,
+    this.onDropFiles,
+    this.onDropStrings,
     this.onLeave,
-  })  : assert(onDrop != null || onDropMultiple != null,
-            'Either onDrop or onDropMultiple is required'),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   State<DropzoneView> createState() => _DropzoneViewState();
@@ -106,6 +125,16 @@ class DropzoneViewController {
           .onDrop(viewId: viewId)
           .listen((msg) => widget.onDrop!(msg.value));
     }
+    if (widget.onDropFile != null) {
+      FlutterDropzonePlatform.instance //
+          .onDropFile(viewId: viewId)
+          .listen((msg) => widget.onDropFile!(msg.value!));
+    }
+    if (widget.onDropString != null) {
+      FlutterDropzonePlatform.instance //
+          .onDropString(viewId: viewId)
+          .listen((msg) => widget.onDropString!(msg.value!));
+    }
     if (widget.onDropInvalid != null) {
       FlutterDropzonePlatform.instance //
           .onDropInvalid(viewId: viewId)
@@ -115,6 +144,16 @@ class DropzoneViewController {
       FlutterDropzonePlatform.instance //
           .onDropMultiple(viewId: viewId)
           .listen((msg) => widget.onDropMultiple!(msg.value));
+    }
+    if (widget.onDropFiles != null) {
+      FlutterDropzonePlatform.instance //
+          .onDropFiles(viewId: viewId)
+          .listen((msg) => widget.onDropFiles!(msg.value!));
+    }
+    if (widget.onDropStrings != null) {
+      FlutterDropzonePlatform.instance //
+          .onDropStrings(viewId: viewId)
+          .listen((msg) => widget.onDropStrings!(msg.value!));
     }
     if (widget.onLeave != null) {
       FlutterDropzonePlatform.instance //
@@ -143,32 +182,32 @@ class DropzoneViewController {
   ///
   /// Set [multiple] to allow picking more than one file.
   /// Returns the list of files picked by the user.
-  Future<List<dynamic>> pickFiles(
+  Future<List<web.File>> pickFiles(
       {bool multiple = false, List<String> mime = const []}) {
     return FlutterDropzonePlatform.instance
         .pickFiles(multiple, mime: mime, viewId: viewId);
   }
 
   /// Get the filename of the passed HTML file.
-  Future<String> getFilename(dynamic htmlFile) {
+  Future<String> getFilename(web.File htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFilename(htmlFile, viewId: viewId);
   }
 
   /// Get the size of the passed HTML file.
-  Future<int> getFileSize(dynamic htmlFile) {
+  Future<int> getFileSize(web.File htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFileSize(htmlFile, viewId: viewId);
   }
 
   /// Get the MIME type of the passed HTML file.
-  Future<String> getFileMIME(dynamic htmlFile) {
+  Future<String> getFileMIME(web.File htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFileMIME(htmlFile, viewId: viewId);
   }
 
   /// Get the last modified date of the passed HTML file.
-  Future<DateTime> getFileLastModified(dynamic htmlFile) {
+  Future<DateTime> getFileLastModified(web.File htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFileLastModified(htmlFile, viewId: viewId);
   }
@@ -176,7 +215,7 @@ class DropzoneViewController {
   /// Create a temporary URL to the passed HTML file.
   ///
   /// When finished, the URL should be released using [releaseFileUrl()].
-  Future<String> createFileUrl(dynamic htmlFile) {
+  Future<String> createFileUrl(web.File htmlFile) {
     return FlutterDropzonePlatform.instance
         .createFileUrl(htmlFile, viewId: viewId);
   }
@@ -188,13 +227,13 @@ class DropzoneViewController {
   }
 
   /// Get the contents of the passed HTML file.
-  Future<Uint8List> getFileData(dynamic htmlFile) {
+  Future<Uint8List> getFileData(web.File htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFileData(htmlFile, viewId: viewId);
   }
 
   /// Get the contents of the passed HTML file as a chunked stream.
-  Stream<List<int>> getFileStream(dynamic htmlFile) {
+  Stream<List<int>> getFileStream(web.File htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFileStream(htmlFile, viewId: viewId);
   }
