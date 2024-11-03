@@ -6,6 +6,9 @@ See the README files of the individual subprojects:
 
 ## Breaking changes
 
+4.1.0 deprecates `onDrop` and all other functions using `dynamic` type because the newer Flutter JS support enforces
+stricter type checking. `onDrop` will be removed in a coming version. Use `onDropFile` and `onDropString` instead.
+
 4.0.x is compatible with Flutter 3.13 (stable) and later. If you're not yet ready to upgrade from a previous version of Flutter, stay with the latest 3.0.x version of `flutter_dropzone`.
 See the [README of the web implementation][3] for details.
 
