@@ -71,8 +71,8 @@ class FlutterDropzoneView {
         container, cursor.name.toLowerCase().replaceAll('_', '-').toJS);
   }
 
-  Future<List<web.File>> pickFiles(bool multiple, List<String> mime) {
-    final completer = Completer<List<web.File>>();
+  Future<List<DropzoneFile>> pickFiles(bool multiple, List<String> mime) {
+    final completer = Completer<List<DropzoneFile>>();
     final picker = web.HTMLInputElement();
     final isSafari =
         web.window.navigator.userAgent.toLowerCase().contains('safari');
@@ -84,7 +84,7 @@ class FlutterDropzoneView {
     void onChangeHandler(web.Event evt) {
       if (picker.files != null) {
         final list = List.generate(
-            picker.files!.length, (index) => picker.files!.item(index)!);
+            picker.files!.length, (index) => DropzoneFile(picker.files!.item(index)!));
         completer.complete(list);
       } else
         completer.complete([]);
@@ -102,24 +102,24 @@ class FlutterDropzoneView {
     return completer.future;
   }
 
-  Future<String> getFilename(web.File file) async {
-    return file.name;
+  Future<String> getFilename(DropzoneFile file) async {
+    return file.webFile.name;
   }
 
-  Future<int> getFileSize(web.File file) async {
-    return file.size;
+  Future<int> getFileSize(DropzoneFile file) async {
+    return file.webFile.size;
   }
 
-  Future<String> getFileMIME(web.File file) async {
-    return file.type;
+  Future<String> getFileMIME(DropzoneFile file) async {
+    return file.webFile.type;
   }
 
-  Future<DateTime> getFileLastModified(web.File file) async {
-    return DateTime.fromMillisecondsSinceEpoch(file.lastModified);
+  Future<DateTime> getFileLastModified(DropzoneFile file) async {
+    return DateTime.fromMillisecondsSinceEpoch(file.webFile.lastModified);
   }
 
-  Future<String> createFileUrl(web.File file) async {
-    return web.URL.createObjectURL(file);
+  Future<String> createFileUrl(DropzoneFile file) async {
+    return web.URL.createObjectURL(file.webFile);
   }
 
   Future<bool> releaseFileUrl(String fileUrl) async {
@@ -127,17 +127,17 @@ class FlutterDropzoneView {
     return true;
   }
 
-  Future<Uint8List> getFileData(web.File file) async {
-    final arrayBuffer = await file.arrayBuffer().toDart;
+  Future<Uint8List> getFileData(DropzoneFile file) async {
+    final arrayBuffer = await file.webFile.arrayBuffer().toDart;
     return arrayBuffer.toDart.asUint8List();
   }
 
-  Stream<List<int>> getFileStream(web.File file) async* {
+  Stream<List<int>> getFileStream(DropzoneFile file) async* {
     const int chunkSize = 1024 * 1024;
     int start = 0;
-    while (start < file.size) {
-      final end = start + chunkSize > file.size ? file.size : start + chunkSize;
-      final blob = file.slice(start, end);
+    while (start < file.webFile.size) {
+      final end = start + chunkSize > file.webFile.size ? file.webFile.size : start + chunkSize;
+      final blob = file.webFile.slice(start, end);
       final arrayBuffer = await blob.arrayBuffer().toDart;
       yield arrayBuffer.toDart.asUint8List();
       start += chunkSize;
@@ -157,13 +157,13 @@ class FlutterDropzoneView {
       FlutterDropzonePlatform.instance.events
           .add(DropzoneDropEvent(viewId, data));
 
-  void _onDropFile(web.MouseEvent event, web.File data) =>
+  void _onDropFile(web.MouseEvent event, web.File file) =>
       FlutterDropzonePlatform.instance.events
-          .add(DropzoneDropFileEvent(viewId, data));
+          .add(DropzoneDropFileEvent(viewId, DropzoneFile(file)));
 
-  void _onDropString(web.MouseEvent event, JSString s) =>
+  void _onDropString(web.MouseEvent event, JSString string) =>
       FlutterDropzonePlatform.instance.events
-          .add(DropzoneDropStringEvent(viewId, s.toDart));
+          .add(DropzoneDropStringEvent(viewId, string.toDart));
 
   void _onDropInvalid(web.MouseEvent event, JSString mime) =>
       FlutterDropzonePlatform.instance.events
@@ -173,13 +173,13 @@ class FlutterDropzoneView {
       FlutterDropzonePlatform.instance.events
           .add(DropzoneDropMultipleEvent(viewId, data.toDart));
 
-  void _onDropFiles(web.MouseEvent event, JSArray<web.File> data) =>
+  void _onDropFiles(web.MouseEvent event, JSArray<web.File> files) =>
       FlutterDropzonePlatform.instance.events
-          .add(DropzoneDropFilesEvent(viewId, data.toDart));
+          .add(DropzoneDropFilesEvent(viewId, files.toDart.map((file) => DropzoneFile(file)).toList()));
 
-  void _onDropStrings(web.MouseEvent event, JSArray<JSString> data) =>
+  void _onDropStrings(web.MouseEvent event, JSArray<JSString> strings) =>
       FlutterDropzonePlatform.instance.events
-          .add(DropzoneDropStringsEvent(viewId, data.toDart.map((s) => s.toDart).toList()));
+          .add(DropzoneDropStringsEvent(viewId, strings.toDart.map((string) => string.toDart).toList()));
 
   void _onLeave(web.MouseEvent event) =>
       FlutterDropzonePlatform.instance.events.add(DropzoneLeaveEvent(viewId));

@@ -6,6 +6,11 @@ See the README files of the individual subprojects:
 
 ## Breaking changes
 
+4.2.0 had to introduce another breaking change, sorry. While 4.1.0 solved the problem for web users, it created a regression
+for some other people who author multiplatorm apps where not all variants are web-based. Instead of returning a `web.File` directly,
+the `onDrop` variants now return a `DropzoneFile`. You can go on accessing its properties as before, so you might not even note
+the difference.
+
 4.1.0 deprecates `onDrop` and all other functions using `dynamic` type because the newer Flutter JS support enforces
 stricter type checking. `onDrop` will be removed in a coming version. Use `onDropFile` and `onDropString` instead.
 

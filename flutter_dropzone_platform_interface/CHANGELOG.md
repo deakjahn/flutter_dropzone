@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.0] - coming
+
+* Fix [#95](https://github.com/deakjahn/flutter_dropzone/issues/95).
+
+## [2.1.0] - 2024-11-03
+
+* Fix [#94](https://github.com/deakjahn/flutter_dropzone/issues/94).
+
 ## [2.0.6] - 2023-07-27
 
 * Fix [#66](https://github.com/deakjahn/flutter_dropzone/issues/66).

@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.5
-  flutter_dropzone: ^4.1.0
+  flutter_dropzone: ^4.2.0
   web: ">=0.5.1 <2.0.0"
 
 dev_dependencies:

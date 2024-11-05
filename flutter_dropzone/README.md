@@ -13,9 +13,9 @@ DropzoneView(
   onLoaded: () => print('Zone loaded'),
   onError: (String? ev) => print('Error: $ev'),
   onHover: () => print('Zone hovered'),
-  onDropFile: (web.File file) => print('Drop: $file'),
+  onDropFile: (DropzoneFile file) => print('Drop: ${file.webFile}'),
   onDropString: (String s) => print('Drop: $s'),
-  onDropFiles: (List<web.File> files) => print('Drop multiple: $files'),
+  onDropFiles: (List<DropzoneFile> files) => print('Drop multiple: $files'),
   onDropStrings: (List<String> strings) => print('Drop multiple: $strings'),
   onLeave: () => print('Zone left'),
 );
@@ -36,20 +36,20 @@ Stack(
 ## Using the controller
 
 Because the files returned are HTML File API references with serious limitations, they can't be converted to regular Dart
-`File` objects. They are returned as `web.File` objects and the controller has functions to extract information from these objects:
+`File` objects. They are returned as `DropzoneFile` objects and the controller has functions to extract information from these objects:
 
-*  `Future<String> getFilename(web.File htmlFile);`
-*  `Future<int> getFileSize(web.File htmlFile);`
-*  `Future<String> getFileMIME(web.File htmlFile);`
-*  `Future<DateTime> getFileLastModified(web.File htmlFile);`
-*  `Future<Uint8List> getFileData(web.File htmlFile);`
-*  `Stream<List<int>> getFileStream(web.File htmlFile);`
+*  `Future<String> getFilename(DropzoneFile htmlFile);`
+*  `Future<int> getFileSize(DropzoneFile htmlFile);`
+*  `Future<String> getFileMIME(DropzoneFile htmlFile);`
+*  `Future<DateTime> getFileLastModified(DropzoneFile htmlFile);`
+*  `Future<Uint8List> getFileData(DropzoneFile htmlFile);`
+*  `Stream<List<int>> getFileStream(DropzoneFile htmlFile);`
 
 You can't have a permanent link to the file (and no file path, either). If you need to retain the full file data, use `getFileData()`
 to get the actual contents and store it yourself into localStorage, IndexedDB, uploading to your server, whatever.
 You can get a temporary URL using:
 
-*  `Future<String> createFileUrl(web.File htmlFile);`
+*  `Future<String> createFileUrl(DropzoneFile htmlFile);`
 *  `Future<bool> releaseFileUrl(String fileUrl);`
 
 but this will only be valid for the session. It's a regular URL, so you can use it to display the image the same way like loading
@@ -60,7 +60,7 @@ in the browser and lets the user pick some files. It has nothing to do with the 
 possible way to select files) but by putting it into the web side of a federated plugin we can make sure it doesn't hurt the
 compilation on other platforms.
 
-*  `Future<List<web.File>> pickFiles(bool multiple, List<String> mime);`
+*  `Future<List<DropzoneFile>> pickFiles(bool multiple, List<String> mime);`
 
 ## Using it in cross-platform apps
 
@@ -70,6 +70,11 @@ It will *not* function on the former, the view will simply return an error text 
 Android and iOS, without the usual `dart:html` errors (this is what federated plugins are for).
 
 ## Breaking changes
+
+4.2.0 had to introduce another breaking change, sorry. While 4.1.0 solved the problem for web users, it created a regression
+for some other people who author multiplatorm apps where not all variants are web-based. Instead of returning a `web.File` directly,
+the `onDrop` variants now return a `DropzoneFile`. You can go on accessing its properties as before, so you might not even note
+the difference.
 
 4.1.0 deprecates `onDrop` and all other functions using `dynamic` type because the newer Flutter JS support enforces
 stricter type checking. `onDrop` will be removed in a coming version. Use `onDropFile` and `onDropString` instead.

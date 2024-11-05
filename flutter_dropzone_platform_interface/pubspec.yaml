@@ -3,7 +3,7 @@ description: A common platform interface for the flutter_dropzone plugin.
 homepage: https://github.com/deakjahn/flutter_dropzone
 # NOTE: We strongly prefer non-breaking changes, even at the expense of a
 # less-clean API. See https://flutter.dev/go/platform-interface-breaking-changes
-version: 2.1.0
+version: 2.2.0
 
 environment:
   sdk: ">=2.15.0 <4.0.0"

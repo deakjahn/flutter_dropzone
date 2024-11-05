@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_interface.dart';
-import 'package:web/web.dart' as web;
 
 typedef DropzoneViewCreatedCallback = void Function(
     DropzoneViewController controller);
@@ -33,7 +32,7 @@ class DropzoneView extends StatefulWidget {
   final ValueChanged<dynamic>? onDrop;
 
   /// Event called when the user drops a file onto the dropzone.
-  final ValueChanged<web.File>? onDropFile;
+  final ValueChanged<DropzoneFile>? onDropFile;
 
   /// Event called when the user drops a string onto the dropzone.
   final ValueChanged<String>? onDropString;
@@ -46,7 +45,7 @@ class DropzoneView extends StatefulWidget {
   final ValueChanged<List<dynamic>?>? onDropMultiple;
 
   /// Event called when the user drops multiple files onto the dropzone.
-  final ValueChanged<List<web.File>?>? onDropFiles;
+  final ValueChanged<List<DropzoneFile>?>? onDropFiles;
 
   /// Event called when the user drops multiple strings onto the dropzone.
   final ValueChanged<List<String>?>? onDropStrings;
@@ -182,32 +181,32 @@ class DropzoneViewController {
   ///
   /// Set [multiple] to allow picking more than one file.
   /// Returns the list of files picked by the user.
-  Future<List<web.File>> pickFiles(
+  Future<List<DropzoneFile>> pickFiles(
       {bool multiple = false, List<String> mime = const []}) {
     return FlutterDropzonePlatform.instance
         .pickFiles(multiple, mime: mime, viewId: viewId);
   }
 
   /// Get the filename of the passed HTML file.
-  Future<String> getFilename(web.File htmlFile) {
+  Future<String> getFilename(DropzoneFile htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFilename(htmlFile, viewId: viewId);
   }
 
   /// Get the size of the passed HTML file.
-  Future<int> getFileSize(web.File htmlFile) {
+  Future<int> getFileSize(DropzoneFile htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFileSize(htmlFile, viewId: viewId);
   }
 
   /// Get the MIME type of the passed HTML file.
-  Future<String> getFileMIME(web.File htmlFile) {
+  Future<String> getFileMIME(DropzoneFile htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFileMIME(htmlFile, viewId: viewId);
   }
 
   /// Get the last modified date of the passed HTML file.
-  Future<DateTime> getFileLastModified(web.File htmlFile) {
+  Future<DateTime> getFileLastModified(DropzoneFile htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFileLastModified(htmlFile, viewId: viewId);
   }
@@ -215,7 +214,7 @@ class DropzoneViewController {
   /// Create a temporary URL to the passed HTML file.
   ///
   /// When finished, the URL should be released using [releaseFileUrl()].
-  Future<String> createFileUrl(web.File htmlFile) {
+  Future<String> createFileUrl(DropzoneFile htmlFile) {
     return FlutterDropzonePlatform.instance
         .createFileUrl(htmlFile, viewId: viewId);
   }
@@ -227,13 +226,13 @@ class DropzoneViewController {
   }
 
   /// Get the contents of the passed HTML file.
-  Future<Uint8List> getFileData(web.File htmlFile) {
+  Future<Uint8List> getFileData(DropzoneFile htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFileData(htmlFile, viewId: viewId);
   }
 
   /// Get the contents of the passed HTML file as a chunked stream.
-  Stream<List<int>> getFileStream(web.File htmlFile) {
+  Stream<List<int>> getFileStream(DropzoneFile htmlFile) {
     return FlutterDropzonePlatform.instance
         .getFileStream(htmlFile, viewId: viewId);
   }
