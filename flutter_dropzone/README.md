@@ -36,20 +36,20 @@ Stack(
 ## Using the controller
 
 Because the files returned are HTML File API references with serious limitations, they can't be converted to regular Dart
-`File` objects. They are returned as `DropzoneFile` objects and the controller has functions to extract information from these objects:
+`File` objects. They are returned as `DropzoneFileInterface` objects and the controller has functions to extract information from these objects:
 
-*  `Future<String> getFilename(DropzoneFile htmlFile);`
-*  `Future<int> getFileSize(DropzoneFile htmlFile);`
-*  `Future<String> getFileMIME(DropzoneFile htmlFile);`
-*  `Future<DateTime> getFileLastModified(DropzoneFile htmlFile);`
-*  `Future<Uint8List> getFileData(DropzoneFile htmlFile);`
-*  `Stream<List<int>> getFileStream(DropzoneFile htmlFile);`
+*  `Future<String> getFilename(DropzoneFileInterface file);`
+*  `Future<int> getFileSize(DropzoneFileInterface file);`
+*  `Future<String> getFileMIME(DropzoneFileInterface file);`
+*  `Future<DateTime> getFileLastModified(DropzoneFileInterface file);`
+*  `Future<Uint8List> getFileData(DropzoneFileInterface file);`
+*  `Stream<List<int>> getFileStream(DropzoneFileInterface file);`
 
 You can't have a permanent link to the file (and no file path, either). If you need to retain the full file data, use `getFileData()`
 to get the actual contents and store it yourself into localStorage, IndexedDB, uploading to your server, whatever.
 You can get a temporary URL using:
 
-*  `Future<String> createFileUrl(DropzoneFile htmlFile);`
+*  `Future<String> createFileUrl(DropzoneFileInterface file);`
 *  `Future<bool> releaseFileUrl(String fileUrl);`
 
 but this will only be valid for the session. It's a regular URL, so you can use it to display the image the same way like loading
@@ -73,7 +73,7 @@ Android and iOS, without the usual `dart:html` errors (this is what federated pl
 
 4.2.0 had to introduce another breaking change, sorry. While 4.1.0 solved the problem for web users, it created a regression
 for some other people who author multiplatorm apps where not all variants are web-based. Instead of returning a `web.File` directly,
-the `onDrop` variants now return a `DropzoneFile`. You can go on accessing its properties as before, so you might not even note
+the `onDrop` variants now return a `DropzoneFileInterface`. You can go on accessing its properties as before, so you might not even note
 the difference.
 
 4.1.0 deprecates `onDrop` and all other functions using `dynamic` type because the newer Flutter JS support enforces

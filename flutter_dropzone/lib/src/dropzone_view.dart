@@ -32,7 +32,7 @@ class DropzoneView extends StatefulWidget {
   final ValueChanged<dynamic>? onDrop;
 
   /// Event called when the user drops a file onto the dropzone.
-  final ValueChanged<DropzoneFile>? onDropFile;
+  final ValueChanged<DropzoneFileInterface>? onDropFile;
 
   /// Event called when the user drops a string onto the dropzone.
   final ValueChanged<String>? onDropString;
@@ -45,7 +45,7 @@ class DropzoneView extends StatefulWidget {
   final ValueChanged<List<dynamic>?>? onDropMultiple;
 
   /// Event called when the user drops multiple files onto the dropzone.
-  final ValueChanged<List<DropzoneFile>?>? onDropFiles;
+  final ValueChanged<List<DropzoneFileInterface>?>? onDropFiles;
 
   /// Event called when the user drops multiple strings onto the dropzone.
   final ValueChanged<List<String>?>? onDropStrings;
@@ -63,8 +63,7 @@ class DropzoneView extends StatefulWidget {
     this.onLoaded,
     this.onError,
     this.onHover,
-    @Deprecated('Use onDropFile or onDropString instead.')
-    this.onDrop,
+    @Deprecated('Use onDropFile or onDropString instead.') this.onDrop,
     this.onDropFile,
     this.onDropString,
     this.onDropInvalid,
@@ -181,42 +180,42 @@ class DropzoneViewController {
   ///
   /// Set [multiple] to allow picking more than one file.
   /// Returns the list of files picked by the user.
-  Future<List<DropzoneFile>> pickFiles(
+  Future<List<DropzoneFileInterface>> pickFiles(
       {bool multiple = false, List<String> mime = const []}) {
     return FlutterDropzonePlatform.instance
         .pickFiles(multiple, mime: mime, viewId: viewId);
   }
 
   /// Get the filename of the passed HTML file.
-  Future<String> getFilename(DropzoneFile htmlFile) {
+  Future<String> getFilename(DropzoneFileInterface file) {
     return FlutterDropzonePlatform.instance
-        .getFilename(htmlFile, viewId: viewId);
+        .getFilename(file, viewId: viewId);
   }
 
   /// Get the size of the passed HTML file.
-  Future<int> getFileSize(DropzoneFile htmlFile) {
+  Future<int> getFileSize(DropzoneFileInterface file) {
     return FlutterDropzonePlatform.instance
-        .getFileSize(htmlFile, viewId: viewId);
+        .getFileSize(file, viewId: viewId);
   }
 
   /// Get the MIME type of the passed HTML file.
-  Future<String> getFileMIME(DropzoneFile htmlFile) {
+  Future<String> getFileMIME(DropzoneFileInterface file) {
     return FlutterDropzonePlatform.instance
-        .getFileMIME(htmlFile, viewId: viewId);
+        .getFileMIME(file, viewId: viewId);
   }
 
   /// Get the last modified date of the passed HTML file.
-  Future<DateTime> getFileLastModified(DropzoneFile htmlFile) {
+  Future<DateTime> getFileLastModified(DropzoneFileInterface file) {
     return FlutterDropzonePlatform.instance
-        .getFileLastModified(htmlFile, viewId: viewId);
+        .getFileLastModified(file, viewId: viewId);
   }
 
   /// Create a temporary URL to the passed HTML file.
   ///
   /// When finished, the URL should be released using [releaseFileUrl()].
-  Future<String> createFileUrl(DropzoneFile htmlFile) {
+  Future<String> createFileUrl(DropzoneFileInterface file) {
     return FlutterDropzonePlatform.instance
-        .createFileUrl(htmlFile, viewId: viewId);
+        .createFileUrl(file, viewId: viewId);
   }
 
   /// Release a temporary URL previously created using [createFileUrl()].
@@ -226,14 +225,14 @@ class DropzoneViewController {
   }
 
   /// Get the contents of the passed HTML file.
-  Future<Uint8List> getFileData(DropzoneFile htmlFile) {
+  Future<Uint8List> getFileData(DropzoneFileInterface file) {
     return FlutterDropzonePlatform.instance
-        .getFileData(htmlFile, viewId: viewId);
+        .getFileData(file, viewId: viewId);
   }
 
   /// Get the contents of the passed HTML file as a chunked stream.
-  Stream<List<int>> getFileStream(DropzoneFile htmlFile) {
+  Stream<List<int>> getFileStream(DropzoneFileInterface file) {
     return FlutterDropzonePlatform.instance
-        .getFileStream(htmlFile, viewId: viewId);
+        .getFileStream(file, viewId: viewId);
   }
 }

@@ -4,12 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_dropzone_platform_interface/dropzone_file.dart';
+import 'package:flutter_dropzone_platform_interface/dropzone_file_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'method_channel_flutter_dropzone.dart';
 
-export 'package:flutter_dropzone_platform_interface/dropzone_file.dart';
+export 'package:flutter_dropzone_platform_interface/dropzone_file_interface.dart';
 
 enum DragOperation { copy, move, link, copyMove, copyLink, linkMove, all }
 
@@ -94,28 +94,31 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   /// Set [multiple] to allow picking more than one file.
   /// Specify the list of accepted MIME types in [mime].
   /// Returns the list of files picked by the user.
-  Future<List<DropzoneFile>> pickFiles(bool multiple,
+  Future<List<DropzoneFileInterface>> pickFiles(bool multiple,
       {List<String> mime = const [], required int viewId}) async {
     throw UnimplementedError('pickFiles');
   }
 
   /// Get the filename of the passed HTML file.
-  Future<String> getFilename(DropzoneFile htmlFile, {required int viewId}) async {
+  Future<String> getFilename(DropzoneFileInterface file,
+      {required int viewId}) async {
     throw UnimplementedError('getFilename');
   }
 
   /// Get the size of the passed HTML file.
-  Future<int> getFileSize(DropzoneFile htmlFile, {required int viewId}) async {
+  Future<int> getFileSize(DropzoneFileInterface file,
+      {required int viewId}) async {
     throw UnimplementedError('getFileSize');
   }
 
   /// Get the MIME type of the passed HTML file.
-  Future<String> getFileMIME(DropzoneFile htmlFile, {required int viewId}) async {
+  Future<String> getFileMIME(DropzoneFileInterface file,
+      {required int viewId}) async {
     throw UnimplementedError('getFileMIME');
   }
 
   /// Get the last modified data of the passed HTML file.
-  Future<DateTime> getFileLastModified(DropzoneFile htmlFile,
+  Future<DateTime> getFileLastModified(DropzoneFileInterface file,
       {required int viewId}) async {
     throw UnimplementedError('getFileLastModified');
   }
@@ -123,7 +126,8 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   /// Create a temporary URL to the passed HTML file.
   ///
   /// When finished, the URL should be released using [releaseFileUrl()].
-  Future<String> createFileUrl(DropzoneFile htmlFile, {required int viewId}) async {
+  Future<String> createFileUrl(DropzoneFileInterface file,
+      {required int viewId}) async {
     throw UnimplementedError('createFileUrl');
   }
 
@@ -133,12 +137,13 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   }
 
   /// Get the contents of the passed HTML file.
-  Future<Uint8List> getFileData(DropzoneFile htmlFile, {required int viewId}) async {
+  Future<Uint8List> getFileData(DropzoneFileInterface file,
+      {required int viewId}) async {
     throw UnimplementedError('getFileData');
   }
 
   /// Get the contents of the passed HTML file as a chunked stream.
-  Stream<List<int>> getFileStream(DropzoneFile htmlFile,
+  Stream<List<int>> getFileStream(DropzoneFileInterface file,
       {required int viewId}) async* {
     throw UnimplementedError('getFileStream');
   }
@@ -176,14 +181,16 @@ abstract class FlutterDropzonePlatform extends PlatformInterface {
   /// Event called when the user drops a file onto the dropzone.
   Stream<DropzoneDropFileEvent> onDropFile({required int viewId}) {
     return events.stream //
-        .where((event) => event.viewId == viewId && event is DropzoneDropFileEvent)
+        .where(
+            (event) => event.viewId == viewId && event is DropzoneDropFileEvent)
         .cast<DropzoneDropFileEvent>();
   }
 
   /// Event called when the user drops a string onto the dropzone.
   Stream<DropzoneDropStringEvent> onDropString({required int viewId}) {
     return events.stream //
-        .where((event) => event.viewId == viewId && event is DropzoneDropStringEvent)
+        .where((event) =>
+            event.viewId == viewId && event is DropzoneDropStringEvent)
         .cast<DropzoneDropStringEvent>();
   }
 
@@ -269,8 +276,9 @@ class DropzoneDropEvent extends DropzoneEvent<dynamic> {
 }
 
 /// Event called when the user drops a file onto the dropzone.
-class DropzoneDropFileEvent extends DropzoneEvent<DropzoneFile> {
-  DropzoneDropFileEvent(int viewId, DropzoneFile file) : super(viewId, file);
+class DropzoneDropFileEvent extends DropzoneEvent<DropzoneFileInterface> {
+  DropzoneDropFileEvent(int viewId, DropzoneFileInterface file)
+      : super(viewId, file);
 }
 
 /// Event called when the user drops a string onto the dropzone.
@@ -291,8 +299,9 @@ class DropzoneDropMultipleEvent extends DropzoneEvent<List<dynamic>> {
 }
 
 /// Event called when the user drops multiple files onto the dropzone.
-class DropzoneDropFilesEvent extends DropzoneEvent<List<DropzoneFile>> {
-  DropzoneDropFilesEvent(int viewId, List<DropzoneFile> files)
+class DropzoneDropFilesEvent
+    extends DropzoneEvent<List<DropzoneFileInterface>> {
+  DropzoneDropFilesEvent(int viewId, List<DropzoneFileInterface> files)
       : super(viewId, files);
 }
 

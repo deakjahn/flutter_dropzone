@@ -68,35 +68,38 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<List<DropzoneFile>> pickFiles(bool multiple,
+  Future<List<DropzoneFileInterface>> pickFiles(bool multiple,
       {List<String> mime = const [], required int viewId}) {
     return _views[viewId]!.pickFiles(multiple, mime);
   }
 
   @override
-  Future<String> getFilename(DropzoneFile htmlFile, {required int viewId}) {
-    return _views[viewId]!.getFilename(htmlFile);
-  }
-
-  @override
-  Future<int> getFileSize(DropzoneFile htmlFile, {required int viewId}) {
-    return _views[viewId]!.getFileSize(htmlFile);
-  }
-
-  @override
-  Future<String> getFileMIME(DropzoneFile htmlFile, {required int viewId}) {
-    return _views[viewId]!.getFileMIME(htmlFile);
-  }
-
-  @override
-  Future<DateTime> getFileLastModified(DropzoneFile htmlFile,
+  Future<String> getFilename(DropzoneFileInterface file,
       {required int viewId}) {
-    return _views[viewId]!.getFileLastModified(htmlFile);
+    return _views[viewId]!.getFilename(file);
   }
 
   @override
-  Future<String> createFileUrl(DropzoneFile htmlFile, {required int viewId}) {
-    return _views[viewId]!.createFileUrl(htmlFile);
+  Future<int> getFileSize(DropzoneFileInterface file, {required int viewId}) {
+    return _views[viewId]!.getFileSize(file);
+  }
+
+  @override
+  Future<String> getFileMIME(DropzoneFileInterface file,
+      {required int viewId}) {
+    return _views[viewId]!.getFileMIME(file);
+  }
+
+  @override
+  Future<DateTime> getFileLastModified(DropzoneFileInterface file,
+      {required int viewId}) {
+    return _views[viewId]!.getFileLastModified(file);
+  }
+
+  @override
+  Future<String> createFileUrl(DropzoneFileInterface file,
+      {required int viewId}) {
+    return _views[viewId]!.createFileUrl(file);
   }
 
   @override
@@ -105,13 +108,15 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<Uint8List> getFileData(DropzoneFile htmlFile, {required int viewId}) {
-    return _views[viewId]!.getFileData(htmlFile);
+  Future<Uint8List> getFileData(DropzoneFileInterface file,
+      {required int viewId}) {
+    return _views[viewId]!.getFileData(file);
   }
 
   @override
-  Stream<List<int>> getFileStream(DropzoneFile htmlFile, {required int viewId}) {
-    return _views[viewId]!.getFileStream(htmlFile);
+  Stream<List<int>> getFileStream(DropzoneFileInterface file,
+      {required int viewId}) {
+    return _views[viewId]!.getFileStream(file);
   }
 
   @override
