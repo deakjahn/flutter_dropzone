@@ -26,7 +26,5 @@ class DropzoneFileWeb implements DropzoneFileInterface {
   String get webkitRelativePath => webFile.webkitRelativePath;
 
   @override
-  web.File getNative() {
-    return webFile;
-  }
+  web.File getNative() => webFile;
 }

@@ -23,7 +23,6 @@ class DropzoneFileDummy implements DropzoneFileInterface {
 
   @override
   Object getNative() {
-    throw UnsupportedError(
-        'DropzoneFileDummy.getNative: $defaultTargetPlatform is not supported');
+    throw UnsupportedError('getNative: $defaultTargetPlatform is not supported');
   }
 }
