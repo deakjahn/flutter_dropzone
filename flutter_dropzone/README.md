@@ -13,9 +13,9 @@ DropzoneView(
   onLoaded: () => print('Zone loaded'),
   onError: (String? ev) => print('Error: $ev'),
   onHover: () => print('Zone hovered'),
-  onDropFile: (DropzoneFile file) => print('Drop: ${file.webFile}'),
+  onDropFile: (DropzoneFileInterface file) => print('Drop: ${file.webFile}'),
   onDropString: (String s) => print('Drop: $s'),
-  onDropFiles: (List<DropzoneFile> files) => print('Drop multiple: $files'),
+  onDropFiles: (List<DropzoneFileInterface> files) => print('Drop multiple: $files'),
   onDropStrings: (List<String> strings) => print('Drop multiple: $strings'),
   onLeave: () => print('Zone left'),
 );
@@ -60,7 +60,7 @@ in the browser and lets the user pick some files. It has nothing to do with the 
 possible way to select files) but by putting it into the web side of a federated plugin we can make sure it doesn't hurt the
 compilation on other platforms.
 
-*  `Future<List<DropzoneFile>> pickFiles(bool multiple, List<String> mime);`
+*  `Future<List<DropzoneFileInterface>> pickFiles(bool multiple, List<String> mime);`
 
 ## Using it in cross-platform apps
 

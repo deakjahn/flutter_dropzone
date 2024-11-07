@@ -188,20 +188,17 @@ class DropzoneViewController {
 
   /// Get the filename of the passed HTML file.
   Future<String> getFilename(DropzoneFileInterface file) {
-    return FlutterDropzonePlatform.instance
-        .getFilename(file, viewId: viewId);
+    return FlutterDropzonePlatform.instance.getFilename(file, viewId: viewId);
   }
 
   /// Get the size of the passed HTML file.
   Future<int> getFileSize(DropzoneFileInterface file) {
-    return FlutterDropzonePlatform.instance
-        .getFileSize(file, viewId: viewId);
+    return FlutterDropzonePlatform.instance.getFileSize(file, viewId: viewId);
   }
 
   /// Get the MIME type of the passed HTML file.
   Future<String> getFileMIME(DropzoneFileInterface file) {
-    return FlutterDropzonePlatform.instance
-        .getFileMIME(file, viewId: viewId);
+    return FlutterDropzonePlatform.instance.getFileMIME(file, viewId: viewId);
   }
 
   /// Get the last modified date of the passed HTML file.
@@ -214,8 +211,7 @@ class DropzoneViewController {
   ///
   /// When finished, the URL should be released using [releaseFileUrl()].
   Future<String> createFileUrl(DropzoneFileInterface file) {
-    return FlutterDropzonePlatform.instance
-        .createFileUrl(file, viewId: viewId);
+    return FlutterDropzonePlatform.instance.createFileUrl(file, viewId: viewId);
   }
 
   /// Release a temporary URL previously created using [createFileUrl()].
@@ -226,13 +222,11 @@ class DropzoneViewController {
 
   /// Get the contents of the passed HTML file.
   Future<Uint8List> getFileData(DropzoneFileInterface file) {
-    return FlutterDropzonePlatform.instance
-        .getFileData(file, viewId: viewId);
+    return FlutterDropzonePlatform.instance.getFileData(file, viewId: viewId);
   }
 
   /// Get the contents of the passed HTML file as a chunked stream.
   Stream<List<int>> getFileStream(DropzoneFileInterface file) {
-    return FlutterDropzonePlatform.instance
-        .getFileStream(file, viewId: viewId);
+    return FlutterDropzonePlatform.instance.getFileStream(file, viewId: viewId);
   }
 }
