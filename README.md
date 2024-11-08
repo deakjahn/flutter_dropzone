@@ -1,3 +1,5 @@
+[![pub package](https://img.shields.io/pub/v/flutter_dropzone.svg)](https://pub.dev/packages/flutter_dropzone)
+
 See the README files of the individual subprojects:
 
 * The [main implementation][1] of `flutter_dropzone`.
@@ -24,7 +26,7 @@ See the [README of the web implementation][3] for details.
 
 If you like this package, please consider supporting it.
 
-[![buy me a book](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20book&emoji=📚&slug=deakjahn&button_colour=FF8838&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff')](https://www.buymeacoffee.com/deakjahn)
+<a href="https://www.buymeacoffee.com/deakjahn" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Book" height="60" width="217"></a>
 
 [1]: flutter_dropzone/README.md
 [2]: flutter_dropzone_platform_interface/README.md

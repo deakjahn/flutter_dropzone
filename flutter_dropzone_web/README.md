@@ -1,5 +1,7 @@
 # flutter_dropzone_web
 
+[![pub package](https://img.shields.io/pub/v/flutter_dropzone.svg)](https://pub.dev/packages/flutter_dropzone)
+
 The web implementation of [`flutter_dropzone`][1].
 
 ## Usage
@@ -45,4 +47,4 @@ your Flutter for any reason.
 
 If you like this package, please consider supporting it.
 
-[![buy me a book](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20book&emoji=📚&slug=deakjahn&button_colour=FF8838&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff')](https://www.buymeacoffee.com/deakjahn)
+<a href="https://www.buymeacoffee.com/deakjahn" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Book" height="60" width="217"></a>
