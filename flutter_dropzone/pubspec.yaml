@@ -33,3 +33,10 @@ flutter:
     platforms:
       web:
         default_package: flutter_dropzone_web
+
+funding:
+  - https://buymeacoffee.com/deakjahn
+
+topics:
+  - flutter
+  - drag-drop
