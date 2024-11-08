@@ -87,3 +87,9 @@ See: https://github.com/deakjahn/flutter_dropzone/issues/78
 Previously, as a workaround, the plugin had its own modified version of `HtmlElementView` but with the fix, it's no longer necessary. However, leaving it out would break
 the functioning of the plugin for people how haven't yet moved on to 2.5. You have to stay with the latest 2.0.x version of `flutter_dropzone` if you're not yet ready to upgrade
 your Flutter for any reason.
+
+# Support
+
+If you like this package, please consider supporting it.
+
+[![buy me a book](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20book&emoji=📚&slug=deakjahn&button_colour=FF8838&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff')](https://www.buymeacoffee.com/deakjahn)

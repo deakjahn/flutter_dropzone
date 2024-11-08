@@ -40,3 +40,9 @@ the functioning of the plugin for people who haven't yet moved on to 2.5. You ha
 your Flutter for any reason.
 
 [1]: https://pub.dev/packages/flutter_dropzone
+
+# Support
+
+If you like this package, please consider supporting it.
+
+[![buy me a book](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20book&emoji=📚&slug=deakjahn&button_colour=FF8838&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff')](https://www.buymeacoffee.com/deakjahn)

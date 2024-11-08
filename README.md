@@ -20,6 +20,12 @@ See the [README of the web implementation][3] for details.
 3.0.x is compatible with Flutter 2.5 (stable) and later. If you're not yet ready to upgrade from a previous version of Flutter, stay with the latest 2.0.x version of `flutter_dropzone`.
 See the [README of the web implementation][3] for details.
 
+# Support
+
+If you like this package, please consider supporting it.
+
+[![buy me a book](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20book&emoji=📚&slug=deakjahn&button_colour=FF8838&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff')](https://www.buymeacoffee.com/deakjahn)
+
 [1]: flutter_dropzone/README.md
 [2]: flutter_dropzone_platform_interface/README.md
 [3]: flutter_dropzone_web/README.md
