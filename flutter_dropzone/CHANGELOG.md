@@ -1,6 +1,10 @@
 # Changelog
 
-## [4.2.0] - coming
+## [4.2.1] - coming
+
+* Fix [#97](https://github.com/deakjahn/flutter_dropzone/issues/97).
+
+## [4.2.0] - 2024-11-04
 
 * Fix [#95](https://github.com/deakjahn/flutter_dropzone/issues/95).
 
