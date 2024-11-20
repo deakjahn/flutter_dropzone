@@ -110,7 +110,7 @@ class _MyAppState extends State<MyApp> {
           onError: (error) => print('Zone 2 error: $error'),
           onHover: () => print('Zone 2 hovered'),
           onLeave: () => print('Zone 2 left'),
-          onDropFile: (file) async {
+          onDropFile: (DropzoneFileInterface file) async {
             print('Zone 2 drop: ${file.name}');
             setState(() {
               message2 = '${file.name} dropped';
