@@ -50,15 +50,15 @@ class FlutterDropzone {
   async drop_handler(event) {
     event.preventDefault();
 
-    var files = [];
-    var strings = [];
+    const files = [];
+    const strings = [];
     if (event.dataTransfer.items) {
-      for (var i = 0; i < event.dataTransfer.items.length; i++) {
-        var item = event.dataTransfer.items[i];
+      for (let i = 0; i < event.dataTransfer.items.length; i++) {
+        const item = event.dataTransfer.items[i];
         switch (item.kind) {
           case "file":
             if (this.dropMIME == null || this.dropMIME.includes(item.type)) {
-              var file = item.getAsFile();
+              const file = item.getAsFile();
               if (this.onDrop != null) this.onDrop(event, file);
               if (this.onDropFile != null) this.onDropFile(event, file);
               files.push(file);
@@ -70,7 +70,7 @@ class FlutterDropzone {
 
           case "string":
             const that = this;
-            var text = await this.#getItemAsString(item);
+            const text = await this.#getItemAsString(item);
             // if (that.onDrop != null) that.onDrop(event, text);
             if (that.onDropString != null) that.onDropString(event, text);
             strings.push(text);
@@ -81,12 +81,6 @@ class FlutterDropzone {
             break;
         }
       }
-    } else {
-      for (var i = 0; i < ev.dataTransfer.files.length; i++)
-        var file = event.dataTransfer.files[i];
-        if (this.onDrop != null) this.onDrop(event, file);
-        if (this.onDropFile != null) this.onDropFile(event, file);
-        files.push(file);
     }
 
     if (this.onDropMultiple != null) {
