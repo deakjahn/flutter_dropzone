@@ -82,11 +82,12 @@ class FlutterDropzone {
         }
       }
     } else {
-      for (var i = 0; i < ev.dataTransfer.files.length; i++)
+      for (var i = 0; i < event.dataTransfer.files.length; i++) {
         var file = event.dataTransfer.files[i];
         if (this.onDrop != null) this.onDrop(event, file);
         if (this.onDropFile != null) this.onDropFile(event, file);
         files.push(file);
+      }
     }
 
     if (this.onDropMultiple != null) {

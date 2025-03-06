@@ -15,3 +15,6 @@ linter:
     curly_braces_in_flow_control_structures: false
     avoid_print: false
     unnecessary_breaks: true
+
+formatter:
+  page_width: 999

@@ -74,7 +74,7 @@ Android and iOS, without the usual `dart:html` errors (this is what federated pl
 
 4.2.0 had to introduce another breaking change, sorry. While 4.1.0 solved the problem for web users, it created a regression
 for some other people who author multiplatorm apps where not all variants are web-based. Instead of returning a `web.File` directly,
-the `onDrop` variants now return a `DropzoneFileInterface`. You can go on accessing its properties as before, so you might not even note
+the `onDrop` variants now return a `DropzoneFileInterface`. You can go on accessing its properties as before, so you might not even notice
 the difference.
 
 4.1.0 deprecates `onDrop` and all other functions using `dynamic` type because the newer Flutter JS support enforces
@@ -86,7 +86,7 @@ See: https://github.com/deakjahn/flutter_dropzone/issues/78
 3.0.0 had to be a breaking change because a bug I reported earlier was fixed in Flutter 2.5 stable: https://github.com/flutter/flutter/issues/56181
 
 Previously, as a workaround, the plugin had its own modified version of `HtmlElementView` but with the fix, it's no longer necessary. However, leaving it out would break
-the functioning of the plugin for people how haven't yet moved on to 2.5. You have to stay with the latest 2.0.x version of `flutter_dropzone` if you're not yet ready to upgrade
+the functioning of the plugin for people who haven't yet moved on to 2.5. You have to stay with the latest 2.0.x version of `flutter_dropzone` if you're not yet ready to upgrade
 your Flutter for any reason.
 
 # Support
