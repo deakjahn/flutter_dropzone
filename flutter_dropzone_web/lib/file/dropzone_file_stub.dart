@@ -2,5 +2,6 @@ import 'package:flutter_dropzone_platform_interface/flutter_dropzone_platform_in
 
 DropzoneFileInterface createFile(Object native) {
   throw UnsupportedError(
-      'Cannot create a file without dart:js_interop or dart:io.');
+    'Cannot create a file without dart:js_interop or dart:io.',
+  );
 }

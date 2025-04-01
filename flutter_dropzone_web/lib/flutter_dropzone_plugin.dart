@@ -32,19 +32,23 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
 
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
-        'io.flutter.plugins.flutter_dropzone/dropzone', (viewId) {
-      final view = _views[viewId] = FlutterDropzoneView(viewId);
-      return view.container;
-    });
+      'io.flutter.plugins.flutter_dropzone/dropzone',
+      (viewId) {
+        final view = _views[viewId] = FlutterDropzoneView(viewId);
+        return view.container;
+      },
+    );
     // ignore: undefined_prefixed_name
     final scriptUrl = ui.assetManager.getAssetUrl(
       'packages/flutter_dropzone_web/assets/flutter_dropzone.js',
     );
 
-    web.document.body!.append(web.HTMLScriptElement()
-      ..src = scriptUrl
-      ..type = 'application/javascript'
-      ..defer = true);
+    web.document.body!.append(
+      web.HTMLScriptElement()
+        ..src = scriptUrl
+        ..type = 'application/javascript'
+        ..defer = true,
+    );
   }
 
   @override
@@ -68,14 +72,19 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<List<DropzoneFileInterface>> pickFiles(bool multiple,
-      {List<String> mime = const [], required int viewId}) {
+  Future<List<DropzoneFileInterface>> pickFiles(
+    bool multiple, {
+    List<String> mime = const [],
+    required int viewId,
+  }) {
     return _views[viewId]!.pickFiles(multiple, mime);
   }
 
   @override
-  Future<String> getFilename(DropzoneFileInterface file,
-      {required int viewId}) {
+  Future<String> getFilename(
+    DropzoneFileInterface file, {
+    required int viewId,
+  }) {
     return _views[viewId]!.getFilename(file);
   }
 
@@ -85,20 +94,26 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<String> getFileMIME(DropzoneFileInterface file,
-      {required int viewId}) {
+  Future<String> getFileMIME(
+    DropzoneFileInterface file, {
+    required int viewId,
+  }) {
     return _views[viewId]!.getFileMIME(file);
   }
 
   @override
-  Future<DateTime> getFileLastModified(DropzoneFileInterface file,
-      {required int viewId}) {
+  Future<DateTime> getFileLastModified(
+    DropzoneFileInterface file, {
+    required int viewId,
+  }) {
     return _views[viewId]!.getFileLastModified(file);
   }
 
   @override
-  Future<String> createFileUrl(DropzoneFileInterface file,
-      {required int viewId}) {
+  Future<String> createFileUrl(
+    DropzoneFileInterface file, {
+    required int viewId,
+  }) {
     return _views[viewId]!.createFileUrl(file);
   }
 
@@ -108,34 +123,38 @@ class FlutterDropzonePlugin extends FlutterDropzonePlatform {
   }
 
   @override
-  Future<Uint8List> getFileData(DropzoneFileInterface file,
-      {required int viewId}) {
+  Future<Uint8List> getFileData(
+    DropzoneFileInterface file, {
+    required int viewId,
+  }) {
     return _views[viewId]!.getFileData(file);
   }
 
   @override
-  Stream<List<int>> getFileStream(DropzoneFileInterface file,
-      {required int viewId}) {
+  Stream<List<int>> getFileStream(
+    DropzoneFileInterface file, {
+    required int viewId,
+  }) {
     return _views[viewId]!.getFileStream(file);
   }
 
   @override
   Widget buildView(
-          Map<String, dynamic> creationParams,
-          Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers,
-          PlatformViewCreatedCallback onPlatformViewCreated) =>
-      FutureBuilder<bool>(
-        future: _isReady,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return HtmlElementView(
-              viewType: 'io.flutter.plugins.flutter_dropzone/dropzone',
-              onPlatformViewCreated: onPlatformViewCreated,
-            );
-          } else if (snapshot.hasError)
-            return const Center(child: Text('Error loading library'));
-          else
-            return const Center(child: CircularProgressIndicator());
-        },
-      );
+    Map<String, dynamic> creationParams,
+    Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers,
+    PlatformViewCreatedCallback onPlatformViewCreated,
+  ) => FutureBuilder<bool>(
+    future: _isReady,
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        return HtmlElementView(
+          viewType: 'io.flutter.plugins.flutter_dropzone/dropzone',
+          onPlatformViewCreated: onPlatformViewCreated,
+        );
+      } else if (snapshot.hasError)
+        return const Center(child: Text('Error loading library'));
+      else
+        return const Center(child: CircularProgressIndicator());
+    },
+  );
 }
